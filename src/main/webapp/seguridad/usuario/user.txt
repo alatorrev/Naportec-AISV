@@ -1,0 +1,42 @@
+DATOS:
+ <h:outputLabel value="Password:"  for="pwd1" />
+                                <p:password id="pwd1" disabled="#{usuarioBean.readOnly}" value="#{usuarioBean.entidad.usrPassword}" match="pwd2" label="Contraseña"/>
+                                <p:commandButton value="" icon="ayuda" type="button" id="ayudaPass" style="width: 45px;height: 25px;color: #FFFFFF"/>
+                                <h:outputLabel value="Re ingresar password:" for="pwd2"  />
+                                <p:password id="pwd2" disabled="#{usuarioBean.readOnly}" value="#{usuarioBean.entidad.confirmPassword}" label="Confirmación"/>
+                                <p:column/>
+ <p:overlayPanel for="ayudaPass" showEvent="mouseover" hideEvent="mousedown" >
+                                <p:panelGrid columns="2">
+                                    <h:outputText value="Minimo"/>
+                                    <h:outputText value="#{parametroBean.parametro.paramTamMin} Cracteres"/>
+                                    <h:outputText value="Máximo"/>
+                                    <h:outputText value=" #{parametroBean.parametro.paramTamMax} Cracteres"/>
+                                    <h:outputText value="Números"/>
+                                    <h:outputText value="#{parametroBean.parametro.paramCantNumeros}"/>
+                                    <h:outputText value="Letras"/>
+                                    <h:outputText value="#{parametroBean.parametro.paramCantLetras}"/>
+                                    <h:outputText value="Simbolos"/>
+                                    <h:outputText value="#{parametroBean.parametro.paramCantEspeciales}"/>
+                                </p:panelGrid>
+                            </p:overlayPanel>
+
+ <p:tab title="Seguridad">
+                            <h:panelGrid  columns="1">
+                                <p:panelGrid  columns="2"  style="width: 500px"> 
+                                    <f:facet name="header">
+                                        SecurityToken(experimental)
+                                    </f:facet>
+                                    <p:outputLabel value="Security Token" for="txttoken" />
+                                    <p:password id="txttoken" readonly="#{usuarioBean.readOnly}" value="#{usuarioBean.entidad.usrToken}" />
+                                </p:panelGrid>                      
+                                <!--
+                                                                <p:panelGrid  columns="2"  style="width: 500px">  
+                                                                    <f:facet name="header">
+                                                                        Colaborador
+                                                                    </f:facet>
+                                                                    <p:inputText id="txtcolaborador" value=""/>
+                                                                    <p:commandButton value="Buscar" ajax="false" />
+                                                                </p:panelGrid>    
+                                -->
+                            </h:panelGrid>   
+                        </p:tab>

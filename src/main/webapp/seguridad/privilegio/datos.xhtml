@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <p:dialog id="dlgInformacion" widgetVar="dlgInformacion" header="Seguridades - Privilegios" position="center" modal="true">
+            <div id="divInformacion">
+                <h:form id="formDatos">
+                    <div>
+                        <p:commandButton value="Ayuda" icon="ayuda"  style="float: left;height: 30px;width: 110px"/>
+                        <h:panelGrid columns="6" style="float: right;height: 35px" id="botones">
+                            <p:commandButton id="guardar" icon="guardar" style="height: 25px"  value="" disabled="#{privilegioBean.botonGuardar}" actionListener="#{privilegioBean.guardarEntidad(evt)}" update=":mensaje datos :formPrincipal:listado">
+                                <p:confirm header="Confirmación" message="Esta seguro que desea realizar la Acción" icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <p:commandButton icon="editar" style="height: 25px" value="" disabled="#{privilegioBean.botonEditar}"  actionListener="#{privilegioBean.prepararEditar(evt)}" update="datos :formDatos:botones"/>
+                            <p:commandButton icon="eliminar" style="height: 25px" value="" disabled="#{privilegioBean.botonEliminar}"  actionListener="#{privilegioBean.eliminarEntidad(evt)}" update=":mensaje datos :formPrincipal:listado">
+                                <p:confirm header="Confirmación" message="Esta seguro que desea Eliminar el Privilegio" icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <p:commandButton icon="bloquear" style="height: 25px"  value="" disabled="#{privilegioBean.botonBloquear}" actionListener="#{privilegioBean.bloquearEntidad(evt)}" update="datos :formDatos:botones"/>
+                            <p:commandButton type="button" value="" id="salir"  icon="cancelar" style="height: 25px" onclick="PF('dlgInformacion').hide()"/>
+                            <p:tooltip for="salir" value="Cerrar Pantalla" hideEffect="clip"/>
+                        </h:panelGrid>
+                    </div>
+                    <h:panelGrid columns="2" id="datos"  style="float:left">
+                        <p:outputLabel for="nom" value="Permiso"/>
+                        <p:inputText id="nom" readonly="#{privilegioBean.readOnly}" value="#{privilegioBean.entidad.rigName}" style="width: 400px"/>
+                        <p:outputLabel for="tipo" value="Tipo"/>
+                        <p:selectOneMenu id="tipo" value="#{privilegioBean.entidad.rigType}">
+                            <f:selectItem itemLabel="Seleccione una Opcion" itemValue="0"/>
+                            <f:selectItem itemLabel="JasperReport" itemValue="1"/>
+                            <f:selectItem itemLabel="Page" itemValue="2"/>
+                            <f:selectItem itemLabel="Proceso" itemValue="3"/>
+                            <f:selectItem itemLabel="Method" itemValue="4"/>
+                            <f:selectItem itemLabel="Component" itemValue="5"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Rig Jasper"/>
+                        <p:inputText value="#{privilegioBean.entidad.rigJasper}"/>
+                        <p:outputLabel value="Rig Window"/>
+                        <p:inputText value="#{privilegioBean.entidad.rigWindow}"/>
+                        <p:outputLabel value="Alto Window"/>
+                        <p:inputText value="#{privilegioBean.entidad.altoWindow}"/>
+                        <p:outputLabel value="Ancho Window"/>
+                        <p:inputText value="#{privilegioBean.entidad.anchoWindow}"/>
+                        <p:outputLabel value="Icono Window"/>
+                        <p:inputText value="#{privilegioBean.entidad.iconoWindow}"/>
+                        <p:outputLabel value="Nodo Padre"/>
+                        <p:inputText value="#{privilegioBean.entidad.iidnodopadre}"/>
+                        <p:outputLabel value="Nivel"/>
+                        <p:inputText value="#{privilegioBean.entidad.inivel}"/>
+
+                    </h:panelGrid>
+                </h:form>
+            </div>
+        </p:dialog>
+    </body>
+</html>
+

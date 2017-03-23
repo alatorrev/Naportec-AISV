@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <p:dialog widgetVar="dlgMovimiento" width="700px" header="Movimientos de AISV" modal="true">
+            <h:form id="formMovi">
+                <p:dataTable id="listado" paginator="true" var="mov"
+                             value="#{sueltaBean.transaccion.movimientoList}">
+                    <p:column style="width:16px">
+                        <p:rowToggler />
+                    </p:column>
+                    <p:column headerText="Fecha">
+                        <h:outputText value="#{mov.fechaMovi}">
+                            <f:convertDateTime pattern="dd-MM-yyyy"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Tipo">
+                        <h:outputText value="#{mov.tipoMovi}"/>
+                    </p:column>
+                    <p:column headerText="IP">
+                        <h:outputText value="#{mov.ipMovi}"/>
+                    </p:column>
+                </p:dataTable>
+                <h:panelGrid columns="4">
+                    <p:commandButton value="Salir" onclick="PF('dlgMovimiento').hide()"/>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>
+

@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" isIgnorePagination="true" uuid="d5b493ec-a357-4882-8538-f16e57891a54">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="288"/>
+	<parameter name="tipoTransaccion" class="java.lang.String"/>
+	<parameter name="bookingBl" class="java.lang.String"/>
+	<parameter name="codigoBarraInf" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[1234]]></defaultValueExpression>
+	</parameter>
+	<parameter name="imagen" class="java.io.InputStream"/>
+	<parameter name="primercodigo" class="java.lang.String"/>
+	<parameter name="codigoseguridad" class="java.lang.String"/>
+	<parameter name="numeroDae" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="usrFirstname" class="java.lang.String">
+		<fieldDescription><![CDATA[usrId.usrFirstname]]></fieldDescription>
+	</field>
+	<field name="descripcionPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.descripcionPrec]]></fieldDescription>
+	</field>
+	<field name="nombreTrasnportistaTrans" class="java.lang.String">
+		<fieldDescription><![CDATA[nombreTrasnportistaTrans]]></fieldDescription>
+	</field>
+	<field name="blmasterPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.blmasterPrec]]></fieldDescription>
+	</field>
+	<field name="fechaCreacion" class="java.util.Date">
+		<fieldDescription><![CDATA[fechaCreacinTrans]]></fieldDescription>
+	</field>
+	<field name="tarjaPrec" class="java.lang.Integer">
+		<fieldDescription><![CDATA[codigoPrec.tarjaPrec]]></fieldDescription>
+	</field>
+	<field name="bookingPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.bookingPrec]]></fieldDescription>
+	</field>
+	<field name="descripcionViajeItin" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.idItinerarioPrec.descripcionItin]]></fieldDescription>
+	</field>
+	<field name="nombreSoli" class="java.lang.String">
+		<fieldDescription><![CDATA[usrId.codigoSoli.nombreSoli]]></fieldDescription>
+	</field>
+	<field name="cedulaTrasnportistaTrans" class="java.lang.String">
+		<fieldDescription><![CDATA[cedulaTrasnportistaTrans]]></fieldDescription>
+	</field>
+	<field name="codigoImoPre" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.codigoImoPre]]></fieldDescription>
+	</field>
+	<field name="nombreNavi" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.idLineaPrec.nombreNavi]]></fieldDescription>
+	</field>
+	<field name="placaTrasnportistaTrans" class="java.lang.String">
+		<fieldDescription><![CDATA[placaTrasnportistaTrans]]></fieldDescription>
+	</field>
+	<field name="blhijoPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.blhijoPrec]]></fieldDescription>
+	</field>
+	<field name="numeroCajasTrans" class="java.lang.Integer">
+		<fieldDescription><![CDATA[numeroCajasTrans]]></fieldDescription>
+	</field>
+	<field name="codigoTrans" class="java.lang.Long">
+		<fieldDescription><![CDATA[codigoTrans]]></fieldDescription>
+	</field>
+	<field name="usrLoginname" class="java.lang.String">
+		<fieldDescription><![CDATA[usrId.usrLoginname]]></fieldDescription>
+	</field>
+	<field name="mostrarTipo" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.mostrarTipo]]></fieldDescription>
+	</field>
+	<field name="cargaPeligrosaPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.cargaPeligrosaPrec]]></fieldDescription>
+	</field>
+	<field name="contenedorPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[contenedorTrans]]></fieldDescription>
+	</field>
+	<field name="condicionContenedorPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.condicionContenedorPrec]]></fieldDescription>
+	</field>
+	<field name="sellos" class="java.lang.String">
+		<fieldDescription><![CDATA[sellos]]></fieldDescription>
+	</field>
+	<field name="daesTrans" class="java.lang.String">
+		<fieldDescription><![CDATA[daesTrans]]></fieldDescription>
+	</field>
+	<field name="tipoContenedorPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.tipoContenedorPrec]]></fieldDescription>
+	</field>
+	<field name="temperaturaPrec" class="java.lang.Double">
+		<fieldDescription><![CDATA[codigoPrec.temperaturaPrec]]></fieldDescription>
+	</field>
+	<field name="ventilacionPrec" class="java.lang.Double">
+		<fieldDescription><![CDATA[codigoPrec.ventilacionPrec]]></fieldDescription>
+	</field>
+	<field name="tipo" class="java.lang.String">
+		<fieldDescription><![CDATA[tipo]]></fieldDescription>
+	</field>
+	<field name="descripcionItin" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.idItinerarioPrec.descripcionItin]]></fieldDescription>
+	</field>
+	<field name="propositoCarga" class="java.lang.String">
+		<fieldDescription><![CDATA[propositoCargaTrans.descripcionProp]]></fieldDescription>
+	</field>
+	<field name="pesoBasculaTrans" class="java.lang.Double">
+		<fieldDescription><![CDATA[pesoBasculaTrans]]></fieldDescription>
+	</field>
+	<field name="puertoDestino" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.ptoDestinoPrec]]></fieldDescription>
+	</field>
+	<field name="importadorPrecarga" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.importadorPrec]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="802" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="407" y="423" width="139" height="20" backcolor="#CCCCCC" uuid="22cf532a-bb7b-49e2-a2af-15c5d774d24c"/>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{sellos}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="118" y="308" width="190" height="33" backcolor="#CCCCCC" uuid="c7ed514e-52d3-4b65-996e-f45558295d25"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{importadorPrecarga}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="408" y="447" width="139" height="20" backcolor="#CCCCCC" uuid="e01fa054-a387-438d-a546-fb15615d0774"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{temperaturaPrec}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="407" y="470" width="139" height="20" backcolor="#CCCCCC" uuid="4c2ef0da-3126-4cb0-b57b-8ce6d3ac00e4"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numeroCajasTrans}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="138" y="423" width="139" height="20" backcolor="#CCCCCC" uuid="b44eda98-1465-4665-88a8-a7d3b280292b"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{contenedorPrec}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="610" width="285" height="20" forecolor="#666666" uuid="15cf8ad5-1d41-40a6-b08a-7208fbc94a5d"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Datos de Autorización:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="156" y="579" width="141" height="20" backcolor="#CCCCCC" uuid="711ebe18-a95e-41e1-aba1-4a7d2cac9495"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombreTrasnportistaTrans}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="280" y="470" width="124" height="20" backcolor="#999999" uuid="074eb60a-5fc0-49b5-a6a7-b12640630704"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. Cajas:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="12" y="180" width="100" height="20" backcolor="#999999" uuid="87acc1b0-3c19-43f6-adf2-4923d4edf41c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="371" width="298" height="20" forecolor="#666666" uuid="bef1d2d7-6514-449b-a29a-e7e0b829976a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Datos de carga:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="256" width="293" height="20" forecolor="#666666" uuid="02fee67f-b452-45c6-b5fc-498d051b8f39"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Datos Generales]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="431" y="307" width="116" height="34" backcolor="#CCCCCC" uuid="6e7f13fd-1520-4ce4-a731-18e3c821c08e"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{bookingPrec}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="12" y="283" width="100" height="20" backcolor="#999999" uuid="862b5f51-2a23-4533-9858-eaaffdfe6a2b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Itinerario:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="458" y="399" width="30" height="20" backcolor="#999999" uuid="2cb38181-f5c3-4782-b4d6-b0710cebab72"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UN:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="103" width="546" height="22" uuid="9bdcbb0b-d792-48e7-b352-01681f18674f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Autorización de Ingreso/Salida de Vehículos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="13" y="631" width="139" height="20" backcolor="#999999" uuid="9e2a4da9-8090-4706-a832-90d6827c3e2d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código de Seguridad:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH:mm" isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="118" y="204" width="190" height="20" backcolor="#CCCCCC" uuid="5aa49fd6-909f-4b8c-a575-a79a22aac0c8"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fechaCreacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="11" y="346" width="101" height="20" backcolor="#999999" uuid="4af99870-9302-4377-a90c-884abc0c1933"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Línea:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="12" y="579" width="140" height="20" backcolor="#999999" uuid="818e7cd6-70eb-44fa-8c74-7677c5fc901c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre del conductor:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="138" y="447" width="139" height="20" backcolor="#CCCCCC" uuid="e6165aa6-ca2e-49a3-b594-63dc0b57d1f6"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tipoContenedorPrec}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="414" y="399" width="41" height="20" backcolor="#CCCCCC" uuid="5b4f4465-0cb1-4d56-9102-a25f1024cff6"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{codigoImoPre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="430" y="283" width="116" height="20" backcolor="#CCCCCC" uuid="6ee3e1c0-649c-470d-a7c8-bb707ceb92dd"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{codigoTrans}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="301" y="579" width="35" height="20" backcolor="#999999" uuid="f7829c38-407b-4a94-9de7-99e9f175b901"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[C.I:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="11" y="470" width="124" height="20" backcolor="#999999" uuid="bf356ea2-8ee4-4f0a-a728-5325dd4f7170"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Condición:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="11" y="399" width="101" height="20" backcolor="#999999" uuid="9c19a614-2a44-4de7-9dcf-e00819546ebd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Producto:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="556" width="286" height="20" forecolor="#666666" uuid="023459d1-59c9-4a95-8974-d706b6626353"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Datos del Transporte:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="157" y="631" width="390" height="20" backcolor="#CCCCCC" uuid="4fdfe95d-194b-4d8f-bbd4-19b58a67a20e"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{codigoBarraInf}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="11" y="423" width="124" height="20" backcolor="#999999" uuid="6fc7ad4b-3deb-4573-a048-b0966f9a07d4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contenedor:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="157" y="655" width="390" height="26" backcolor="#CCCCCC" uuid="01c040e8-633f-4473-820d-8a7620df211d"/>
+				<textElement verticalAlignment="Top">
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daesTrans}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="491" y="399" width="55" height="20" backcolor="#CCCCCC" uuid="e51890d4-0d97-4c4e-840b-1fc531f253a1"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{codigoImoPre}.length()>0?"SI":"NO"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="118" y="180" width="428" height="20" backcolor="#CCCCCC" uuid="700b89a9-24cb-4693-a738-9762340045c1"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{usrLoginname}+" - "+$F{usrFirstname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="431" y="579" width="37" height="20" backcolor="#999999" uuid="87c89238-018d-4a49-bd7a-20c5f425a4ed"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Placa:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="155" width="296" height="20" forecolor="#666666" uuid="2c7fce83-9e30-4975-b64c-183005862d31"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Datos del Emisor]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="471" y="579" width="76" height="20" backcolor="#CCCCCC" uuid="a958461c-21e0-4d67-9b88-53101b7711f6"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{placaTrasnportistaTrans}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="118" y="228" width="428" height="20" backcolor="#CCCCCC" uuid="40179446-bbf3-477d-8556-f7bdda697ec3"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tipo}+" - "+$F{nombreSoli}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="280" y="447" width="124" height="20" backcolor="#999999" uuid="fd6c6320-53bb-4d5c-96cb-f8174de9e32a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Temperatura:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="314" y="283" width="112" height="20" backcolor="#999999" uuid="1a03b2b1-3e23-4c68-9e65-42befad9c799"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código de seguridad:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="117" y="283" width="192" height="20" backcolor="#CCCCCC" uuid="50f996c2-1650-4c67-8dea-13c072cfcfdf"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descripcionItin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="11" y="447" width="124" height="20" backcolor="#999999" uuid="b83dd2d2-d826-469d-8720-6c2467a5e7d9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="117" y="399" width="237" height="20" backcolor="#CCCCCC" uuid="3e01b592-3c90-47ca-acea-9c009293f59e"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descripcionPrec}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="118" y="346" width="190" height="20" backcolor="#CCCCCC" uuid="fd64009b-2686-4d0e-95bd-80d408bc79cd"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombreNavi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="358" y="399" width="53" height="20" backcolor="#999999" uuid="1b899640-cc1b-4450-a2e5-f4fec05f40b8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IMO Class:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="12" y="656" width="140" height="25" backcolor="#999999" uuid="d17f4673-d667-4a00-ae72-c4fe2ad5afcf"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Código DAE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="12" y="228" width="100" height="20" backcolor="#999999" uuid="41dc743d-7421-48cb-838c-09434cd22d7f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contacto:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="280" y="423" width="124" height="20" backcolor="#999999" uuid="3c6325db-6c2d-4795-b009-82649cf19782"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sellos:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="339" y="579" width="89" height="20" backcolor="#CCCCCC" uuid="17ed89c4-2739-4b7f-b951-c872ccb41cbb"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cedulaTrasnportistaTrans}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="11" y="494" width="124" height="20" backcolor="#999999" uuid="34c28b05-fad3-474d-a86d-85065e9fd261"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ventilación:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="138" y="494" width="139" height="20" backcolor="#CCCCCC" uuid="06cca268-8186-406d-baec-34ba8ac65245"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ventilacionPrec}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="138" y="470" width="139" height="20" backcolor="#CCCCCC" uuid="94195a6e-f5af-41db-b578-b0488063de62"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{condicionContenedorPrec}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="12" y="204" width="100" height="20" backcolor="#999999" uuid="f8d9b591-ca15-401f-98d7-7d730cc04ef6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="314" y="308" width="112" height="33" backcolor="#999999" uuid="2e353f27-b70c-4ab1-90b1-1a46d7a451ae"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro de Booking:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="11" y="308" width="100" height="33" backcolor="#999999" uuid="867f9877-ad6a-40db-bdb5-fba1fc89713b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Exportador:]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement mode="Opaque" x="11" y="699" width="536" height="83" uuid="1babbe58-f200-4baf-b70b-db485f4350de"/>
+				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="none">
+					<jr:codeExpression><![CDATA[$P{codigoBarraInf}]]></jr:codeExpression>
+				</jr:Code39>
+			</componentElement>
+			<componentElement>
+				<reportElement x="378" y="31" width="169" height="50" uuid="bcf97e8b-f765-4c87-9549-fcbe4f9a2b76"/>
+				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="none">
+					<jr:codeExpression><![CDATA[$P{primercodigo}]]></jr:codeExpression>
+				</jr:Code39>
+			</componentElement>
+			<image isUsingCache="false">
+				<reportElement x="0" y="0" width="358" height="103" uuid="66c56f73-69ad-4ff0-b77c-af03db358e1f"/>
+				<imageExpression><![CDATA["nap.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="84" y="655" width="68" height="26" uuid="f10963ad-9f96-4e20-8ce3-25288b318e24"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{numeroDae}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="126" width="546" height="22" uuid="9ce055f4-608a-4f46-8334-967a55e88762"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EXPORTACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="280" y="494" width="124" height="20" backcolor="#999999" uuid="727fdcf4-ab77-4e72-85d9-692d7c37ddb8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Propósito de Carga:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="407" y="494" width="139" height="20" backcolor="#CCCCCC" uuid="06132568-8ebd-4835-b868-f649034c90a9"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{propositoCarga}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

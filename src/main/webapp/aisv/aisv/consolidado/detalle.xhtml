@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <p:dialog widgetVar="dlgDetalle" width="700px" header="Detalle del AISV" modal="true">
+            <h:form id="formDetalle">
+                <p:tabView id="datos" style="float:left;font-size: 12px!important">
+                    <p:tab title="Información de Carga" id="tabCarga">
+                        <h:panelGrid columns="4" id="datosCarga" style="float:left">
+                            <h:outputLabel value="Nave"/>
+                            <p:inputText  value="#{consolidadaBean.transaccion.codigoPrec.idItinerarioPrec.descripcionItin}" readonly="true"/>
+                            <h:outputLabel value="Linea"/>
+                            <p:inputText  value="#{consolidadaBean.transaccion.codigoPrec.idLineaPrec.nombreNavi}"  readonly="true"/>
+                            <h:outputLabel value="Booking"/>
+                            <p:inputText value="#{consolidadaBean.transaccion.codigoPrec.bookingPrec}"  readonly="true"/>
+                            <h:outputLabel value="Producto"/>
+                            <p:inputText  value="#{consolidadaBean.transaccion.codigoPrec.descripcionPrec}" readonly="true"/>   
+                            <h:outputLabel value="Carga Peligrosa"/>
+                            <p:selectBooleanButton value="#{consolidadaBean.transaccion.codigoPrec.peligrosa}" onLabel="Si" offLabel="No" style="width:60px" disabled="true"/>
+                            <h:outputLabel value="Codigo Carga Peligrosa"/>
+                            <p:inputText value="#{consolidadaBean.transaccion.codigoPrec.codigoImoPre}"  readonly="true"/>   
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="DAES    " rendered="#{consolidadaBean.tipoTrasaccion eq 'E'}"/> 
+                            <p:inputText id="dae1" value="#{consolidadaBean.transaccion.daesTrans}" style="width: 300px" rendered="#{consolidadaBean.tipoTrasaccion eq 'E'}" readonly="true"/>
+                        </h:panelGrid>
+                    </p:tab>
+                  
+                    <p:tab title="Puertos">
+                        <h:panelGrid columns="4" cellpadding="5" id="datosPuerto">
+                            <h:outputLabel value="Origen"/>
+                            <p:inputText value="#{consolidadaBean.transaccion.puertoOrigenTrans}" style="width: 170px" readonly="true"/>
+                            <h:outputLabel value="Destino"/>
+                            <p:inputText value="#{consolidadaBean.transaccion.puertoDestinoTrans}"  style="width: 170px" readonly="true"/>
+                            <h:outputLabel value="Trasbordo"/>
+                            <p:inputText value="#{consolidadaBean.transaccion.puertoTrasbordoTrans}"  style="width: 170px" rendered="true"/>
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Información de Entrega">
+                        <h:panelGrid columns="1" id="datosRetiro" style="float:left">
+                            <h:panelGrid columns="6"  cellpadding="5" >
+                                <p:outputLabel for="prop" value="Propósito de Carga"/>
+                                <p:selectOneMenu id="prop"  value="#{consolidadaBean.transaccion.propositoCargaTrans}" style="width: 140px" panelStyle="width: 140px"
+                                                 filter="true" filterMatchMode="contains" converter="propositoConverter">
+                                    <f:selectItems value="#{propositoBean.listadoExpoConsol()}" var="cmbProposito" itemLabel="#{cmbProposito.descripcionProp}" itemValue="#{cmbProposito}"/>
+                                </p:selectOneMenu>
+                                <h:outputLabel value="Susceptible a Cupo"/>
+                                <p:selectBooleanButton value="#{consolidadaBean.transaccion.cupoCargaTrans}" onLabel="Si" offLabel="No" style="width:60px" />
+                                <h:outputLabel value="#Cajas"/>
+                                <p:inputText  value="#{consolidadaBean.transaccion.numeroCajasTrans}" readonly="true"/>
+                                  <p:outputLabel for="emba" value="Embalaje"/>
+                                <p:selectOneMenu id="emba"  value="#{consolidadaBean.transaccion.embalajeTrans}" style="width: 140px" panelStyle="width: 140px"
+                                                 filter="true" filterMatchMode="contains" converter="embalajeConverter" disabled="true">
+                                    <f:selectItem itemValue="" itemLabel="Seleccione Embalaje"/>
+                                    <f:selectItems value="#{emabalejBean.listado}" var="cmbEmb" itemLabel="#{cmbEmb.descripcionEmba}" itemValue="#{cmbEmb}"/>
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                        </h:panelGrid>
+
+                        <p:panel header="Datos de Transportista" style="width: 100%">
+                            <h:panelGrid columns="4">
+                                <h:outputLabel value="Nombre"/>
+                                <p:inputText value="#{consolidadaBean.transaccion.nombreTrasnportistaTrans}"/>
+                                <h:outputLabel value="Cédula"/>
+                                <p:inputText value="#{consolidadaBean.transaccion.cedulaTrasnportistaTrans}"/>
+                                <h:outputLabel value="Placa"/>
+                                <p:inputText value="#{consolidadaBean.transaccion.placaTrasnportistaTrans}"/>
+                                <h:outputLabel value="Guía de Remisión"/>
+                                <p:inputText value="#{consolidadaBean.transaccion.guiaRemisionTrans}"/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+                </p:tabView>
+                <p:commandButton value="Cerrar" onclick="PF('dlgDetalle').hide()"/>
+            </h:form>
+        </p:dialog>
+    </body>
+</html>
+

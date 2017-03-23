@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <p:growl id="mensaje" showDetail="true" showSummary="false"/>
+        <p:dialog id="dlgPrincipal" widgetVar="dlgPrincipal" width="1100" height="400" showEffect="clip" hideEffect="explode"
+                  resizable="false" fitViewport="true" position="center" header="Aisv - Reportes" onHide="emptyHtml();" onShow="onLoadMod();">
+            <h:form id="formGeneral">
+                <p:remoteCommand name="onLoadMod" actionListener="#{aisvBean.inicializarReportes()}" update=":formGeneral:listado"/>
+                <p:panel style="width:90%;margin-left: 5px;height:100%;border: 0px;background-color: transparent">
+                    <p:panel style="width:110%;border: 0px">
+                        <h:panelGrid columns="5" >
+                            <p:selectOneRadio id="tipo" value="#{aisvBean.tipoTrasaccion}" style="font-size: 14px">
+                                <p:ajax listener="#{aisvBean.actualizarDatos}" update="listado"/>
+                                <f:selectItem itemLabel="IMPORTACIÓN" itemValue="I"/>
+                                <f:selectItem itemLabel="EXPORTACIÓN" itemValue="E"/>
+                            </p:selectOneRadio>
+                            <h:outputText value="Tipo de Carga" style="font-weight: bold;font-size: 14px"/>
+                            <p:selectOneMenu   value="#{aisvBean.tipoCarga}">
+                                <p:ajax listener="#{aisvBean.actualizarDatos}" update="listado"/>
+                                <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Carga Suelta" itemValue="LCL/LCL" />
+                                <f:selectItem itemLabel="Contenerizada" itemValue="FCL/FCL" />
+                                <f:selectItem itemLabel="Consolidada" itemValue="FCL/LCL" />
+                            </p:selectOneMenu>
+                              <p:commandButton value="Exportar" icon="ui-icon-newwin" oncomplete="PF('dlgExportar').show();" 
+                                         onstart="PF('dlgInicio').show()" onsuccess="PF('dlgInicio').hide()" 
+                                         actionListener="#{aisvBean.prepExportar()}"
+                                         style="width: 150px;height: 30px;font-size: 14px!important"/>
+                        </h:panelGrid>
+                      
+                    </p:panel>
+
+
+                    <p:dataTable id="listado" paginator="true" emptyMessage="No se ha encontrado ningun AISV"
+                                 paginatorPosition="bottom" var="objExp" lazy="true" draggableColumns="true" draggableRows="true"
+                                 value="#{aisvBean.listaAisvAux}" 
+                                 rows="12" rowsPerPageTemplate="10,12,15,20,30"
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 resizableColumns="true" style="width:110%;height: 100%;font-size: 10px!important;float: left"
+                                 selectionMode="single" selection="#{aisvBean.transaccion}" rowKey="#{objExp.codigoTrans}">
+
+
+                        <p:column headerText="Codigo" style="text-align: center" filterStyle="width: 40px " filterBy="#{objExp.codigoTrans}" width="50">
+                            <h:outputText value="#{objExp.codigoTrans}"/>
+                        </p:column>
+                        <p:column headerText="Estado"  style="text-align: center;font-size: 10px" filterStyle="width: 70px "  filterBy="#{objExp.estado}" width="80">
+                            <h:outputText value="#{objExp.estado}"/>
+                        </p:column>
+                        <p:column headerText="BL Master" rendered="#{aisvBean.tipoTrasaccion eq 'I'}" style="text-align: center" filterStyle="width: 80px "  filterBy="#{objExp.codigoPrec.blmasterPrec}" width="90">
+                            <h:outputText value="#{objExp.codigoPrec.blmasterPrec}"/>
+                        </p:column>
+                        <p:column headerText="BL Hijo" rendered="#{aisvBean.tipoTrasaccion eq 'I'}" style="text-align: center" filterStyle="width: 80px " filterBy="#{objExp.codigoPrec.blhijoPrec}" width="90">
+                            <h:outputText value="#{objExp.codigoPrec.blhijoPrec}"/>
+                        </p:column>
+                        <p:column headerText="Booking"  toggleable="true" rendered="#{aisvBean.tipoTrasaccion eq 'E'}" style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.codigoPrec.bookingPrec}" width="100">
+                            <h:outputText value="#{objExp.codigoPrec.bookingPrec}"/>
+                        </p:column>
+                        <p:column headerText="Contenedor" rendered="#{aisvBean.tipoCarga eq 'FCL/FCL'}" style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.contenedorTrans}"  width="100" >
+                            <h:outputText value="#{objExp.contenedorTrans}"/>
+                        </p:column>
+                        <p:column headerText="Producto" style="text-align: center" filterStyle="width: 90px " width="100" filterBy="#{objExp.codigoPrec.descripcionPrec}">
+                            <h:outputText value="#{objExp.codigoPrec.descripcionPrec}"/>
+                        </p:column>
+                        <p:column headerText="Peso Báscula" style="text-align: center" filterStyle="width: 90px " width="100" >
+                            <h:outputText value="#{objExp.pesoBasculaTrans}"/>
+                        </p:column>
+                        <p:column headerText="Naviera"  style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.codigoPrec.idLineaPrec.nombreNavi}"  width="200" >
+                            <h:outputText value="#{objExp.codigoPrec.idLineaPrec.nombreNavi}"/>
+                        </p:column>
+                        <p:column headerText="Pto. Destino"  rendered="#{aisvBean.tipoTrasaccion eq 'E'}" style="font-size: 90%;text-align: center" filterStyle="width: 90px " filterBy="#{objExp.puertoDestinoTrans}"  width="100" >
+                            <h:outputText value="#{objExp.puertoDestinoTrans}"/>
+                        </p:column>
+                        <p:column headerText="Pto. Origen"  rendered="#{aisvBean.tipoTrasaccion eq 'I'}" style="font-size: 90%;text-align: center" filterStyle="width: 90px " filterBy="#{objExp.puertoDestinoTrans}"  width="100" >
+                            <h:outputText value="#{objExp.puertoDestinoTrans}"/>
+                        </p:column>
+                        <p:column headerText="Aprobación" width="5%" rendered="#{aisvBean.tipoTrasaccion eq 'I'}">
+                            <h:outputText value="#{objExp.fechaEirTrans}">
+                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Ingreso a Puerto" width="5%" rendered="#{aisvBean.tipoTrasaccion eq 'E'}">
+                            <h:outputText value="#{objExp.fechaEirTrans}">
+                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Inspección" width="5%" rendered="#{aisvBean.tipoTrasaccion eq 'E'}">
+                            <h:outputText value="#{objExp.fechaInspeccionVista}">
+                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+                <p:dialog widgetVar="dlgInicio" header="Espere" closable="false">
+                    <h3>Espere un momento...</h3>
+                    <h3>Su información estará lista</h3>
+                </p:dialog>
+            </h:form>
+        </p:dialog>
+        <p:dialog widgetVar="dlgExportar" modal="true" header="Exportar Datos">
+            <h:form id="frmExportar">
+                <hr/>
+                <h:panelGrid columns="4">
+                    <h:commandLink actionListener="#{aisvBean.reportePDF(actionEvent)}">
+                        <p:graphicImage id="pdfimagen" name="/iconos/PDF.png" alt="Exportar a PDF" height="60" width="60"/>
+                        <p:tooltip for="pdfimagen" value="Exportar a PDF"/>
+                    </h:commandLink>                    
+
+                    <h:commandLink actionListener="#{aisvBean.reporteEXCEL(actionEvent)}" >
+                        <p:graphicImage id="excelimagen" name="/iconos/EXCEL.png" alt="Exportar a Excel" height="60" width="60"/>
+                        <p:tooltip for="excelimagen" value="Exportar a Excel"/>
+                    </h:commandLink>
+
+                </h:panelGrid>
+                <hr/>
+                <center>
+                    <p:commandButton value="Cerrar" type="button" onclick="PF('dlgExportar').hide();" icon="eliminar" style="height: 35px"/>
+                </center>
+            </h:form>
+        </p:dialog>
+    </body>
+</html>

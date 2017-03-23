@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+   <body>
+       <p:growl id="mensaje" showDetail="true" showSummary="false"/>
+       <p:dialog id="dlgPrincipal" widgetVar="dlgPrincipal" width="800" height="310" showEffect="clip" hideEffect="explode"
+                 resizable="false" fitViewport="true" position="center" header="Aisv - Roles del Sistema" onHide="emptyHtml();">
+            <h:form id="formPrincipal">
+                <h:panelGrid columns="2" style="float: left;font-size: 16px !important;">
+                    <p:commandButton icon="nuevo"  style="width: 100px" value="Nuevo" update=":formDatos:datos :formDatos:botones" oncomplete="PF('dlgInformacion').show()" actionListener="#{rolBean.prepararCrear(evt)}"/>
+                    <p:commandButton value="Imprimir" style="width: 110px"  icon="imprimir"  />
+                </h:panelGrid>
+                <p:dataTable id="listado" style="float:left;font-size: 75%" paginator="true" emptyMessage="No se ha encontrado ningún Rol"
+                             paginatorPosition="bottom" var="obj" lazy="true" rowKey="#{obj.rolId}"
+                             selectionMode="single" value="#{rolBean.listadoEntidad}"
+                             selection="#{rolBean.entidad}"
+                             rows="10" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                             rowsPerPageTemplate="5,10">
+                    <p:ajax event="rowDblselect" listener="#{rolBean.seleccionarEditar}" update=":formDatos:datos :formDatos:botones" oncomplete="PF('dlgInformacion').show()"/>
+
+                    <p:column headerText="Rol" style="font-size: 90%" filterBy="#{obj.rolShortdescription}">
+                        <h:outputText value="#{obj.rolShortdescription}"/>
+                    </p:column>
+                    <p:column headerText="Descripción" style="font-size: 90%" filterBy="#{obj.rolLongdescription}">
+                        <h:outputText value="#{obj.rolLongdescription}"/>
+                    </p:column>
+                </p:dataTable>
+                
+            </h:form>
+        </p:dialog>
+       <ui:include id="data" src="datos.xhtml"/>
+    </body>
+</html>
+

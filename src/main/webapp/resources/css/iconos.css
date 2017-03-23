@@ -1,0 +1,153 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 04-dic-2014, 14:39:26
+    Author     : Percho
+*/
+
+.fecha-blanca {
+    width: 10px!important;
+    height: 5px!important;
+    margin-right: 5px !important;
+    margin-left: 10px !important;
+    background-image: url('../..//resources/images/FLECHABLANCA.png')!important;
+}
+.admin {
+    width: 30px!important;
+    height: 30px!important;
+    margin-right: 5px !important;
+    margin-left: 10px !important;
+    margin-top: -4px!important;
+    background-image: url('../..//resources/images/ADMINISTRACION.png')!important;
+}
+.aisv {
+    width: 30px!important;
+    height: 30px!important;
+    margin-right: 5px !important;
+    margin-left: 10px !important;
+    margin-top: -4px!important;
+    background-image: url('../..//resources/images/AISV.png')!important;
+}
+.consulta {
+    width: 30px!important;
+    height: 30px!important;
+    margin-right: 5px !important;
+    margin-left: 5px !important;
+    margin-top: -4px!important;
+    background-image: url('../..//resources/images/CONSULTA.png')!important;
+}
+.nuevo {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/images/NUEVO.png')!important;
+}
+.ui-menu.ui-widget a{
+    color: #FFFFFF !important;
+    height: 30px !important;
+}
+.ui-menu .ui-menu-parent .ui-menu-child {
+    background-image: url('../..//resources/images/btBlue.jpg')!important;
+    width: 210px !important;
+}
+.ui-menu.ui-widget li > .ui-menuitem-link.ui-state-hover{
+    margin-top: -5px !important;
+    height: 27px !important; 
+    font-weight:600!important;
+    color: #ffe577 !important;
+}
+.ui-menu .ui-menuitem {
+    height: 25px !important;  
+}
+#ADMINISTRACION{
+    margin-left: 400px !important;
+}
+
+.cerrarsesion {
+    width: 30px!important;
+    height: 30px!important;
+    margin-right: 10px !important;
+    margin-left: 3px !important;
+    margin-top: -12px!important;
+    background-image: url('../..//resources/images/CERRARSESION.png')!important;
+}
+
+
+.grupo-privilegio {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/iconos/GRUPOS PRIVILEGIOS.png')!important;
+    width: 30px !important;
+}
+.grupo {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/iconos/GRUPOS.png')!important;
+     width: 30px !important;
+}
+.rol{
+    margin-left: 15px!important;
+    background-image: url('../..//resources/iconos/ICONO ROLES.png')!important;
+     width: 20px !important;
+}
+.parametros {
+    margin-left: 15px!important;
+    background-image: url('../..//resources/iconos/PARAMETROS CLAVE.png')!important;
+     width: 20px !important;
+}
+.privilegio{
+    margin-left: 15px!important;
+    background-image: url('../..//resources/iconos/PRIVILEGIOS.png')!important;
+     width: 20px !important;
+}
+.rol-grupo{
+    margin-left: 5px!important;
+    background-image: url('../..//resources/iconos/ROLES GRUPOS.png')!important;
+     width: 30px !important;
+}
+.usuario-rol {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/iconos/USUARIOS ROLES.png')!important;
+     width: 30px !important;
+}
+.aprobacion-definitiva {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/iconos/ICONO APROBACION DEFINITIVA.png')!important;
+     width: 30px !important;
+}
+
+.aprobacion-documental{
+    margin-left: 5px!important;
+    background-image: url('../..//resources/iconos/ICONO APROBACION DOCUMENTAL.png')!important;
+     width: 30px !important;
+}
+.itinerario {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/iconos/ICONO ITINERARIOS.png')!important;
+     width: 30px !important;
+}
+
+.naviera {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/iconos/ICONO NAVIERAS.png')!important;
+     width: 30px !important;
+}
+.puerto {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/iconos/ICONO PUERTOS.png')!important;
+     width: 30px !important;
+}
+.reporte-aisv {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/iconos/ICONO REPORTE AISV.png')!important;
+     width: 30px !important;
+}
+.solicitud-contacto {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/iconos/ICONO SOLICITUD DE CONTACTO.png')!important;
+     width: 30px !important;
+}
+.administracion-aisv {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/iconos/ICONO ADMINISTRACION AISV.png')!important;
+     width: 30px !important;
+}

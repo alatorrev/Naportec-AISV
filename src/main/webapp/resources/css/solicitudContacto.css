@@ -1,0 +1,184 @@
+#dlgContacto{
+    width: 860px !important;
+    height: 600px !important;
+}
+.ui-panel.panelNaviera{
+    background: transparent;
+    border: 0px;
+    margin-left: 52px;
+    margin-top: -10px;
+}
+.ui-panel.panelAyuda{
+    border-color: #D80100;
+    border-width: 2px; 
+    width: 100%;
+    /*margin-left: -50px;*/
+    margin-top: 0px;
+}
+.ui-panel.panelPrincipal{
+    width: 95%;
+    margin-left: 2%;
+    margin-top: 0.5%;
+    height: 400px;
+    border: 0px;
+    background-color: transparent;
+    font-size: 12px!important
+}
+.ui-inputtextarea.area{
+    height: 40px;
+}
+.ui-inputtext.soli{
+    height: 15px !important;
+    text-transform: uppercase;
+}
+.ui-outputlabel.label{
+    font-weight: 900;
+    font-size: 12px !important;
+}
+#fieldsetSecLegend{
+    background-image: url('../..//resources/images/btBlue.jpg')!important;
+    color: #fbffff;
+    margin-left: 100px;
+    font-size: 14px;
+    border-color: #111079;
+    height: 25px;
+    font-weight: 600;
+    margin-top: -500px;
+}
+.ui-fieldset.fieldSetContacto{
+    width: 96% !important;
+    background-color: #ffffff !important;
+    border: 1px solid #111074 !important;
+    border-radius: 0px!important;
+}
+fieldset.fieldSetPrincipal{    
+    border: 1px solid #666666 !important;
+    border-radius: 20px !important;
+    background-color: #C8C8C8 !important;
+    width: 800px !important;
+    height: 520px !important;   
+}
+
+.ui-tabs .ui-tabs-nav{
+    background: transparent !important;
+    font-weight: bold !important;
+}
+.ui-tabs .ui-widget-header{
+    border-bottom: 5px solid #111076 !important;
+    border-radius: 0px !important;
+    border-top: 0px !important;
+    border-left: 0px !important;
+    border-right: 0px !important;
+}
+
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited{
+    background: #ffffff  !important;
+    color: #000000 !important;
+    font-weight: 900 !important;
+    font-size: 12px!important;
+}
+span.textos{
+    font-size: 11px;
+    font-weight: bold;
+}
+.ui-button.btnSiguiente{
+    border-radius: 8px !important;
+    font-weight: lighter!important;
+    background-color: transparent;
+    background-image: url('../..//resources/images/btBlue.jpg')!important;
+    background-repeat: no-repeat!important;
+    background-size: cover!important;
+    color: #F0F0F0 !important;
+    float: right;
+    font-size: 12px!important;
+    height: 30px!important;
+    width: 200px!important;
+}
+.ui-datatable.tablaContacto{
+    width: 100%!important;
+}
+.ui-tabs{
+    width: 100% !important;
+}
+table.tablaAyuda{
+    margin-top: 0px;
+    text-align: center;
+}
+@media all and (max-width: 1024px) and (min-width: 900px){
+    #dlgContacto{
+        width: 760px !important;
+        height: 540px !important;
+    }
+    .ui-inputtext.soli{
+        height: 10px !important;
+        font-size: 11px!important;
+        text-transform: uppercase;
+    }
+    .ui-outputlabel.label{
+        font-weight: 700;
+        font-size: 10px !important;
+    }
+    .ui-inputtextarea.area{
+        height: 20px;
+    }
+    .ui-panel.panelNaviera{
+        background: transparent;
+        border: 0px;
+        margin-left: 32px;
+        margin-top: -10px;
+    }
+    a{
+        font-size: 10px!important;
+        height: 12px;
+    }
+    a:active{
+        font-size: 10px!important;
+        font-weight: bold;
+        height: 12px ;
+    }
+    .ui-panel.panelAyuda{
+        border-color: #D80100;
+        border-width: 2px; 
+        width: 100%;
+        height: 30px!important;
+        /*margin-left: -50px;*/
+        margin-top: 0px;
+    }
+    .ui-panel.panelPrincipal{
+        width: 95% !important;
+        margin-left: 1%;
+        margin-top: 0.5%;
+        border: 0px;
+        background-color: transparent;
+        font-size: 12px!important
+    }
+    span.textos{
+        font-size: 9px;
+        /*margin-top: -20px !important;*/
+    }
+    .ui-button.btnSiguiente{
+        border-radius: 8px !important;
+        font-weight: lighter!important;
+        background-color: transparent;
+        background-image: url('../..//resources/images/btBlue.jpg')!important;
+        background-repeat: no-repeat!important;
+        background-size: cover!important;
+        color: #F0F0F0 !important;
+        float: right;
+        font-size: 12px!important;
+        height: 30px!important;
+        width: 200px!important;
+    }
+    fieldset.fieldSetPrincipal{    
+        border: 1px solid #666666 !important;
+        border-radius: 20px !important;
+        background-color: #C8C8C8 !important;
+        width: 700px !important;
+        height: 440px !important;   
+    }
+    table.tablaAyuda{
+        margin-top: -10px !important;
+        text-align: center;
+    }
+}
+

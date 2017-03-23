@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b7134998-6b23-4eea-8d6f-a2a5f2c6a6d0">
+	<property name="ireport.zoom" value="4.0"/>
+	<property name="ireport.x" value="87"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="audId" class="java.lang.Integer">
+		<fieldDescription><![CDATA[audId]]></fieldDescription>
+	</field>
+	<field name="audInformacion" class="java.lang.String">
+		<fieldDescription><![CDATA[audInformacion]]></fieldDescription>
+	</field>
+	<field name="audOperacion" class="java.lang.String">
+		<fieldDescription><![CDATA[audOperacion]]></fieldDescription>
+	</field>
+	<field name="audTabla" class="java.lang.String">
+		<fieldDescription><![CDATA[audTabla]]></fieldDescription>
+	</field>
+	<field name="audUsuario" class="java.lang.String">
+		<fieldDescription><![CDATA[audUsuario]]></fieldDescription>
+	</field>
+	<field name="audData" class="java.util.Date">
+		<fieldDescription><![CDATA[audData]]></fieldDescription>
+	</field>
+	<field name="primaryKeyValue" class="java.lang.String">
+		<fieldDescription><![CDATA[primaryKeyValue]]></fieldDescription>
+	</field>
+	<field name="primaryKeyField" class="java.lang.String">
+		<fieldDescription><![CDATA[primaryKeyField]]></fieldDescription>
+	</field>
+	<field name="oldValue" class="java.lang.String">
+		<fieldDescription><![CDATA[oldValue]]></fieldDescription>
+	</field>
+	<field name="newValue" class="java.lang.String">
+		<fieldDescription><![CDATA[newValue]]></fieldDescription>
+	</field>
+	<field name="fieldName" class="java.lang.String">
+		<fieldDescription><![CDATA[fieldName]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="48" splitType="Stretch">
+			<staticText>
+				<reportElement x="90" y="16" width="364" height="20" uuid="02a7a77e-0b08-4354-aa17-c304a0b71780"/>
+				<textElement textAlignment="Center">
+					<font fontName="Century Gothic" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE AUDITORIA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="39" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="47" height="20" uuid="48a48d3e-9b23-4ec7-8b29-bd8b3e5d6019"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tabla]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="0" width="65" height="20" uuid="13da4d03-1c01-41a8-b2b3-542ff884e4f5"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Operacion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="112" y="0" width="71" height="20" uuid="567d8b13-6110-4168-86fc-4a077104e333"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="183" y="0" width="50" height="20" uuid="2991d321-5e6b-4298-8df7-06da103c1518"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="233" y="0" width="77" height="20" uuid="a08913ee-91e5-4f13-940d-f8acbaeda0c0"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dato Anterior]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="0" width="77" height="20" uuid="3aab451a-2555-4a1d-bbd0-e2b3b18cb796"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dato Nuevo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="387" y="0" width="77" height="20" uuid="46a09a1d-243e-4e3b-a156-79addc8ab63f"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Campo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="464" y="0" width="77" height="20" uuid="ff20d1b7-91f0-4948-8d1a-21319715336c"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PK Fila]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="47" height="20" uuid="1d516bc2-fa0f-488f-aec7-283c63f76c32"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{audTabla}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="47" y="0" width="65" height="20" uuid="19207a4e-c9be-4a56-8afc-5fedffc24947"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{audOperacion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="112" y="0" width="71" height="20" uuid="d5018954-80d3-47cf-8eb8-d35a8fc8d41d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{audUsuario}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="183" y="0" width="50" height="20" uuid="f19aa894-5246-4e5d-89cc-d2a21643f897"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{audData}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="235" y="0" width="75" height="20" uuid="acd05ee0-f3c1-4c4c-916c-60758915fbcd"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{oldValue}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="310" y="0" width="77" height="20" uuid="c2f4178c-6482-4b5d-8eb1-5ad97fda69bc"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{newValue}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="464" y="0" width="77" height="20" uuid="b2307070-35f0-47db-8c4a-d35d04a57e23"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{primaryKeyValue}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="387" y="0" width="77" height="20" uuid="c9dec83d-80b6-4b9d-b203-677047cbbac5"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fieldName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

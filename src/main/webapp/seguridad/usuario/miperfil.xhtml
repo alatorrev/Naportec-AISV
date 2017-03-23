@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+            <p:growl id="mensaje" showDetail="true" showSummary="false"/>
+            <p:dialog id="dlgPrincipal" widgetVar="dlgPrincipal" width="700" height="400" showEffect="clip" hideEffect="explode"
+                      resizable="false" fitViewport="true" position="center" header="Aisv - Mi Perfil" onHide="emptyHtml();">
+                <h:form id="formContacto">
+                    <p:panel header="Información">
+                        <h:panelGrid columns="2" id="info">
+                            <h:outputText value="Nombres  :"/>
+                            <p:inputText value="#{usuarioBean.entidad.usrFirstname}" readonly="true" style="text-transform: uppercase; width: 300px" />
+                            <h:outputText value="Correo :"/>
+                            <p:inputText value="#{usuarioBean.entidad.usrEmail}" style="text-transform: uppercase; width: 400px" readonly="true" />
+                            <h:outputText value="Teléfono :"/>
+                            <p:inputText value="#{usuarioBean.entidad.usrTelefono}" onkeypress="ValidarNumeros(this.value, 15)"/>
+                            <h:outputText value="Celular :"/>
+                            <p:inputText value="#{usuarioBean.entidad.usrCelular}" onkeypress="ValidarNumeros(this.value, 10)"/>
+                        </h:panelGrid> 
+                    </p:panel>
+                    <p:panel header="Seguridad">
+                        <h:panelGrid columns="2" id="datos">
+                            <h:outputText value="Escriba su contraseña Actual"/>
+                            <p:password id="actual" value="#{usuarioBean.claveActual}"/>
+                            <h:outputText value="Escriba su Nueva Contraseña"/>
+                            <p:password id="nueva" value="#{usuarioBean.nuevaClave}"/>
+                            <h:outputText value="Repita su Nueva Contraseña"/>
+                            <p:password id="confirmacion" value="#{usuarioBean.confirmarClave}"/>
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:commandButton value="Guardar Cambios" update="datos info" actionListener="#{usuarioBean.guardarCambioClave()}" style="font-size: 13px !important"/>
+                </h:form>
+            </p:dialog>
+        </body>
+</html>
+

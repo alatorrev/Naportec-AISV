@@ -1,0 +1,138 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Century Gothic, sans-serif;
+    font-size: 14px;
+}
+.ui-dialog{
+    background-color:#F0F0F0 !important;
+
+}
+.ui-dialog-titlebar{
+    background-color: transparent  !important; 
+}
+#fieldsetSec{
+    border: 1.5px solid #666666 !important;
+    border-radius: 20px !important;
+    background-color: #C8C8C8 !important;
+    width: 1500px;
+    height: 520px;
+}
+#fieldsetSecLegend{
+    background-image: url('../..//resources/images/btBlue.jpg')!important;
+    color: #fbffff;
+    margin-left: 100px;
+    font-size: 14px;
+    border-color: #111079;
+    height: 25px;
+    font-weight: 600;
+    margin-top: 2px;
+
+}
+
+.atras {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/images/ATRAS.png')!important;
+}
+.siguiente {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/images/SIGUIENTE.png')!important;
+}
+.cancelar {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/images/CANCELAR.png')!important;
+}
+.actualizar {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/images/EDITAR.png')!important;
+}
+
+.imprimir {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/images/IMPRIMIR.png')!important;
+}
+.ayuda {
+    margin-left: 5px!important;
+    width: 20px !important;
+    height: 20px !important;
+    background-image: url('../..//resources/images/AYUDA.png')!important;
+}
+.nuevo {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/images/NUEVO.png')!important;
+}
+.guardar {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/images/GUARDAR.png')!important;
+}
+.eliminar {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/images/ELIMINAR.png')!important;
+}
+.ui-tabs .ui-tabs-nav{
+    background: transparent !important;
+    font-weight: bold !important;
+}
+.ui-tabs .ui-widget-header{
+    border-bottom: 5px solid #111076 !important;
+    border-radius: 0px !important;
+    border-top: 0px !important;
+    border-left: 0px !important;
+    border-right: 0px !important;
+}
+
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited{
+    background: #ffffff  !important;
+    color: #000000 !important;
+    font-weight: 900 !important;
+    font-size: 12px!important;
+}
+
+.ui-button{
+    border-radius: 8px !important;
+    font-size: 80% !important;
+    font-weight: lighter!important;
+    background-color: transparent;
+    background-image: url('../..//resources/images/btBlue.jpg')!important;
+    background-repeat: repeat!important;
+    /*    background-size: cover!important;*/
+    color: #F0F0F0 !important;
+    border-color: transparent!important;
+}
+.ui-button.ui-state-hover{
+    color: #ffe577 !important;
+    border: 0px;
+    border-color: transparent;
+    background-color: transparent;
+    background-image: url('../..//resources/images/btRed.jpg')!important;
+    background-repeat: repeat!important;
+    /*    background-size: cover!important;*/
+}
+.ui-tabs .ui-tabs-nav{
+    background: transparent !important;
+    font-weight: bold !important;
+}
+.ui-tabs .ui-widget-header{
+    border-bottom: 5px solid #111076 !important;
+    border-radius: 0px !important;
+    border-top: 0px !important;
+    border-left: 0px !important;
+    border-right: 0px !important;
+}
+
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited{
+    background: #ffffff  !important;
+    color: #000000 !important;
+    font-weight: 900 !important;
+    font-size: 12px!important;
+}
+
+
+/*.ui-state-hover a, .ui-state-hover a:hover {
+    color: #2f556a;
+}
+.ui-tabs-nav .ui-state-default {
+    background: #666666  !important;
+    color: #ffffff !important;
+    text-decoration-color: white;
+}*/

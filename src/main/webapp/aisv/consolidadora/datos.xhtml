@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <p:dialog appendTo="@(body)" widgetVar="datosPuerto" header="AISV - Consolidadora" modal="true" dynamic="true" hideEffect="fade">
+            <h:form id="formDatos">
+                <div>
+                    <p:commandButton value="Ayuda" icon="ayuda"  style="float: left;height: 30px;width: 110px"/>
+                    <h:panelGrid columns="6" style="float: right;height: 35px" id="botones">
+                        <p:commandButton id="guardar" icon="guardar" style="height: 25px"  value="" disabled="#{navieraConsolBean.botonGuardar}" actionListener="#{navieraConsolBean.guardarEntidad(evt)}" update=":mensaje datos :formPrincipal:listado">
+                            <p:confirm header="Confirmación" message="Esta seguro que desea realizar la Acción" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        <p:commandButton icon="editar"  style="height: 25px"  value="" disabled="#{navieraConsolBean.botonEditar}"  actionListener="#{navieraConsolBean.prepararEditar(evt)}" update="datos :formDatos:botones"
+                                         />
+                        <p:commandButton icon="eliminar"  style="height: 25px"  value="" disabled="#{navieraConsolBean.botonEliminar}"  actionListener="#{navieraConsolBean.eliminarEntidad(evt)}" update=":mensaje datos :formPrincipal:listado">
+                            <p:confirm header="Confirmación" message="Esta seguro que desea Eliminar la Consolidadora" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        <p:commandButton icon="bloquear" style="height: 25px"  value="" disabled="#{navieraConsolBean.botonBloquear}" actionListener="#{navieraConsolBean.bloquearEntidad(evt)}" update="datos :formDatos:botones"/>
+                        <p:commandButton type="button" value="" id="salir" icon="cancelar" style="height: 25px"  onclick="PF('datosPuerto').hide()"/>
+                        <p:tooltip for="salir" value="Cerrar Pantalla" hideEffect="clip"/>
+                    </h:panelGrid>
+                </div>
+                <h:panelGrid columns="2" id="datos" style="float:left">
+                    <p:outputLabel for="nom" value="Nombre"/>
+                    <p:inputText id="nom" readonly="#{navieraConsolBean.readOnly}" value="#{navieraConsolBean.entidad.codigoCons.nombreCons}"/>
+                    <p:outputLabel for="des" value="RUC"/>
+                    <p:inputText id="des" readonly="#{navieraConsolBean.readOnly}" value="#{navieraConsolBean.entidad.codigoCons.rucCons}"/>
+                   </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>
+

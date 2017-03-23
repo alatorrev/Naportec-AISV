@@ -1,0 +1,284 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <style>
+            .ui-selectonemenu-trigger{
+                margin-right: -9px !important;
+                margin-top: -2px !important;
+            }
+        </style>
+        <script>
+            function handleSaveRequest(xhr, status, args) {
+                if (args.notValid || args.validationFailed) {
+                    PF('dlgAceptaPesos').hide();
+                    return;
+                }
+                PF('dlgReporte').show();
+                PF('dlgAisvExpCont').hide();
+                PF('dlgNuevo').hide();
+                PF('dlgAceptaPesos').hide();
+            }
+        </script>
+        <p:dialog id="dialogExportacion"  widgetVar="dlgAisvExpCont"  position="center" header="AISV - Nuevo Exportación Carga Contenerizada" modal="true"  hideEffect="fade" showEffect="clip" width="660px">
+            <h:form id="formDatosExp" >
+                <p:commandButton value="Ayuda" icon="ayuda"  style="float: left;height: 30px;width: 110px"/>
+                <p:commandButton id="guardar" value="Guardar AISV" icon="guardar"  style="float: right;height: 30px;width: 150px"
+                                 onclick="PF('dlgAceptaPesos').show()"
+
+                                 rendered="#{contenerizadoBean.seleccionadoEksat.activo}">
+                </p:commandButton>
+                <p:tabView id="tabDatos" style="float:left;font-size: 12px!important" rendered="#{contenerizadoBean.transaccion.codigoPrec.activo}">
+                    <p:tab title="Información de Carga" id="tabCarga">
+                        <h:panelGrid columns="4" id="datosCarga" style="float:left">
+                            <h:outputLabel value="Nave"/>
+                            <p:inputText  value="#{contenerizadoBean.transaccion.codigoPrec.idItinerarioPrec.descripcionItin}" disabled="true"/>
+                            <h:outputLabel value="Linea"/>
+                            <p:inputText  value="#{contenerizadoBean.transaccion.codigoPrec.idLineaPrec.nombreNavi}"  disabled="true"/>
+                            <h:outputLabel value="Contenedor"/>
+                            <p:inputText id="contexpo" value="#{contenerizadoBean.transaccion.contenedorTrans}" onkeypress="validarAlfanumerico(this.value, 11)"/>
+                            <h:outputLabel value="Tipo de Contenedor"/>
+                            <p:inputText value="#{contenerizadoBean.transaccion.codigoPrec.tipoContenedorPrec}"  disabled="true"/>
+                            <h:outputLabel value="RUC"/>
+                            <p:inputText id="rucexp" value="#{contenerizadoBean.transaccion.codigoPrec.impExpIdPrec}"  title="Datos de la DAE" onkeypress="ValidarNumeros(this.value, 13)">
+                                <p:ajax event="blur" listener="#{contenerizadoBean.blurRuc}" />
+                            </p:inputText>
+                            <h:outputLabel value="Booking"/>
+                            <p:inputText value="#{contenerizadoBean.transaccion.codigoPrec.bookingPrec}"  disabled="true"/>
+                            <h:outputLabel value="Exportador"/>
+                            <p:inputText id="impexp" value="#{contenerizadoBean.transaccion.codigoPrec.importadorPrec}" title="Datos de la DAE">
+                                <p:ajax event="blur" listener="#{contenerizadoBean.blurExportador}" />
+                            </p:inputText>
+                            <h:outputLabel value="Producto"/>
+                            <p:inputText  value="#{contenerizadoBean.transaccion.codigoPrec.descripcionPrec}"/>   
+                            <h:outputLabel value="Temperatura"/>
+                            <p:inputText value="#{contenerizadoBean.transaccion.codigoPrec.temperaturaPrec}"/>
+                            <h:outputLabel value="Peso"/>
+                            <p:inputText value="#{contenerizadoBean.transaccion.codigoPrec.pesoPrec}"/>
+                            <h:outputLabel value="Ventilacion"/>
+                            <p:inputText value="#{contenerizadoBean.transaccion.codigoPrec.ventilacionPrec}"/>
+                            <p:column/>  <p:column/>
+                            <h:outputLabel value="Carga Peligrosa"/>
+                            <p:selectBooleanButton value="#{contenerizadoBean.transaccion.codigoPrec.peligrosa}" onLabel="Si" offLabel="No" style="width:60px" disabled="true"/>
+                            <h:outputLabel value="Codigo Carga Peligrosa"/>
+                            <p:inputText value="#{contenerizadoBean.transaccion.codigoPrec.codigoImoPre}" disabled="true"/>   
+                        </h:panelGrid>
+                        <p:tooltip for="contexpo" value="El contenedor debe tener Números y Letras"/>
+                    </p:tab>
+                    <p:tab title="DAES" id="daes">
+                        <h:panelGrid columns="4" id="datosDAES">
+                            <h:outputLabel value="DAE"/> 
+                            <h:panelGrid columns="4" id="daestabla">
+                                <p:inputText id="dae1" value="#{contenerizadoBean.dae.primerDato}" style="width: 40px" />
+                                <p:inputText id="dae2" value="#{contenerizadoBean.dae.segundoDato}" style="width: 50px" />
+                                <p:inputText  id="dae3" value="#{contenerizadoBean.dae.tercerDato}" style="width: 40px" />
+                                <p:inputText  id="dae4" value="#{contenerizadoBean.dae.cuartoDato}" style="width: 100px" />
+                            </h:panelGrid>
+                            <p:commandButton value="Agregar" actionListener="#{contenerizadoBean.agregarDAE(evt)}"
+                                             process="@all"
+                                             update="listaDaes"
+                                             />
+                            <h:outputText style="text-align: justify; font-weight: bold;color: #D80100" value="Puede agregar mas DAES llenando la información y dando clik en Agregar"/>
+                        </h:panelGrid>
+                        <p:dataTable var="car"  id="listaDaes" value="#{contenerizadoBean.daesListado}">
+                            <p:column style="width:32px;text-align: center">
+                                <p:commandButton update=":formDatosExp:tabDatos:listaDaes" icon="ui-icon-close" actionListener="#{contenerizadoBean.quitarDAE()}">
+                                    <f:setPropertyActionListener value="#{car}" target="#{contenerizadoBean.dae}" />
+                                </p:commandButton>
+                            </p:column>
+                            <p:column headerText="Numero DAE" >
+                                <h:outputText value="#{car.numeroCompleto}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+                    <p:tab title="Sellos" id="tabSelloPuerto">
+                        <p:panel toggleable="true" header="Sellos" id="sell">
+                            <h:panelGrid columns="4" id="datosSello">
+                                <h:outputLabel value="Sello Naviera"/>
+                                <p:inputText  value="#{contenerizadoBean.transaccion.selloUnoTrans}"/>
+                                <h:outputLabel value="Sello Ventila"/>
+                                <p:inputText value="#{contenerizadoBean.transaccion.selloDosTrans}"/>
+                                <h:outputLabel value="Sello Opcional"/>
+                                <p:inputText value="#{contenerizadoBean.transaccion.selloTresTrans}" />
+                                <h:outputLabel value="Sello Opcional"/>
+                                <p:inputText value="#{contenerizadoBean.transaccion.selloCuatroTrans}"/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+                    <p:tab title="Puertos">
+                        <p:panel toggleable="true" header="Fecha y Puertos" id="porto">
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="Fecha de Salida de Planta"/>
+                                <p:calendar  value="#{contenerizadoBean.transaccion.fechaSalidaTrans}" pattern="MM/dd/yyyy HH:mm:ss" />
+                                <h:outputLabel value="Ciudad de Planta"/>
+                                <p:inputText value="#{contenerizadoBean.transaccion.ciudadPlantaTrans}"/>
+                                <h:outputLabel value="Dirección de Planta"/>
+                                <p:inputTextarea value="#{contenerizadoBean.transaccion.direccionPlantaTrans}" style="width: 300px !important"/>
+                            </h:panelGrid> 
+                        </p:panel>
+                        <h:panelGrid columns="4" cellpadding="5" id="datosPuerto">
+                            <p:outputLabel value="Origen" for="po" />
+                            <p:autoComplete id="po" value="#{contenerizadoBean.origen}" completeMethod="#{puertoBean.completePuerto}"
+                                            var="cmbOrigen" itemLabel="#{cmbOrigen.nombrePuer}" itemValue="#{cmbOrigen}" 
+                                            converter="puertoConverter" disabled="#{not empty contenerizadoBean.origen.codigoPuer}">
+                                <p:column>
+                                    <h:outputText value="#{cmbOrigen.nombrePuer}" />
+                                </p:column>
+
+                                <p:column>
+                                    <h:outputText value="#{cmbOrigen.codPuertoPuer}" />
+                                </p:column>
+                            </p:autoComplete>
+                            <p:outputLabel value="Destino" for="pu" />
+                            <p:autoComplete id="pu" value="#{contenerizadoBean.destino}" completeMethod="#{puertoBean.completePuerto}"
+                                            var="cmbDestino" itemLabel="#{cmbDestino.nombrePuer}" itemValue="#{cmbDestino}" 
+                                            converter="puertoConverter" disabled="#{not empty contenerizadoBean.destino.codigoPuer}">
+                                <p:column>
+                                    <h:outputText value="#{cmbDestino.nombrePuer}" />
+                                </p:column>
+
+                                <p:column>
+                                    <h:outputText value="#{cmbDestino.codPuertoPuer}" />
+                                </p:column>
+                            </p:autoComplete>
+                            <p:outputLabel value="Trasbordo" for="pt" />
+                            <p:autoComplete id="pt" value="#{contenerizadoBean.trasbordo}" completeMethod="#{puertoBean.completePuerto}"
+                                            var="cmbTrasbordo" itemLabel="#{cmbTrasbordo.nombrePuer}" itemValue="#{cmbTrasbordo}" 
+                                            converter="puertoConverter" disabled="#{not empty contenerizadoBean.trasbordo.codigoPuer}">
+                                <p:column>
+                                    <h:outputText value="#{cmbTrasbordo.nombrePuer}" />
+                                </p:column>
+
+                                <p:column>
+                                    <h:outputText value="#{cmbTrasbordo.codPuertoPuer}" />
+                                </p:column>
+                            </p:autoComplete>
+                            <p:outputLabel value="Destino Final" for="pf" />
+                            <p:autoComplete id="pf" value="#{contenerizadoBean.destinoFinal}" completeMethod="#{puertoBean.completePuerto}"
+                                            var="cmbDestinoFinal" itemLabel="#{cmbDestinoFinal.nombrePuer}" itemValue="#{cmbDestinoFinal}" 
+                                            converter="puertoConverter" disabled="#{not empty contenerizadoBean.destinoFinal.codigoPuer}"  title="Datos de la DAE">
+                                <p:column>
+                                    <h:outputText value="#{cmbDestinoFinal.nombrePuer}" />
+                                </p:column>
+
+                                <p:column>
+                                    <h:outputText value="#{cmbDestinoFinal.codPuertoPuer}" />
+                                </p:column>
+                            </p:autoComplete>
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Información de Entrega">
+                        <h:panelGrid columns="1" id="datosRetiro" style="float:left">
+                            <h:panelGrid columns="6"  cellpadding="5" >
+                                <p:outputLabel for="prop" value="Propósito de Carga"/>
+                                <p:selectOneMenu id="prop"  value="#{contenerizadoBean.transaccion.propositoCargaTrans}" style="width: 140px" panelStyle="width: 140px"
+                                                 filter="true" filterMatchMode="contains" converter="propositoConverter">
+                                    <f:selectItems value="#{propositoBean.listadoExpoCont()}" var="cmbPropositoExpo" itemLabel="#{cmbPropositoExpo.descripcionProp}" itemValue="#{cmbPropositoExpo}"/>
+                                </p:selectOneMenu>
+                                <h:outputLabel value="Susceptible a Cupo"/>
+                                <p:selectBooleanButton value="#{contenerizadoBean.transaccion.cupoCargaTrans}" onLabel="Si" offLabel="No" style="width:60px" />
+                                <h:outputLabel value="#Cajas"/>
+                                <p:inputText  value="#{contenerizadoBean.transaccion.numeroCajasTrans}"/>
+                                <p:outputLabel for="emba" value="Embalaje"/>
+                                <p:selectOneMenu id="emba"  value="#{contenerizadoBean.transaccion.embalajeTrans}" style="width: 140px" panelStyle="width: 140px"
+                                                 filter="true" filterMatchMode="contains" converter="embalajeConverter">
+                                    <f:selectItem itemValue="" itemLabel="Seleccione Embalaje"/>
+                                    <f:selectItems value="#{emabalejBean.listado}" var="cmbEmb" itemLabel="#{cmbEmb.descripcionEmba}" itemValue="#{cmbEmb}"/>
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                        </h:panelGrid>
+
+                        <p:panel header="Datos de Transportista" style="width: 100%">
+                            <h:panelGrid columns="4">
+                                <h:outputText value="Documento Identificador"/>
+                                <p:selectOneMenu id="doc_identificador" value="#{contenerizadoBean.transaccion.documentoIdentificador}" style="width: 140px" panelStyle="width: 140px">
+                                    <f:selectItem itemLabel="Cédula" itemValue="Cédula"/>
+                                    <f:selectItem itemLabel="Pasaporte" itemValue="Pasaporte"/>
+                                </p:selectOneMenu>
+                                <h:inputHidden/>
+                                <h:inputHidden/>
+                                <h:outputLabel id="lbl_tipoIdentificador" value="Número de Documento"/>
+                                <p:inputText value="#{contenerizadoBean.transaccion.cedulaTrasnportistaTrans}">
+                                    <p:ajax event="blur" listener="#{contenerizadoBean.cargarNombreTransportista()}" update="nomtransexp"/>
+                                </p:inputText>
+                                <h:outputLabel value="Nombre"/>
+                                <p:inputText id="nomtransexp" value="#{contenerizadoBean.transaccion.nombreTrasnportistaTrans}" size="40" readonly="true"/>
+                                <h:outputLabel value="Placa"/>
+                                <p:inputText value="#{contenerizadoBean.transaccion.placaTrasnportistaTrans}"/>
+                                <h:outputLabel value="Guía de Remisión"/>
+                                <p:inputText value="#{contenerizadoBean.transaccion.guiaRemisionTrans}"/>
+                            </h:panelGrid>
+                            <h:outputText style="font-size: 12px;font-weight: bolder" value="En caso de no tener placa ingrese su permiso provisional"/>
+                        </p:panel>
+
+                    </p:tab>
+
+                </p:tabView>
+                <br/>
+                <br/>
+                <p:panel rendered="#{not contenerizadoBean.seleccionadoEksat.activo}" style="float:left;width: 100%">
+                    <h3>No puede Realizar mas AISV sobre esta carga</h3>
+                    <p>La Cantidad de Espacios es 0</p>
+                    <center>
+                        <p:commandButton value="Salir" onclick="PF('dlgAisvExpCont').hide()"/>
+                    </center>
+                </p:panel>
+
+
+            </h:form>
+        </p:dialog>
+
+        <p:dialog widgetVar="dlgCambioExpor" modal="true" header="Cambio de Datos DAE"> 
+            <h:form prependId="false">
+                <h:outputText value="¿Está Seguro que desea cambiar el nombre del Exportador?"/>
+                <h:panelGrid columns="2">
+                    <p:commandButton value="Aceptar Cambio" 
+                                     actionListener="#{contenerizadoBean.aceptarExportador()}"
+                                     oncomplete="PF('dlgCambioExpor').hide()"/>
+                    <p:commandButton value="Cancelar Cambio" actionListener="#{contenerizadoBean.cancelarExportador()}"
+                                     update=":formDatosExp:tabDatos:impexp" 
+                                     oncomplete="PF('dlgCambioExpor').hide()"/>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+
+        <p:dialog widgetVar="dlgCambioRuc" modal="true" header="Cambio de Datos DAE">
+            <h:form prependId="false">
+                <h:outputText value="¿Está Seguro que desea cambiar el RUC del Exportador?"/>
+                <h:panelGrid columns="2">
+                    <p:commandButton value="Aceptar Cambio"    actionListener="#{contenerizadoBean.aceptarRuc()}" 
+                                     oncomplete="PF('dlgCambioRuc').hide()" 
+                                     />
+                    <p:commandButton value="Cancelar Cambio" 
+                                     actionListener="#{contenerizadoBean.cancelarRuc()}"
+                                     update=":formDatosExp:tabDatos:rucexp" 
+                                     oncomplete="PF('dlgCambioRuc').hide()"
+                                     />
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+
+        <p:dialog  widgetVar="dlgAceptaPesos" modal="true" header="Confirmación de Pesaje">
+            <p align="justify" style="width: 400px">A través de la generación de este documento, acepto y autorizo a NAPORTEC S.A. a realizar el pesaje y emisión de certificado de peso, en cumplimiento de lo dispuesto en la normativa SOLAS</p>
+            <h:form id="formPesos">
+                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                    <h:outputText value="Aceptar" />
+                    <p:selectBooleanCheckbox  value="#{contenerizadoBean.transaccion.autorizacionPesoTrans}" >
+                        <p:ajax update=":formPesos:botonesPeso"/>
+                    </p:selectBooleanCheckbox>
+                </h:panelGrid>
+                <h:panelGrid columns="2" id="botonesPeso">
+                    <p:commandButton id="btnAceptarPesos" style="height: 35px" rendered="#{contenerizadoBean.transaccion.autorizacionPesoTrans}" value="Aceptar"   actionListener="#{contenerizadoBean.guardarAISV()}" oncomplete="handleSaveRequest(xhr, status, args)"
+                                     update=":formDatosExp:tabDatos :formPrincipal:tabViewDatos :formDatosExp:guardar :formGeneral:pnlReporte :formGeneral:listado"/>
+                    <p:commandButton  style="height: 35px" value="Cancelar" onclick="PF('dlgAceptaPesos').hide()"/>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+
+    </body>
+</html>
+

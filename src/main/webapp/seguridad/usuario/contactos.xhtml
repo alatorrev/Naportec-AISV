@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <p:growl id="mensaje" showDetail="true" showSummary="false"/>
+        <p:dialog id="dlgPrincipal" widgetVar="dlgPrincipal" width="750" height="400" showEffect="clip" hideEffect="explode"
+                  resizable="false" fitViewport="true" position="center" header="AISV - Administración de Contactos" onShow="onLoadPerfil()" onHide="emptyHtml();">
+            <h:form id="formContacto">
+                <p:remoteCommand immediate="true" name="onLoadPerfil" actionListener="#{solicitudBean.iniciarPerfil()}"
+                                 update=":formContacto"/>
+                <p:fieldset legend="Información De Contacto" style="width: 95%" toggleable="true">
+                    <h:panelGrid id="datContact" columns="4" cellpadding="2" style="text-align: right;font-weight: 900;color: #000000" width="100%">
+                        <p:outputLabel value="NOMBRES:*" for="conombre" />
+                        <p:inputText id="conombre" value="#{solicitudBean.contacto.nombreCont}" style="width: 200px!important;text-transform: uppercase" onkeypress="validarLetras(this.value, 150)"/>
+                        <p:outputLabel value="CORREO:*" for="coemail" />
+                        <p:inputText id="coemail" value="#{solicitudBean.contacto.emailCont}" style="width: 250px!important"/>
+                        <p:outputLabel value="TELEFONO:*" for="cotelefono" />
+                        <p:inputText id="cotelefono" value="#{solicitudBean.contacto.telefonoCont}" style="width: 100px!important"  onkeypress="ValidarNumeros(this.value, 15)"/>
+                        <p:outputLabel value="CELULAR:" for="cocelular" />
+                        <p:inputText id="cocelular" value="#{solicitudBean.contacto.celularCont}" style="width: 100px!important"  onkeypress="ValidarNumeros(this.value, 10)"/>
+
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" width="100%">
+                        <p:commandButton id="btAgregar" value="AGREGAR" style="font-size: 10px!important;height: 30px!important;width: 100px!important"
+                                         actionListener="#{solicitudBean.agregarContactoPerfil()}" process="@all" update=":formContacto:listadoContactos datContact panelAviso"/>
+                        <p:panel style="background: #D80100;float: right" id="panelAviso" visible="#{solicitudBean.listaContactos.size() gt 2}">
+                            <h:outputText style="color: #FFFFFF!important;" value="Recuerde que solamente se permite el ingreso de 3 contactos"/>
+                        </p:panel>
+                    </h:panelGrid>
+                </p:fieldset>
+
+                <p:dataTable id="listadoContactos" emptyMessage="No se ha encontrado ningún Contacto" resizableColumns="true"
+                             var="obj" value="#{solicitudBean.listaContactos}" style="width:100%">
+                    <p:column style="width:32px;text-align: center">
+                        <p:commandButton update=":formContacto:listadoContactos :formContacto:panelAviso wdlgConfirma :formConfirmContacto:panConfirma" icon="ui-icon-close" title="Eliminar" oncomplete="PF('dlgConfirma').show();">
+                            <f:setPropertyActionListener value="#{obj}" target="#{solicitudBean.seleccionado}" />
+                        </p:commandButton>
+                    </p:column>
+                    <p:column headerText="Nombres" style="font-size: 90%">
+                        <h:outputText value="#{obj.nombreCont}"/>
+                    </p:column>
+                    <p:column headerText="Email" style="font-size: 90%">
+                        <h:outputText value="#{obj.emailCont}"/>
+                    </p:column>
+                    <p:column headerText="Telf" style="font-size: 90%">
+                        <h:outputText value="#{obj.telefonoCont}"/>
+                    </p:column>
+                    <p:column headerText="Cel" style="font-size: 90%">
+                        <h:outputText value="#{obj.celularCont}"/>
+                    </p:column>
+                </p:dataTable>
+                <br/>
+                <br/>
+                <p:panel style="border-color: #D80100">
+                    Se sugiere que se registren 2 Contactos
+                </p:panel>
+
+            </h:form>
+        </p:dialog>
+        <p:dialog header="Confirmación" widgetVar="dlgConfirma" id="wdlgConfirma">
+            <h:form id="formConfirmContacto">
+                <p:panel id="panConfirma">
+                    <h3>¿Está Seguro que desea anular este Contacto</h3>
+                    <h3>#{solicitudBean.seleccionado.nombreCont}?</h3>
+                    <p:commandButton value="Aceptar" actionListener="#{solicitudBean.quitarContactoPerfil()}" update=":formContacto:listadoContactos" oncomplete="PF('dlgConfirma').hide();"/>
+                    <p:commandButton value="Cancelar" onclick="PF('dlgConfirma').hide();"/>
+                </p:panel>
+            </h:form>
+        </p:dialog>
+    </body>
+</html>
+

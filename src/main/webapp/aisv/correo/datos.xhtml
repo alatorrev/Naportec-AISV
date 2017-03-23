@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <p:dialog id="dlgInformacion" widgetVar="dlgInformacion" header="Aisv - Correo" position="center" modal="true">
+            <div id="divInformacion">
+                <h:form id="formDatos">
+                    <header>
+                        <p:commandButton value="Ayuda" icon="ayuda"  style="float: left;height: 30px;width: 110px"/>
+                        <h:panelGrid columns="6" style="float: right;height: 35px" id="botones">
+                            <p:commandButton id="guardar" icon="guardar" style="height: 25px"  value="" disabled="#{correoBean.botonGuardar}" actionListener="#{correoBean.guardarEntidad(evt)}" oncomplete="PF('dlgInformacion').saveHTML()" update=":mensaje datos :formPrincipal:listado">
+                                <p:confirm header="Confirmación" message="Esta seguro que desea realizar la Acción" icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <p:commandButton icon="editar"  style="height: 25px"  value="" disabled="#{correoBean.botonEditar}"  actionListener="#{correoBean.prepararEditar(evt)}" update="datos :formDatos:botones"/>
+                            <p:commandButton icon="eliminar"  style="height: 25px" value="" disabled="#{correoBean.botonEliminar}"  actionListener="#{correoBean.eliminarEntidad(evt)}" update=":mensaje datos :formPrincipal:listado">
+                                <p:confirm header="Confirmación" message="Esta seguro que desea Eliminar el Correo" icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <p:commandButton icon="bloquear" style="height: 25px"  value="" disabled="#{correoBean.botonBloquear}" actionListener="#{correoBean.bloquearEntidad(evt)}" update="datos :formDatos:botones"/>
+                            <p:commandButton type="button" value="" id="salir" icon="cancelar" style="height: 25px" onclick="PF('dlgInformacion').hide()"/>
+                            <p:tooltip for="salir" value="Cerrar Pantalla" hideEffect="clip"/>
+                        </h:panelGrid>
+                    </header>
+                    <br/>
+                    <h:panelGrid  id="datos" style="float:left; width: 90%" columns="1">
+                        <h:panelGrid columns="4">
+                            <p:outputLabel for="neg" value="Clase Negocio"/>
+                            <p:selectOneMenu id="neg" value="#{correoBean.entidad.negocioClaseCorr}" >
+                                <p:ajax  update=":formDatos:met :formDatos:attr"/>
+                                <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                                <f:selectItems value="#{correoBean.listaNegocio}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel for="met" value="Métodos"/>
+                            <p:selectOneMenu id="met" value="#{correoBean.entidad.metodoCorr}">
+                                <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                                <f:selectItems value="#{correoBean.listaMetodos}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel for="asun" value="Asunto"/>
+                            <p:inputText id="asun" value="#{correoBean.entidad.detalleCorr}"/>
+                            <p:outputLabel for="cor" value="Correos"/>
+                            <p:inputText id="cor" value="#{correoBean.entidad.correoAdicionalCorr}" style="width: 300px"/>
+                            <p:tooltip for="cor" value="Correos Adicionales al envìo"/>
+
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <h:panelGrid columns="1">
+                                <p:outputLabel for="attr" value="Atributos Entidad"/>
+                                <p:selectOneMenu id="attr" value="#{correoBean.atributo}" style="width: 100px;max-width: 100px">
+                                    <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                                    <f:selectItems value="#{correoBean.listaAtributos}"/>
+                                </p:selectOneMenu>
+                                <p:commandButton value="Agregar" actionListener="#{correoBean.agregarPropiedad()}"
+                                                 update="editor"
+                                                 oncomplete="PF('editorMail').saveHTML()"
+                                                 />
+                            </h:panelGrid>
+                            <p:editor id="editor" value="#{correoBean.entidad.htmlCorr}" widgetVar="editorMail" style="width:  100%"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:form>
+            </div>
+        </p:dialog>
+    </body>
+</html>
+

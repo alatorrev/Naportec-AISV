@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <body>
+        <p:growl id="mensaje" showDetail="true" showSummary="false"/>
+        <p:dialog id="dlgPrincipal" widgetVar="dlgPrincipal" width="1100" height="450" showEffect="clip" hideEffect="explode"
+                  resizable="false" fitViewport="true" position="center" header="Aisv - Precargas" onHide="emptyHtml();">
+            <h:form id="formPrincipal">
+
+                <h:panelGrid columns="2" style="width:100%">
+                    <h:panelGrid columns="2" style="float: left;font-size: 16px !important;">
+                        <p:commandButton value="Ayuda" icon="ayuda" style="float: left;width: 100px"  />
+                        <p:commandButton value="Actualizar" icon="actualizar"  update="listado" style="float: left;width: 110px"  />
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" style="float: right;font-size: 16px !important;">
+                        <p:commandButton icon="nuevo"  style="float: left;width: 100px" value="Nuevo" update=":formDatos:datos :formDatos:botones" oncomplete="PF('dlgInformacion').show()" actionListener="#{precargaBean.prepararCrear(evt)}"/>
+                        <p:commandButton value="Importar Datos" style="float: left;width: 150px"  icon="imprimir"  oncomplete="PF('datosCarga').show()" update=":formCarga:datosCrear" />
+                    </h:panelGrid>
+                </h:panelGrid>
+                
+                <p:dataTable id="listado" paginator="true" emptyMessage="No se ha encontrado ningúna Carga de Información"
+                             paginatorPosition="bottom" var="obj" lazy="true" rowKey="#{obj.codigoPrec}"
+                             selectionMode="single" value="#{precargaBean.listadoEntidad}"
+                             selection="#{precargaBean.entidad}"
+                             rows="12" rowsPerPageTemplate="10,12,15,20,30"
+                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                             resizableColumns="true" style="width:100%;height: 100%;font-size: 10px!important;float: left">
+                    <p:ajax event="rowDblselect" listener="#{precargaBean.seleccionarEditar}" update=":formDatos:datos :formDatos:botones" oncomplete="PF('dlgInformacion').show()"/>
+
+                    <p:column headerText="Booking" style="font-size: 90%" filterBy="#{obj.bookingPrec}">
+                        <h:outputText value="#{obj.bookingPrec}"/>
+                    </p:column>
+                    <p:column headerText="Itinerario" style="font-size: 90%" filterBy="#{obj.idItinerarioPrec.descripcionItin}">
+                        <h:outputText value="#{obj.idItinerarioPrec.descripcionItin}"/>
+                    </p:column>
+                    <p:column headerText="Buque" style="font-size: 90%" filterBy="#{obj.idItinerarioPrec.buqueItin}">
+                        <h:outputText value="#{obj.idItinerarioPrec.buqueItin}"/>
+                    </p:column>
+                    <p:column headerText="Exportador" style="font-size: 90%" filterBy="#{obj.importadorPrec}">
+                        <h:outputText value="#{obj.importadorPrec}"/>
+                    </p:column>
+                    <p:column headerText="Condicion" style="font-size: 90%" filterBy="#{obj.condicionContenedorPrec}">
+                        <h:outputText value="#{obj.condicionContenedorPrec}"/>
+                    </p:column>
+                    <p:column headerText="Tipo de Contenedor" style="font-size: 90%">
+                        <h:outputText value="#{obj.tipoContenedorPrec}"/>
+                    </p:column>
+                    <p:column headerText="Espacios" style="font-size: 90%">
+                        <h:outputText value="#{obj.totalEspaciosPrec}"/>
+                    </p:column>
+                    <p:column headerText="Espacios Disponibles" style="font-size: 90%" >
+                        <h:outputText value="#{obj.espaciosDisponiblesPrec}"/>
+                    </p:column>
+                    <p:column headerText="Estado" style="font-size: 90%" >
+                        <h:outputText value="#{obj.estado}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
+        <ui:include src="datos.xhtml"/>
+        <ui:include src="cargaArchivos.xhtml"/>
+    </body>
+</html>
+

@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <p:dialog id="dlgInformacion" widgetVar="dlgInformacion" header="Aisv - Precarga" position="center" modal="true">
+            <div id="divInformacion">
+                <h:form id="formDatos">
+                    <div>
+                        <p:commandButton value="Ayuda" icon="ayuda"  style="float: left;height: 30px;width: 110px"/>
+                        <h:panelGrid columns="6" style="float: right;height: 35px" id="botones">
+                            <p:commandButton id="guardar" icon="guardar"  style="height: 25px" value="" disabled="#{precargaBean.botonGuardar}" actionListener="#{precargaBean.guardarEntidad(evt)}" update=":mensaje datos :formPrincipal:listado">
+                                <p:confirm header="Confirmación" message="Esta seguro que desea realizar la Acción" icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <p:commandButton icon="editar" style="height: 25px" value="" disabled="#{precargaBean.botonEditar}"  actionListener="#{precargaBean.prepararEditar(evt)}" update="datos :formDatos:botones"/>
+                            <p:commandButton icon="eliminar"  style="height: 25px" value="" disabled="#{precargaBean.botonEliminar}"  actionListener="#{precargaBean.eliminarEntidad(evt)}" update=":mensaje datos :formPrincipal:listado">
+                                <p:confirm header="Confirmación" message="Esta seguro que desea Eliminar la Precarga" icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <p:commandButton icon="bloquear" style="height: 25px" value="" disabled="#{precargaBean.botonBloquear}" actionListener="#{precargaBean.bloquearEntidad(evt)}" update="datos :formDatos:botones"/>
+                            <p:commandButton type="button" value="" id="salir" icon="cancelar" style="height: 25px"  onclick="PF('dlgInformacion').hide()"/>
+                            <p:tooltip for="salir" value="Cerrar Pantalla" hideEffect="clip"/>
+                        </h:panelGrid>
+                    </div>
+                    <h:panelGrid columns="2" id="datos" style="float:left">
+                        <p:tabView id="tabDatos" style="float:left;font-size: 12px!important;width: 600px" >
+                            <p:tab title="Información de Carga">
+                                <h:panelGrid columns="1">
+                                    <h:panelGrid columns="4" id="datosCarga" style="float:left">
+                                        <h:outputLabel value="Booking*"/>
+                                        <p:inputText  value="#{precargaBean.entidad.bookingPrec}"/>
+                                        <h:outputLabel value="Itinerario*"/>
+                                        <p:selectOneMenu value="#{precargaBean.entidad.idItinerarioPrec}" style="width: 170px" var="combito"
+                                                         filter="true" filterMatchMode="contains" converter="itinerarioConverter">
+                                            <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                                            <f:selectItems value="#{itinerarioBean.listado}" var="cmb" itemLabel="#{cmb.descripcionItin}" itemValue="#{cmb}"/>
+                                            <p:column>
+                                                #{combito.descripcionItin}
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{combito.fechaZarpeItin}">
+                                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                                                </h:outputText>
+                                            </p:column>
+                                        </p:selectOneMenu>
+                                        <h:outputLabel value="Condicion*"/>
+                                        <p:selectOneMenu  value="#{precargaBean.entidad.condicionContenedorPrec}">
+                                            <p:ajax update=":formDatos:tabDatos:pnlCarga :formDatos:tabDatos:tipocontenedor"/>
+                                            <f:selectItem itemLabel="LCL/LCL" itemValue="LCL/LCL" />
+                                            <f:selectItem itemLabel="FCL/FCL" itemValue="FCL/FCL" />
+                                            <f:selectItem itemLabel="LCL/FCL" itemValue="LCL/FCL" />
+                                        </p:selectOneMenu>
+                                        <h:outputLabel value="RUC Exportador*"/>
+                                        <p:inputText  value="#{precargaBean.entidad.impExpIdPrec}" />   
+                                        <h:outputLabel value="Exportador*"/>
+                                        <p:inputText value="#{precargaBean.entidad.importadorPrec}"/>
+                                        <h:outputLabel value="Producto*"/>
+                                        <p:inputText value="#{precargaBean.entidad.descripcionPrec}"/>
+                                        <h:outputLabel value="Carga Peligrosa*"/>
+                                        <p:selectBooleanButton value="#{precargaBean.entidad.cargaPeligrosaPrec}" onLabel="Si" offLabel="No" style="width:60px"/>
+                                        <h:outputLabel value="Codigo IMO*"/>
+                                        <p:inputText value="#{precargaBean.entidad.codigoImoPre}"/>
+                                    </h:panelGrid>
+                                    <p:panel id="pnlCarga" style="background: transparent;border: 0px;width: 95%;margin-top: -10px;margin-left: -10px;float: left;height: 80px" visible="#{precargaBean.entidad.condicionContenedorPrec eq 'FCL/FCL'}">
+                                        <h:panelGrid columns="4">
+                                            <h:outputLabel id="tipoLabel" value="Tipo Contenedor*"/>
+                                            <p:inputText id="tipocontenedor" value="#{precargaBean.entidad.tipoContenedorPrec}"/>
+                                            <h:outputLabel value="Total Espacios*"/>
+                                            <p:inputText value="#{precargaBean.entidad.totalEspaciosPrec}"/>
+                                            <h:outputLabel value="Peso*"/>
+                                            <p:inputText value="#{precargaBean.entidad.pesoPrec}"/>
+                                            <h:outputLabel value="Temperatura*"/>
+                                            <p:inputText value="#{precargaBean.entidad.temperaturaPrec}"/>
+                                            <h:outputLabel value="Ventilación*"/>
+                                            <p:inputText value="#{precargaBean.entidad.ventilacionPrec}"/>
+                                        </h:panelGrid>  
+                                    </p:panel>
+                                </h:panelGrid>
+                            </p:tab>
+                            <p:tab title="Puertos">
+                                <p:panel toggleable="true" header="Puertos">
+                                    <h:panelGrid columns="4" cellpadding="5" id="datosPuerto">
+                                        <p:outputLabel value="Origen" for="po" />
+                                        <p:autoComplete id="po" value="#{precargaBean.origen}" completeMethod="#{puertoBean.completePuerto}"
+                                                        var="cmbOrigen" itemLabel="#{cmbOrigen.nombrePuer}" itemValue="#{cmbOrigen}" 
+                                                        converter="puertoConverter">
+                                            <p:column>
+                                                <h:outputText value="#{cmbOrigen.nombrePuer}" />
+                                            </p:column>
+
+                                            <p:column>
+                                                <h:outputText value="#{cmbOrigen.codPuertoPuer}" />
+                                            </p:column>
+                                        </p:autoComplete>
+                                        <p:outputLabel value="Destino" for="pu" />
+                                        <p:autoComplete id="pu" value="#{precargaBean.destino}" completeMethod="#{puertoBean.completePuerto}"
+                                                        var="cmbDestino" itemLabel="#{cmbDestino.nombrePuer}" itemValue="#{cmbDestino}" 
+                                                        converter="puertoConverter" >
+                                            <p:column>
+                                                <h:outputText value="#{cmbDestino.nombrePuer}" />
+                                            </p:column>
+
+                                            <p:column>
+                                                <h:outputText value="#{cmbDestino.codPuertoPuer}" />
+                                            </p:column>
+                                        </p:autoComplete>
+                                        <p:outputLabel value="Trasbordo" for="pt" />
+                                        <p:autoComplete id="pt" value="#{precargaBean.trasbordo}" completeMethod="#{puertoBean.completePuerto}"
+                                                        var="cmbTrasbordo" itemLabel="#{cmbTrasbordo.nombrePuer}" itemValue="#{cmbTrasbordo}" 
+                                                        converter="puertoConverter">
+                                            <p:column>
+                                                <h:outputText value="#{cmbTrasbordo.nombrePuer}" />
+                                            </p:column>
+
+                                            <p:column>
+                                                <h:outputText value="#{cmbTrasbordo.codPuertoPuer}" />
+                                            </p:column>
+                                        </p:autoComplete>
+                                    </h:panelGrid>
+                                </p:panel>
+                            </p:tab>
+                        </p:tabView>
+                    </h:panelGrid>
+                </h:form>
+            </div>
+        </p:dialog>
+    </body>
+</html>
+

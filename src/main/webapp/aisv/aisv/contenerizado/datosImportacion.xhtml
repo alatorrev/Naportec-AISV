@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <style>
+            .ui-selectonemenu-trigger{
+                margin-right: -9px !important;
+                margin-top: -2px !important;
+            }
+        </style>
+        <script>
+            function handleSaveRequestImp(xhr, status, args) {
+                if (args.notValid || args.validationFailed)
+                    return;
+                PF('dlgAisvImpCont').hide();
+                PF('dlgNuevo').hide();
+                PF('dlgReporte').show();
+            }
+        </script>
+        <p:dialog id="dialogImportacion" widgetVar="dlgAisvImpCont" position="center" header="AISV - Nuevo Importación Carga Contenerizada" modal="true" hideEffect="fade" showEffect="clip" width="660px">
+            <h:form id="formDatos">
+                <p:commandButton value="Ayuda" icon="ayuda"  style="float: left;height: 30px;width: 110px"/>
+                <p:commandButton id="guardar" value="Guardar AISV" icon="guardar"  style="float: right;height: 30px;width: 150px"
+                                 actionListener="#{contenerizadoBean.guardarAISV()}" oncomplete="handleSaveRequestImp(xhr, status, args)"
+                                 update=":formDatos:tabDatos :formPrincipal:tabViewDatos :formDatos:guardar  :formGeneral:pnlReporte  :formGeneral:listado"
+                                 rendered="#{contenerizadoBean.seleccionadoEksat.activoImpo}"/>
+                <p:tabView id="tabDatos" style="float:left;font-size: 12px!important" rendered="#{contenerizadoBean.seleccionadoEksat.activoImpo}">
+                    <p:tab title="Información de Carga">
+                        <h:panelGrid columns="4" id="datosCarga" style="float:left">
+                            <h:outputLabel value="Nave"/>
+                            <p:inputText  value="#{contenerizadoBean.transaccion.codigoPrec.idItinerarioPrec.descripcionItin}" disabled="true"/>
+                            <h:outputLabel value="Linea"/>
+                            <p:inputText  value="#{contenerizadoBean.transaccion.codigoPrec.idLineaPrec.nombreNavi}"  disabled="true"/>
+                            <h:outputLabel value="BL Master"/>
+                            <p:inputText  value="#{contenerizadoBean.transaccion.codigoPrec.blmasterPrec}"  disabled="true"/>
+                            <h:outputLabel value="BL Hijo"/>
+                            <p:inputText  value="#{contenerizadoBean.transaccion.codigoPrec.blhijoPrec}"  disabled="true"/>
+                            <h:outputLabel value="Contenedor"/>
+                            <p:inputText id="contimpo" value="#{contenerizadoBean.transaccion.contenedorTrans}" disabled="true"/>
+                            <h:outputLabel value="Tipo de Contenedor"/>
+                            <p:inputText value="#{contenerizadoBean.transaccion.codigoPrec.tipoContenedorPrec}"  disabled="true"/>
+                            <h:outputLabel value="Descripción"/>
+                            <p:inputText  value="#{contenerizadoBean.transaccion.codigoPrec.descripcionPrec}"  disabled="true"/>
+                            <h:outputLabel value="Temperatura"/>
+                            <p:inputText value="#{contenerizadoBean.transaccion.codigoPrec.temperaturaPrec}" disabled="true"/>
+                            <h:outputLabel value="Carga Peligrosa"/>
+                            <p:selectBooleanButton value="#{contenerizadoBean.transaccion.codigoPrec.peligrosa}" onLabel="Si" offLabel="No" style="width:60px" disabled="true"/>
+                            <h:outputLabel value="Codigo Carga Peligrosa"/>
+                            <p:inputText value="#{contenerizadoBean.transaccion.codigoPrec.codigoImoPre}" disabled="true"/>
+                        </h:panelGrid>
+                        <p:tooltip for="contimpo" value="El contenedor debe tener Números y Letras"/>
+                    </p:tab>
+                    <p:tab title="Sellos y Puertos">
+                        <p:panel toggleable="true" header="Sellos">
+                            <h:panelGrid columns="4" id="datosSello">
+                                <h:outputLabel value="Sello 1"/>
+                                <p:inputText  value="#{contenerizadoBean.transaccion.selloUnoTrans}" readonly="true"/>
+                                <h:outputLabel value="Sello 2"/>
+                                <p:inputText value="#{contenerizadoBean.transaccion.selloDosTrans}" readonly="true"/>
+                                <h:outputLabel value="Sello 3"/>
+                                <p:inputText value="#{contenerizadoBean.transaccion.selloTresTrans}" readonly="true" />
+                                <h:outputLabel value="Sello 4"/>
+                                <p:inputText value="#{contenerizadoBean.transaccion.selloCuatroTrans}" readonly="true"/>
+                            </h:panelGrid>
+                        </p:panel>
+                        <p:panel toggleable="true" header="Puertos">
+                            <h:panelGrid columns="4" cellpadding="5" id="datosPuerto">
+                                <p:outputLabel value="Origen" for="po" />
+                                <p:autoComplete id="po" value="#{contenerizadoBean.origen}" completeMethod="#{puertoBean.completePuerto}"
+                                                var="cmbOrigen" itemLabel="#{cmbOrigen.nombrePuer}" itemValue="#{cmbOrigen}" 
+                                                converter="puertoConverter" disabled="#{not empty contenerizadoBean.origen.codigoPuer}">
+                                    <p:column>
+                                        <h:outputText value="#{cmbOrigen.nombrePuer}" />
+                                    </p:column>
+
+                                    <p:column>
+                                        <h:outputText value="#{cmbOrigen.codPuertoPuer}" />
+                                    </p:column>
+                                </p:autoComplete>
+                                <p:outputLabel value="Destino" for="pu" />
+                                <p:autoComplete id="pu" value="#{contenerizadoBean.destino}" completeMethod="#{puertoBean.completePuerto}"
+                                                var="cmbDestino" itemLabel="#{cmbDestino.nombrePuer}" itemValue="#{cmbDestino}" 
+                                                converter="puertoConverter" disabled="#{not empty contenerizadoBean.destino.codigoPuer}">
+                                    <p:column>
+                                        <h:outputText value="#{cmbDestino.nombrePuer}" />
+                                    </p:column>
+
+                                    <p:column>
+                                        <h:outputText value="#{cmbDestino.codPuertoPuer}" />
+                                    </p:column>
+                                </p:autoComplete>
+                                <p:outputLabel value="Trasbordo" for="pt" />
+                                <p:autoComplete id="pt" value="#{contenerizadoBean.trasbordo}" completeMethod="#{puertoBean.completePuerto}"
+                                                var="cmbTrasbordo" itemLabel="#{cmbTrasbordo.nombrePuer}" itemValue="#{cmbTrasbordo}" 
+                                                converter="puertoConverter" disabled="#{not empty contenerizadoBean.trasbordo.codigoPuer}">
+                                    <p:column>
+                                        <h:outputText value="#{cmbTrasbordo.nombrePuer}" />
+                                    </p:column>
+
+                                    <p:column>
+                                        <h:outputText value="#{cmbTrasbordo.codPuertoPuer}" />
+                                    </p:column>
+                                </p:autoComplete>
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+                    <p:tab title="Información de Retiro">
+                        <h:panelGrid columns="1" id="datosRetiro" style="float:left">
+                            <h:panelGrid columns="4">
+                                <p:outputLabel for="prop" value="Propósito de Carga"/>
+                                <p:selectOneMenu id="prop"  value="#{contenerizadoBean.transaccion.propositoCargaTrans}" style="width: 140px" panelStyle="width: 140px"
+                                                 filter="true" filterMatchMode="contains" converter="propositoConverter">
+                                    <f:selectItems value="#{propositoBean.listadoImpoCont()}" var="cmbPropositoImpo" itemLabel="#{cmbPropositoImpo.descripcionProp}" itemValue="#{cmbPropositoImpo}"/>
+                                </p:selectOneMenu>  
+                            </h:panelGrid>
+
+                            <p:panel header="Datos de Persona que Retirará" toggleable="true" style="width: 100%">
+                                <h:panelGrid columns="4">
+                                    <h:outputLabel value="Nombre"/>
+                                    <p:inputText value="#{contenerizadoBean.transaccion.nombreRetiraTrans}" style="width: 200px"/>
+                                    <h:outputLabel value="Cédula"/>
+                                    <p:inputText value="#{contenerizadoBean.transaccion.cedulaRetiraTrans}"/>
+                                </h:panelGrid>
+                            </p:panel>
+                            <p:panel header="Datos de Transportista" toggleable="true"  style="width: 100%">
+                                <h:panelGrid columns="4">
+                                    <h:outputText value="Documento Identificador"/>
+                                    <p:selectOneMenu id="doc_identificador" value="#{contenerizadoBean.transaccion.documentoIdentificador}" style="width: 140px" panelStyle="width: 140px">
+                                        <f:selectItem itemLabel="Cédula" itemValue="Cédula"/>
+                                        <f:selectItem itemLabel="Pasaporte" itemValue="Pasaporte"/>
+                                    </p:selectOneMenu>
+                                    <h:inputHidden/>
+                                    <h:inputHidden/>
+                                    <h:outputLabel id="lbl_tipoIdentificador" value="Número de Documento"/>
+                                    <p:inputText value="#{contenerizadoBean.transaccion.cedulaTrasnportistaTrans}">
+                                        <p:ajax event="blur" listener="#{contenerizadoBean.cargarNombreTransportista()}" update="nomtransimp"/>
+                                    </p:inputText>
+                                    <h:outputLabel value="Nombre"/>
+                                    <p:inputText id="nomtransimp" value="#{contenerizadoBean.transaccion.nombreTrasnportistaTrans}" size="40" readonly="true"/>
+                                    <h:outputLabel value="Placa"/>
+                                    <p:inputText value="#{contenerizadoBean.transaccion.placaTrasnportistaTrans}"/>
+                                    <h:outputLabel value="Guía de Remisión"/>
+                                    <p:inputText value="#{contenerizadoBean.transaccion.guiaRemisionTrans}"/>
+                                </h:panelGrid>
+                                <h:outputText style="font-size: 12px;font-weight: bolder" value="En caso de no tener placa ingrese su permiso provisional"/>
+                            </p:panel>
+
+                            <p:panel header="Datos de Retiro" style="width: 100%">
+                                <h:panelGrid columns="4">
+                                    <h:outputLabel value="Numero de Factura"/>
+                                    <p:inputText value="#{contenerizadoBean.transaccion.codigo_pago.numeroPago}"/>
+                                    <h:outputLabel value="Fecha de Retiro"/>
+                                    <p:calendar value="#{contenerizadoBean.transaccion.fechaRetiroTrans}" pattern="yyyy-MM-dd"/>
+                                </h:panelGrid>
+                            </p:panel>
+                        </h:panelGrid>
+                    </p:tab>
+                </p:tabView>
+                <br/>
+                <br/>
+                <p:panel rendered="#{not contenerizadoBean.seleccionadoEksat.activoImpo}" style="float:left;width: 100%">
+                    <h3>No puede Realizar mas AISV sobre esta carga</h3>
+                    <p>Anteriormenet ya realizo un AISV</p>
+                    <center>
+                        <p:commandButton value="Salir" onclick="PF('dlgAisvImpCont').hide()"/>
+                    </center>
+                </p:panel>
+            </h:form>
+        </p:dialog>
+    </body>
+</html>
+

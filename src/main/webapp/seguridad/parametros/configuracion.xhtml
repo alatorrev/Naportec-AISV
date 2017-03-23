@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+        <p:growl id="mensaje" showDetail="true" showSummary="false"/>
+        <p:dialog id="dlgPrincipal" widgetVar="dlgPrincipal" width="600" height="300" showEffect="clip" hideEffect="explode"
+                  resizable="false" fitViewport="true" position="center" header="Aisv - Parametros de Clave" onHide="emptyHtml();">
+            <h:form id="formPrincipal">
+                <p:panel header="Parámetros de Clave">
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Tamaño Minimo de Clave"/>
+                        <p:inputText value="#{parametroBean.parametro.paramTamMin}"/>
+                        <p:outputLabel value="Tamaño Máximo de Clave"/>
+                        <p:inputText value="#{parametroBean.parametro.paramTamMax}"/>
+                        <p:outputLabel value="Cantidad de Números"/>
+                        <p:inputText value="#{parametroBean.parametro.paramCantNumeros}"/>
+                        <p:outputLabel value="Cantidad de Letras"/>
+                        <p:inputText value="#{parametroBean.parametro.paramCantLetras}"/>
+                        <p:outputLabel value="Cantidad de Caracteres Especiales"/>
+                        <p:inputText value="#{parametroBean.parametro.paramCantEspeciales}"/>
+                        <p:outputLabel value="Caducidad de las Claves"/>
+                        <p:inputText value="#{parametroBean.parametro.paramCantEspeciales}"/>
+                    </h:panelGrid>
+
+                </p:panel>
+                <hr/>
+                <p:commandButton value="Actualizar" icon="actualizar" style="float: left;width: 150px;height: 35px;text-align: center;font-size: 14px"  actionListener="#{parametroBean.modificarParametros()}"
+                                 update=":mensaje" />
+            </h:form>
+        </p:dialog>
+    </body>
+</html>
+

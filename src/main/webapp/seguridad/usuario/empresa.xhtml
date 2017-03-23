@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+     <body>
+            <p:growl id="mensaje" showDetail="true" showSummary="false"/>
+            <p:dialog id="dlgPrincipal" widgetVar="dlgPrincipal" width="700" height="450" showEffect="clip" hideEffect="explode"
+                      resizable="false" fitViewport="true" position="center" header="Aisv - Mi Empresa" onHide="emptyHtml();">
+            <h:form id="formContacto">
+                <h:panelGrid columns="1" id="tabViewDatos">
+                    <p:panel id="panpanpan" header="Datos Generales">
+                        <h:panelGrid columns="4" cellpadding="2" style="text-align: right;font-weight: 900;color: #000000">
+                            <p:outputLabel value="NOMBRE:" for="cnombre" />
+                            <p:inputText id="cnombre" value="#{usuarioBean.entidad.codigoSoli.nombreSoli}" style="width: 400px!important;text-transform: uppercase" readonly="true"/>
+                            <p:column/>
+                            <p:column/>
+                            <p:outputLabel value="TIPO IDENTIFICACION:" for="ctipo" />
+                            <p:selectOneMenu widgetVar="tipoIde" id="ctipo" style="float: left" value="#{usuarioBean.entidad.codigoSoli.tipoIdentificacionSoli}" disabled="true">
+                                <f:selectItem itemValue="ruc" itemLabel="RUC"/>
+                                <f:selectItem itemValue="cedula" itemLabel="CEDULA"/>
+                                <f:selectItem itemValue="pasaporte" itemLabel="PASAPORTE"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="IDENTIFICACION:" for="cident"  style="float: left !important;margin-left: -300px"/>
+                            <p:inputText id="cident" value="#{usuarioBean.entidad.codigoSoli.identificacionSoli}"  style="width: 150px!important;float: left !important;margin-left: -176px"  
+                                         readonly="true"/>
+                            <p:outputLabel value="DIRECCIÓN:"/>
+                            <p:inputTextarea  value="#{usuarioBean.entidad.codigoSoli.direccionSoli}"  style="float: left !important;width: 400px!important"/>
+                            <p:column/>
+                            <p:column/>
+                            <p:outputLabel value="TIPO DE CONTACTO:" for="ctipocontacto" />
+                            <p:selectOneMenu id="ctipocontacto" value="#{usuarioBean.entidad.codigoSoli.tipoContactoSoli}" style="float: left !important;" disabled="true">
+                                <p:ajax update=":formContacto:pnlNaviera"/>
+                                <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                                <f:selectItem itemLabel="AGENTE AFIANZADO" itemValue="AA"/>
+                                <f:selectItem itemLabel="IMPORTADOR/EXPORTADOR" itemValue="IE"/>
+                                <f:selectItem itemLabel="NAVIERA" itemValue="NA"/>
+                            </p:selectOneMenu>
+                            <p:column/>
+                            <p:column/>
+                            <p:outputLabel value="CORREO NOTIF." />
+                            <p:inputText id="cemail" value="#{usuarioBean.entidad.codigoSoli.correoSoli}" style="width: 400px!important;float: left !important;" />
+                            <p:watermark for="cemail" value="Ejm: contacto@dole.com;miempresa@hotmail.com"/>
+                            <p:column/> <p:column/>
+                            <h:outputText value="*Para registrar más de una dirección de correo utilice el separador ( ; )  " style="float: left !important;font-weight: normal"/>
+                            <p:column/><p:column/>
+                            <p:outputLabel value="TELEFONO:"/>
+                            <p:inputText value="#{usuarioBean.entidad.codigoSoli.telefonoSoli}" style="width: 100px!important;float: left !important;"  onkeypress="ValidarNumeros(this.value, 15)"/>
+                            <p:inputText value="#{usuarioBean.entidad.codigoSoli.celularSoli}" style="width: 100px!important;float: left !important;margin-left: -160px"  onkeypress="ValidarNumeros(this.value, 10)"/>
+                            <p:outputLabel value="CELULAR:"  style="width: 100px!important;float: left !important;margin-left: -300px"/>
+
+                        </h:panelGrid>
+                        <p:panel id="pnlNaviera" style="background: transparent;border: 0px;margin-left: 35px" visible="#{usuarioBean.entidad.codigoSoli.tipoContactoNaviera}">
+                            <h:panelGrid columns="2" style="text-align: right;font-weight: 900;color: #000000">
+                                <p:outputLabel value="CODIGO OCE:" for="coce" />
+                                <p:inputText id="coce" value="#{usuarioBean.entidad.codigoSoli.oceSoli}" style="width: 100px!important;float: left !important;"/>
+                                <p:outputLabel value="CODIGO CAE:" for="cdes" />
+                                <p:inputText id="cdes" value="#{usuarioBean.entidad.codigoSoli.descripcionSoli}" style="width: 100px!important;float: left !important;">
+                                </p:inputText>
+                            </h:panelGrid>
+                        </p:panel>
+                        <p:tooltip for="cemail" value="Correo para notificación Antinarcóticos"  />
+                    </p:panel>
+                </h:panelGrid>
+                <br/>
+                <center>
+                    <p:commandButton value="Actualizar Información General" style="height: 30px;width: 300px;text-align: center;font-size: 14px!important;float: bottom" 
+                                     actionListener="#{usuarioBean.modificarEmpresa()}" update=":mensaje tabViewDatos"/>   
+                </center>
+            </h:form>
+                </p:dialog>
+    </body>
+</html>
+

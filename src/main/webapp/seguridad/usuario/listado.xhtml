@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <body>
+        <p:growl id="mensaje" showDetail="true" showSummary="false"/>
+        <p:dialog id="dlgPrincipal" widgetVar="dlgPrincipal" width="800" height="310" showEffect="clip" hideEffect="explode"
+                  resizable="false" fitViewport="true" position="center" header="Usuarios del Sistema" onHide="emptyHtml();">
+            <h:form id="formPrincipal">
+                <h:panelGrid columns="2" style="float: left">
+                    <p:commandButton icon="nuevo" value="Nuevo" update=":formDatos:datos :formDatos:botones" 
+                                     oncomplete="PF('dlgInformacion').show()" 
+                                     style="font-size: 14px;width: 110px;height: 30px"
+                                     actionListener="#{usuarioBean.prepararCrear(evt)}"/>
+                    <p:commandButton value="Imprimir"  icon="imprimir"  
+                                     style="font-size: 14px;width: 110px;height: 30px"/>
+                </h:panelGrid>
+                <p:dataTable id="listado" paginator="true" emptyMessage="No se ha encontrado ningún Usuario"
+                             paginatorPosition="bottom" var="obj" lazy="true" rowKey="#{obj.usrId}"
+                             selectionMode="single" value="#{usuarioBean.listadoEntidad}"
+                             selection="#{usuarioBean.entidad}" style="float: left;font-size: 75%"
+                             rows="9" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                             rowsPerPageTemplate="5,9,12">
+
+                    <p:ajax event="rowDblselect" listener="#{usuarioBean.seleccionarEditar}" update=":formDatos:datos :formDatos:botones" oncomplete="PF('dlgInformacion').show()"/>
+
+                    <p:column headerText="Usuario" style="font-size: 90%" filterBy="#{obj.usrLoginname}" filterMatchMode="contains">
+                        <h:outputText value="#{obj.usrLoginname}"/>
+                    </p:column>
+                    <p:column headerText="Nombres" style="font-size: 90%" filterBy="#{obj.usrFirstname}" filterMatchMode="contains">
+                        <h:outputText value="#{obj.usrFirstname}"/>
+                    </p:column>
+                    <p:column headerText="Email" style="font-size: 90%" filterBy="#{obj.usrEmail}" filterMatchMode="contains">
+                        <h:outputText value="#{obj.usrEmail}"/>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
+        <ui:include src="datos.xhtml"/>
+    </body>
+</html>
+

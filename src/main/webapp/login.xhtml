@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Naportec AISV</title>
+        <h:outputStylesheet name="/css/principal.css"/>
+        <h:outputScript name="/js/Validaciones.js"/>
+        <link rel="shortcut icon" href="#{resource['iconos/favicon.ico']}" type="image/x-icon" />
+        <meta http-equiv="refresh" content="#{facesContext.externalContext.sessionMaxInactiveInterval}"/>
+    </h:head>
+    <h:body>
+        <p:growl id="mensaje" showDetail="true" showSummary="false"/>
+        <p:graphicImage id="imagenSuperior" value="resources/images/naportec_login1.png"/>
+        <h:form id="login">
+
+            <div id="panelLogin">
+                <p  class="textoInicial">BIENVENIDO AL SISTEMA DE AUTORIZACIÓN</p>
+                <p class="textoInicial2">DE INGRESO Y SALIDA VEHICULAR</p>
+                <hr/>
+                <p class="textologin">Si usted ya está registrado en el sistema ingrese el usuario y la contraseña. </p>
+                <p class="textologin">
+                    Para registrarse al sistema usted deberá ingresar sus datos realizando la
+                    respectiva solicitud de contacto.<strong onclick="PF('dlgContacto').show()">REGÍSTRESE AQUÍ</strong>
+                </p>
+                <br/>
+                <hr/>
+                <br/>
+                <div id="panelInternoLogin">
+                    <br/>
+                    <p:messages id="msg" showDetail="true" closable="true" style="font-size: 11px;margin-top: -17px;margin-left: 5px;margin-right: 5px"  />
+                    <h:panelGrid id="datosLogin" cellpadding="5" cellspacing="0" columns="2" style="text-align: right;width: 90%;margin-top: 10px">
+                        <p:outputLabel id="lbuser" styleClass="texto" for="user" value="USUARIO:"/>
+                        <p:inputText id="user" value="#{loginBean.userName}"/>
+                        <p:outputLabel id="lbpass"  styleClass="texto" for="pass" value="CONTRASEÑA:"/>
+                        <p:password id="pass" value="#{loginBean.password}"/>
+                        <p:column/>
+                        <strong id="recuperar" onclick="PF('dlgRecuperar').show()">¿Olvidó su Contraseña?</strong>
+                        <p:column/>
+                        <h:panelGrid columns="2" width="100%">
+                            <p:commandButton value="Aceptar" actionListener="#{loginBean.login}" update="msg" onerror="comprobarStatus()"/>
+                            <p:commandButton value="Cancelar"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </div>
+                <br/><br/><br/>
+            </div>
+        </h:form>
+        <p:graphicImage id="imagenInferior" value="resources/images/dole_login1.png"/>
+        <ui:include src="solicitudContacto2.xhtml"/>
+        <ui:include src="recuperarPassword.xhtml"/>
+    </h:body>
+
+</html>
+

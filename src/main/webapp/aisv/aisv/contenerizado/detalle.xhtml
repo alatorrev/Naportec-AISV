@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <p:dialog widgetVar="dlgDetalle" width="700px" height="300px" header="Detalle del AISV" modal="true">
+            <h:form id="formDetalle">
+              <p:tabView id="datos" style="float:left;font-size: 12px!important">
+                    <p:tab title="Información de Carga" id="tabCarga">
+                        <h:panelGrid columns="4" id="datosCarga" style="float:left">
+                            <h:outputLabel value="Nave"/>
+                            <p:inputText  value="#{contenerizadoBean.transaccion.codigoPrec.idItinerarioPrec.descripcionItin}" readonly="true"/>
+                            <h:outputLabel value="Linea"/>
+                            <p:inputText  value="#{contenerizadoBean.transaccion.codigoPrec.idLineaPrec.nombreNavi}"  readonly="true"/>
+                            <h:outputLabel value="Contenedor"/>
+                            <p:inputText value="#{contenerizadoBean.transaccion.contenedorTrans}"  readonly="true"/>
+                            <h:outputLabel value="Tipo de Contenedor"/>
+                            <p:inputText value="#{contenerizadoBean.transaccion.codigoPrec.tipoContenedorPrec}"  readonly="true"/>
+                            <h:outputLabel value="Booking"  rendered="#{contenerizadoBean.tipoTrasaccion eq 'E'}"/>
+                            <p:inputText value="#{contenerizadoBean.transaccion.codigoPrec.bookingPrec}"  readonly="true"  rendered="#{contenerizadoBean.tipoTrasaccion eq 'E'}"/>
+                            <h:outputLabel value="BL Master"  rendered="#{contenerizadoBean.tipoTrasaccion eq 'I'}"/>
+                            <p:inputText  value="#{contenerizadoBean.transaccion.codigoPrec.blmasterPrec}"  readonly="true"  rendered="#{contenerizadoBean.tipoTrasaccion eq 'I'}"/>
+                            <h:outputLabel value="BL Hijo"  rendered="#{contenerizadoBean.tipoTrasaccion eq 'I'}"/>
+                            <p:inputText  value="#{contenerizadoBean.transaccion.codigoPrec.blhijoPrec}"  readonly="true"  rendered="#{contenerizadoBean.tipoTrasaccion eq 'I'}"/>
+                            <h:outputLabel value="Producto"/>
+                            <p:inputText  value="#{contenerizadoBean.transaccion.codigoPrec.descripcionPrec}"  readonly="true"/>   
+                            <h:outputLabel value="Temperatura"/>
+                            <p:inputText value="#{contenerizadoBean.transaccion.codigoPrec.temperaturaPrec}"  readonly="true"/>
+                            <h:outputLabel value="Peso"/>
+                            <p:inputText value="#{contenerizadoBean.transaccion.codigoPrec.pesoPrec}"  readonly="true"/>
+                            <h:outputLabel value="Ventilacion"/>
+                            <p:inputText value="#{contenerizadoBean.transaccion.codigoPrec.ventilacionPrec}"  readonly="true"/>
+                            <p:column/>  <p:column/>
+                            <h:outputLabel value="Carga Peligrosa"/>
+                            <p:selectBooleanButton value="#{contenerizadoBean.transaccion.codigoPrec.peligrosa}" onLabel="Si" offLabel="No" style="width:60px" disabled="true"/>
+                            <h:outputLabel value="Codigo Carga Peligrosa"/>
+                            <p:inputText value="#{contenerizadoBean.transaccion.codigoPrec.codigoImoPre}"  readonly="true"/>   
+                        </h:panelGrid>
+                          <h:panelGrid columns="2">
+                            <h:outputLabel value="DAES    " rendered="#{contenerizadoBean.tipoTrasaccion eq 'E'}"/> 
+                            <p:inputText id="dae1" value="#{contenerizadoBean.transaccion.daesTrans}" style="width: 300px" rendered="#{contenerizadoBean.tipoTrasaccion eq 'E'}"/>
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Sellos" id="tabSelloPuerto">
+                        <p:panel toggleable="true" header="Sellos" id="sell">
+                            <h:panelGrid columns="4" id="datosSello" rendered="#{contenerizadoBean.tipoTrasaccion eq 'E'}">
+                                <h:outputLabel value="Sello Naviera"/>
+                                <p:inputText  value="#{contenerizadoBean.transaccion.selloUnoTrans}" readonly="true"/>
+                                <h:outputLabel value="Sello Ventila"/>
+                                <p:inputText value="#{contenerizadoBean.transaccion.selloDosTrans}" readonly="true"/>
+                                <h:outputLabel value="Sello Opcional"/>
+                                <p:inputText value="#{contenerizadoBean.transaccion.selloTresTrans}"  readonly="true"/>
+                                <h:outputLabel value="Sello Opcional"/>
+                                <p:inputText value="#{contenerizadoBean.transaccion.selloCuatroTrans}" readonly="true"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="4" rendered="#{contenerizadoBean.tipoTrasaccion eq 'I'}">
+                                <h:outputLabel value="Sello 1"/>
+                                <p:inputText  value="#{contenerizadoBean.transaccion.selloUnoTrans}" readonly="true"/>
+                                <h:outputLabel value="Sello 2"/>
+                                <p:inputText value="#{contenerizadoBean.transaccion.selloDosTrans}" readonly="true"/>
+                                <h:outputLabel value="Sello 3"/>
+                                <p:inputText value="#{contenerizadoBean.transaccion.selloTresTrans}"  readonly="true"/>
+                                <h:outputLabel value="Sello 4"/>
+                                <p:inputText value="#{contenerizadoBean.transaccion.selloCuatroTrans}" readonly="true"/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+                    <p:tab title="Puertos">
+                        <p:panel toggleable="true" header="Fecha y Puertos" id="porto">
+                            <h:panelGrid columns="2" rendered="#{contenerizadoBean.tipoTrasaccion eq 'E'}">
+                                <h:outputLabel value="Fecha de Salida de Planta"/>
+                                <p:calendar  value="#{contenerizadoBean.transaccion.fechaSalidaTrans}" pattern="MM/dd/yyyy HH:mm:ss" disabled="true"/>
+                                <h:outputLabel value="Ciudad de Planta"/>
+                                <p:inputText value="#{contenerizadoBean.transaccion.ciudadPlantaTrans}" readonly="true"/>
+                                <h:outputLabel value="Dirección de Planta"/>
+                                <p:inputTextarea value="#{contenerizadoBean.transaccion.direccionPlantaTrans}" style="width: 300px !important"  readonly="true"/>
+                            </h:panelGrid> 
+                       
+                        <h:panelGrid columns="4" cellpadding="5" id="datosPuerto">
+                          <h:outputLabel value="Origen"/>
+                            <p:inputText value="#{contenerizadoBean.transaccion.puertoOrigenTrans}" style="width: 170px" readonly="true"/>
+                            <h:outputLabel value="Destino"/>
+                            <p:inputText value="#{contenerizadoBean.transaccion.puertoDestinoTrans}"  style="width: 170px" readonly="true"/>
+                            <h:outputLabel value="Trasbordo"/>
+                            <p:inputText value="#{contenerizadoBean.transaccion.puertoTrasbordoTrans}"  style="width: 170px" rendered="true"/>
+
+                        </h:panelGrid>
+                             </p:panel>
+                    </p:tab>
+                    <p:tab title="Información de Entrega">
+                        <h:panelGrid columns="1" id="datosRetiro" style="float:left">
+                            <h:panelGrid columns="6"  cellpadding="5" >
+                                <p:outputLabel for="prop" value="Propósito de Carga"/>
+                                <p:selectOneMenu id="prop"  value="#{contenerizadoBean.transaccion.propositoCargaTrans}" style="width: 140px" panelStyle="width: 140px"
+                                                 filter="true" filterMatchMode="contains" converter="propositoConverter">
+                                    <f:selectItems value="#{propositoBean.listadoExpoCont()}" var="cmbPropositoDet" itemLabel="#{cmbPropositoDet.descripcionProp}" itemValue="#{cmbPropositoDet}"/>
+                                </p:selectOneMenu>
+                                <h:outputLabel value="Susceptible a Cupo" rendered="#{contenerizadoBean.tipoTrasaccion eq 'E'}"/>
+                                <p:selectBooleanButton value="#{contenerizadoBean.transaccion.cupoCargaTrans}" onLabel="Si" offLabel="No" style="width:60px" rendered="#{contenerizadoBean.tipoTrasaccion eq 'E'}"/>
+                                <h:outputLabel value="#Cajas" rendered="#{contenerizadoBean.tipoTrasaccion eq 'E'}"/>
+                                <p:inputText  value="#{contenerizadoBean.transaccion.numeroCajasTrans}" rendered="#{contenerizadoBean.tipoTrasaccion eq 'E'}" readonly="true"/>
+                                <p:outputLabel for="emba" value="Embalaje" rendered="#{contenerizadoBean.tipoTrasaccion eq 'E'}"/>
+                                <p:selectOneMenu id="emba"  value="#{contenerizadoBean.transaccion.embalajeTrans}" style="width: 140px" panelStyle="width: 140px"
+                                                 filter="true" filterMatchMode="contains" converter="embalajeConverter" rendered="#{contenerizadoBean.tipoTrasaccion eq 'E'}" disabled="true">
+                                    <f:selectItem itemValue="" itemLabel="Seleccione Embalaje"/>
+                                    <f:selectItems value="#{emabalejBean.listado}" var="cmbEmb" itemLabel="#{cmbEmb.descripcionEmba}" itemValue="#{cmbEmb}"/>
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                        </h:panelGrid>
+
+                        <p:panel header="Datos de Transportista" style="width: 100%">
+                            <h:panelGrid columns="4">
+                                <h:outputLabel value="Nombre"/>
+                                <p:inputText value="#{contenerizadoBean.transaccion.nombreTrasnportistaTrans}" readonly="true"/>
+                                <h:outputLabel value="Cédula"/>
+                                <p:inputText value="#{contenerizadoBean.transaccion.cedulaTrasnportistaTrans}" readonly="true"/>
+                                <h:outputLabel value="Placa"/>
+                                <p:inputText value="#{contenerizadoBean.transaccion.placaTrasnportistaTrans}" readonly="true"/>
+                                <h:outputLabel value="Guía de Remisión"/>
+                                <p:inputText value="#{contenerizadoBean.transaccion.guiaRemisionTrans}" readonly="true"/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+                </p:tabView>
+                <br/>
+                 <p:commandButton value="Cerrar" onclick="PF('dlgDetalle').hide()"/>
+            </h:form>
+        </p:dialog>
+    </body>
+</html>
+

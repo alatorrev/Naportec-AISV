@@ -1,0 +1,103 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Century Gothic, sans-serif;
+}
+/*.ui-dialog{
+    background-color:#F0F0F0 !important;
+}*/
+/*.ui-dialog-titlebar{
+    background-color: transparent  !important; 
+}*/
+.ui-fieldset{
+    border-radius: 20px !important;
+    background-color: #C8C8C8 !important;
+} 
+#fieldsetSec{
+    /* border: 1px solid #666666 !important; */
+    /* border-radius: 20px !important; */
+    background-color: #C8C8C8 !important;
+    width: 800px !important;
+    height: 520px !important;
+}
+#fieldsetSecLegend{
+    background-image: url('../..//resources/images/btBlue.jpg')!important;
+    color: #fbffff;
+    margin-left: 100px;
+    font-size: 14px;
+    border-color: #111079;
+    height: 25px;
+    font-weight: 600;
+    margin-top: 2px;
+
+}
+
+.atras {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/images/ATRAS.png')!important;
+}
+.siguiente {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/images/SIGUIENTE.png')!important;
+}
+.cancelar {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/images/CANCELAR.png')!important;
+}
+.actualizar {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/images/EDITAR.png')!important;
+}
+
+.imprimir {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/images/IMPRIMIR.png')!important;
+}
+.ayuda {
+    margin-left: 5px!important;
+    width: 20px !important;
+    height: 20px !important;
+    background-image: url('../..//resources/images/AYUDA.png')!important;
+}
+.nuevo {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/images/NUEVO.png')!important;
+}
+.guardar {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/images/GUARDAR.png')!important;
+}
+.eliminar {
+    margin-left: 5px!important;
+    background-image: url('../..//resources/images/ELIMINAR.png')!important;
+}
+.ui-menu .ui-menuitem-text {
+    float: left !important;
+    margin-top: 5px !important;
+    color: #ffffff !important;
+    font-weight: 800 !important;
+}
+
+.ui-icon-triangle-1-s {
+    /* background-position: -64px -16px; */ 
+    background:  transparent;
+}
+
+.ui-tabs .ui-tabs-nav{
+    background: transparent !important;
+    font-weight: bold !important;
+}
+.ui-tabs .ui-widget-header{
+    border-bottom: 5px solid #111076 !important;
+    border-radius: 0px !important;
+    border-top: 0px !important;
+    border-left: 0px !important;
+    border-right: 0px !important;
+}
+
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited{
+    background: #ffffff  !important;
+    color: #000000 !important;
+    font-weight: 900 !important;
+    font-size: 12px!important;
+}

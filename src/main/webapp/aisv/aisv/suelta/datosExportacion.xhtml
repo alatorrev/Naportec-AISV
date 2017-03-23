@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+         <style>
+            .ui-selectonemenu-trigger{
+                margin-right: -9px !important;
+                margin-top: -2px !important;
+            }
+        </style>
+        <script>
+            function handleSaveRequest(xhr, status, args) {
+                if (args.notValid || args.validationFailed)
+                    return;
+                PF('dlgAisvExpCont').hide();
+                PF('dlgNuevo').hide();
+                PF('dlgReporte').show();
+            }
+        </script>
+        <p:dialog id="dialogExportacion"  widgetVar="dlgAisvExpCont"  position="center" header="AISV - Exportación Carga Suelta" modal="true"  hideEffect="fade" showEffect="clip" width="660px">
+            <h:form id="formDatosExp">
+                <p:commandButton value="Ayuda" icon="ayuda"  style="float: left;height: 30px;width: 110px"/>
+                <p:commandButton id="guardar" value="Guardar AISV" icon="guardar"  style="float: right;height: 30px;width: 150px"
+                                 actionListener="#{sueltaBean.guardarAISV()}" oncomplete="handleSaveRequest(xhr, status, args)"
+                                 update=":formDatosExp:tabDatos :formPrincipal:tabViewDatos :formDatosExp:guardar :formGeneral:pnlReporte :formGeneral:listado"
+                                 />
+                <p:tabView id="tabDatos" style="float:left;font-size: 12px!important">
+                    <p:tab title="Información de Carga" id="tabCarga">
+                        <h:panelGrid columns="4" id="datosCarga" style="float:left">
+                            <h:outputLabel value="Nave"/>
+                            <p:inputText  value="#{sueltaBean.transaccion.codigoPrec.idItinerarioPrec.descripcionItin}" disabled="true"/>
+                            <h:outputLabel value="Linea"/>
+                            <p:inputText  value="#{sueltaBean.transaccion.codigoPrec.idLineaPrec.nombreNavi}"  disabled="true"/>
+                            <h:outputLabel value="Booking"/>
+                            <p:inputText value="#{sueltaBean.transaccion.codigoPrec.bookingPrec}"  disabled="true"/>
+                            <h:outputLabel value="Producto"/>
+                            <p:inputText  value="#{sueltaBean.transaccion.codigoPrec.descripcionPrec}"/>   
+                            <h:outputLabel value="Carga Peligrosa"/>
+                            <p:selectBooleanButton value="#{sueltaBean.transaccion.codigoPrec.peligrosa}" onLabel="Si" offLabel="No" style="width:60px" disabled="true"/>
+                            <h:outputLabel value="Codigo Carga Peligrosa"/>
+                            <p:inputText value="#{sueltaBean.transaccion.codigoPrec.codigoImoPre}" disabled="true"/>   
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="DAES" id="daes">
+                        <h:panelGrid columns="4" id="datosDAES">
+                            <h:outputLabel value="DAE"/> 
+                            <h:panelGrid columns="4" id="daestabla">
+                                <p:inputText id="dae1" value="#{sueltaBean.dae.primerDato}" style="width: 40px" />
+                                <p:inputText id="dae2" value="#{sueltaBean.dae.segundoDato}" style="width: 50px" />
+                                <p:inputText  id="dae3" value="#{sueltaBean.dae.tercerDato}" style="width: 40px" />
+                                <p:inputText  id="dae4" value="#{sueltaBean.dae.cuartoDato}" style="width: 100px" />
+                            </h:panelGrid>
+                            <p:commandButton value="Agregar" actionListener="#{sueltaBean.agregarDAE(evt)}"
+                                             process="@all"
+                                             update="listaDaes"
+                                             />
+                        </h:panelGrid>
+                        <p:dataTable var="car"  id="listaDaes" value="#{sueltaBean.daesListado}">
+                            <p:column style="width:32px;text-align: center">
+                                <p:commandButton update=":formDatosExp:tabDatos:listaDaes" icon="ui-icon-close" actionListener="#{sueltaBean.quitarDAE()}">
+                                    <f:setPropertyActionListener value="#{car}" target="#{sueltaBean.dae}" />
+                                </p:commandButton>
+                            </p:column>
+                            <p:column headerText="Numero DAE" >
+                                <h:outputText value="#{car.numeroCompleto}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+                    <p:tab title="Puertos">
+
+                        <h:panelGrid columns="4" cellpadding="5" id="datosPuerto">
+                            <p:outputLabel value="Origen" for="po" />
+                            <p:autoComplete id="po" value="#{sueltaBean.origen}" completeMethod="#{puertoBean.completePuerto}"
+                                            var="cmbOrigen" itemLabel="#{cmbOrigen.nombrePuer}" itemValue="#{cmbOrigen}" 
+                                            converter="puertoConverter" disabled="#{not empty sueltaBean.origen.codigoPuer}">
+                                <p:column>
+                                    <h:outputText value="#{cmbOrigen.nombrePuer}" />
+                                </p:column>
+
+                                <p:column>
+                                    <h:outputText value="#{cmbOrigen.codPuertoPuer}" />
+                                </p:column>
+                            </p:autoComplete>
+                            <p:outputLabel value="Destino" for="pu" />
+                            <p:autoComplete id="pu" value="#{sueltaBean.destino}" completeMethod="#{puertoBean.completePuerto}"
+                                            var="cmbDestino" itemLabel="#{cmbDestino.nombrePuer}" itemValue="#{cmbDestino}" 
+                                            converter="puertoConverter" disabled="#{not empty sueltaBean.destino.codigoPuer}">
+                                <p:column>
+                                    <h:outputText value="#{cmbDestino.nombrePuer}" />
+                                </p:column>
+
+                                <p:column>
+                                    <h:outputText value="#{cmbDestino.codPuertoPuer}" />
+                                </p:column>
+                            </p:autoComplete>
+                            <p:outputLabel value="Trasbordo" for="pt" />
+                            <p:autoComplete id="pt" value="#{sueltaBean.trasbordo}" completeMethod="#{puertoBean.completePuerto}"
+                                            var="cmbTrasbordo" itemLabel="#{cmbTrasbordo.nombrePuer}" itemValue="#{cmbTrasbordo}" 
+                                            converter="puertoConverter" disabled="#{not empty sueltaBean.trasbordo.codigoPuer}">
+                                <p:column>
+                                    <h:outputText value="#{cmbTrasbordo.nombrePuer}" />
+                                </p:column>
+
+                                <p:column>
+                                    <h:outputText value="#{cmbTrasbordo.codPuertoPuer}" />
+                                </p:column>
+                            </p:autoComplete>
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Información de Entrega">
+                        <h:panelGrid columns="1" id="datosRetiro" style="float:left">
+                            <h:panelGrid columns="6"  cellpadding="5" >
+                                <p:outputLabel for="prop" value="Propósito de Carga"/>
+                                <p:selectOneMenu id="prop"  value="#{sueltaBean.transaccion.propositoCargaTrans}" style="width: 140px" panelStyle="width: 140px"
+                                                 filter="true" filterMatchMode="contains" converter="propositoConverter">
+                                    <f:selectItems value="#{propositoBean.listadoExpoSuelta()}" var="cmbPropositoExpo" itemLabel="#{cmbPropositoExpo.descripcionProp}" itemValue="#{cmbPropositoExpo}"/>
+                                </p:selectOneMenu>
+                                <h:outputLabel value="Susceptible a Cupo"/>
+                                <p:selectBooleanButton value="#{sueltaBean.transaccion.cupoCargaTrans}" onLabel="Si" offLabel="No" style="width:60px" />
+                                <h:outputLabel value="#Cajas"/>
+                                <p:inputText  value="#{sueltaBean.transaccion.numeroCajasTrans}"/>
+                                <p:outputLabel for="emba" value="Embalaje"/>
+                                <p:selectOneMenu id="emba"  value="#{consolidadaBean.transaccion.embalajeTrans}" style="width: 140px" panelStyle="width: 140px"
+                                                 filter="true" filterMatchMode="contains" converter="embalajeConverter">
+                                    <f:selectItem itemValue="" itemLabel="Seleccione Embalaje"/>
+                                    <f:selectItems value="#{emabalejBean.listado}" var="cmbEmb" itemLabel="#{cmbEmb.descripcionEmba}" itemValue="#{cmbEmb}"/>
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                        </h:panelGrid>
+
+                        <p:panel header="Datos de Transportista" style="width: 100%">
+                            <h:panelGrid columns="4">
+                                <h:outputText value="Documento Identificador"/>
+                                <p:selectOneMenu id="doc_identificador" value="#{sueltaBean.transaccion.documentoIdentificador}" style="width: 140px" panelStyle="width: 140px">
+                                    <f:selectItem itemLabel="Cédula" itemValue="Cédula"/>
+                                    <f:selectItem itemLabel="Pasaporte" itemValue="Pasaporte"/>
+                                </p:selectOneMenu>
+                                <h:inputHidden/>
+                                <h:inputHidden/>
+                                <h:outputLabel id="lbl_tipoIdentificador" value="Número de Documento"/>
+                                <p:inputText value="#{sueltaBean.transaccion.cedulaTrasnportistaTrans}">
+                                    <p:ajax event="blur" listener="#{sueltaBean.cargarNombreTransportista()}" update="nomtransexp"/>
+                                </p:inputText>
+                                <h:outputLabel value="Nombre"/>
+                                <p:inputText id="nomtransexp" value="#{sueltaBean.transaccion.nombreTrasnportistaTrans}" size="40" readonly="true"/>
+                                <h:outputLabel value="Placa"/>
+                                <p:inputText value="#{sueltaBean.transaccion.placaTrasnportistaTrans}"/>
+                                <h:outputLabel value="Guía de Remisión"/>
+                                <p:inputText value="#{sueltaBean.transaccion.guiaRemisionTrans}"/>
+                            </h:panelGrid>
+                              <h:outputText style="font-size: 12px;font-weight: bolder" value="En caso de no tener placa ingrese su permiso provisional"/>
+                        </p:panel>
+                    </p:tab>
+                </p:tabView>
+            </h:form>
+            <br/>
+            <br/>
+        </p:dialog>
+
+    </body>
+</html>
+

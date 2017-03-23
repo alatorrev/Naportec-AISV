@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+        <p:dialog modal="true" position="center" resizable="false" widgetVar="dlgAnular" header="Solicitud - Anular" hideEffect="clip" width="560">
+            <h:form id="formAnular">
+                <h:panelGrid id="datos" columns="2">
+                    <h:outputText value="Solicitante"/>
+                    <h:outputText value="#{solicitudContactoBean.entidad.nombreSoli}"/>
+                    <h:outputText value="Motivo de Anulacion"/>
+                    <p:inputTextarea value="#{solicitudContactoBean.motivo}" style="width: 300px;height: 150px" required="true"/>
+                </h:panelGrid>
+                <p:commandButton value="Anular" oncomplete="PF('dlgAnular').hide()" actionListener="#{solicitudContactoBean.anularSolicitud()}"
+                                  onstart="PF('dlgEspera').show()" onsuccess="PF('dlgEspera').hide()"
+                                  update=":formPrincipal:listado :formDetalle:estado"/>
+                <p:commandButton value="Cancelar" onclick="PF('dlgAnular').hide()"/>
+            </h:form>
+        </p:dialog>
+    </body>
+</html>
+

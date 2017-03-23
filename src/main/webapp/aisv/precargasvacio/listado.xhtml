@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <body>
+        <p:growl id="mensaje" showDetail="true" showSummary="false"/>
+        <p:dialog id="dlgPrincipal" widgetVar="dlgPrincipal" width="1100" height="350" showEffect="clip" hideEffect="explode"
+                  resizable="false" fitViewport="true" position="center" header="Aisv - Precarga Vacios" onHide="emptyHtml();">
+            <h:form id="formPrincipal">
+                <h:panelGrid columns="2" width="100%">
+                    <h:panelGrid columns="2" style="float: left;font-size: 16px !important;">
+                        <p:commandButton value="Ayuda" icon="ayuda" style="float: left;width: 100px"  />
+                        <p:commandButton value="Actualizar" icon="actualizar"  update="listado" style="float: left;width: 110px"  />
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" style="float: right;font-size: 16px !important;">
+                        <p:commandButton icon="nuevo"  style="float: left;width: 100px" value="Nuevo" update=":formDatos:datos :formDatos:botones" oncomplete="PF('dlgInformacion').show()" actionListener="#{precargaVacioBean.prepararCrear(evt)}"/>
+                        <p:commandButton value="Importar Datos" style="float: left;width: 150px"  icon="imprimir"  oncomplete="PF('datosCarga').show()" update=":formCarga:datosCrear" />
+                    </h:panelGrid>
+                </h:panelGrid>
+                <p:dataTable id="listado" paginator="true" emptyMessage="No se ha encontrado ningún Booking Vacio"
+                             paginatorPosition="bottom" var="obj" lazy="true" rowKey="#{obj.codigoPrev}"
+                             selectionMode="single" value="#{precargaVacioBean.listadoEntidad}"
+                             selection="#{precargaVacioBean.entidad}"
+                             rows="12" rowsPerPageTemplate="10,12,15,20,30"
+                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                             resizableColumns="true" style="width:100%;height: 100%;font-size: 10px!important;float: left">
+                    <p:ajax event="rowDblselect" listener="#{precargaVacioBean.seleccionarEditar}" update=":formDatos:datos :formDatos:botones" oncomplete="PF('dlgInformacion').show()"/>
+
+                    <p:column headerText="Booking" style="font-size: 90%" filterBy="#{obj.bookingPrev}">
+                        <h:outputText value="#{obj.bookingPrev}"/>
+                    </p:column>
+                    <p:column headerText="Linea" style="font-size: 90%" filterBy="#{obj.idLineaPrev.nombreNavi}">
+                        <h:outputText value="#{obj.idLineaPrev.nombreNavi}"/>
+                    </p:column>
+                    <p:column headerText="Itinerario" style="font-size: 90%" filterBy="#{obj.idItinerarioPrev.descripcionItin}">
+                        <h:outputText value="#{obj.idItinerarioPrev.descripcionItin}"/>
+                    </p:column>
+                    <p:column headerText="Buque" style="font-size: 90%" filterBy="#{obj.idItinerarioPrev.buqueItin}">
+                        <h:outputText value="#{obj.idItinerarioPrev.buqueItin}"/>
+                    </p:column>
+                    <p:column headerText="Tipo de Contenedor" style="font-size: 90%">
+                        <h:outputText value="#{obj.tipoContenedorPrev}"/>
+                    </p:column>
+                    <p:column headerText="Espacios" style="font-size: 90%">
+                        <h:outputText value="#{obj.totalEspaciosPrev}"/>
+                    </p:column>
+                    <p:column headerText="Espacios Disponibles" style="font-size: 90%" >
+                        <h:outputText value="#{obj.espaciosDisponiblesPrev}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
+        <ui:include src="datos.xhtml"/>
+        <ui:include src="cargaArchivos.xhtml"/>
+    </body>
+</html>
+

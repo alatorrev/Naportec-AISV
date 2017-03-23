@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+    <body>
+        <style>
+            .panBloqueo{
+                background-color: #00cc00 !important;
+            }
+            .pandesBloqueo{
+                background-color: #c498fa !important;
+            }
+            .panAnulado{
+                background-color: #ffe577 !important;
+            }
+            .panPreembarque{
+                background-color: #128a9c !important;
+            }
+            .panDesPreembarque{
+                background-color: #f2a6c1 !important;
+            }
+            .ingresoIrregular{
+                background-color: #f9ca98 !important;
+            }
+            .difPeso{
+                background-color: #bf6f18 !important;
+            }
+            div[id|="formGeneral:filter"]{
+                width: 30px;
+                height: 30px;
+                border: 1px solid #003399;
+                border-radius: 100%;
+                cursor: pointer;
+            }
+            .cuadro{
+                width: 30px;
+                height: 30px;
+                border: 1px solid #003399;
+                border-radius: 100%;
+                cursor: pointer;
+            }
+            .cuadro:hover{
+
+            }
+            .texto-cuadro{
+                font-size: 12px!important;
+                font-weight: 800 !important;
+            }
+        </style>
+        <p:growl id="mensaje" showDetail="true" showSummary="false"/>
+        <p:dialog id="dlgPrincipal" widgetVar="dlgPrincipal" width="1100" height="410" showEffect="clip" hideEffect="explode"
+                  resizable="false" fitViewport="true" position="center" header="AISV - Listado de Bookings" onHide="emptyHtml();">
+            <h:form id="formGeneral">
+                    <h:panelGrid columns="30" style="width:50%;text-align: center">
+                        <div jsf:id="filter-ing_irr" value="" styleClass="cuadro" style="background-color: #00cc00"/>
+                        <h:outputText styleClass="texto-cuadro" value="Bloqueado PAN"/>
+                        <div jsf:id="filter-ing_des" value="" styleClass="cuadro" style="background-color: #c498fa"  />
+                        <h:outputText styleClass="texto-cuadro" value="Desbloqueado PAN"/>
+                        <p:commandButton value="Exportar" icon="ui-icon-newwin" oncomplete="PF('dlgExportar').show();" 
+                                         onstart="PF('dlgInicio').show()" onsuccess="PF('dlgInicio').hide()" 
+                                         actionListener="#{precargaBean.prepExportar()}"
+                                         style="width: 150px;height: 30px;font-size: 14px!important"/>
+                    </h:panelGrid>
+                    <p:dataTable id="listado" paginator="true" emptyMessage="No se ha encontrado ningun AISV"
+                                 paginatorPosition="bottom" var="objExp" lazy="true" draggableColumns="true"
+                                 rowStyleClass="#{objExp.estadoTrans eq 'Aprobado'?objExp.estadoPan eq 'bloqueoPan'?'panBloqueo':objExp.estadoPan eq 'DesbloqueoPan'?'pandesBloqueo':'':''}"
+                                 value="#{precargaBean.listaCargaNaviera}" 
+                                 rows="12" rowsPerPageTemplate="10,12,15,20,30"
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 resizableColumns="true" style="width:100%;height: 100%;font-size: 10px!important"
+                                 scrollable="true" scrollWidth="100%">
+
+
+                        <p:column headerText="Linea"  style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.linea}"  width="100" >
+                            <h:outputText value="#{objExp.linea}"/>
+                        </p:column>
+                        <p:column headerText="Itinerario"  style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.itinerario}"  width="100" >
+                            <h:outputText value="#{objExp.itinerario}"/>
+                        </p:column>
+                        <p:column headerText="Booking"  toggleable="true" style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.booking}" width="100">
+                            <h:outputText value="#{objExp.booking}"/>
+                        </p:column>
+                        <p:column headerText="Totales"  toggleable="true" style="text-align: center" filterStyle="width: 90px " width="100">
+                            <h:outputText value="#{objExp.totales}"/>
+                        </p:column>
+                        <p:column headerText="Disponibles"  toggleable="true" style="text-align: center" filterStyle="width: 90px " width="100">
+                            <h:outputText value="#{objExp.disponibles}"/>
+                        </p:column>
+
+                        <p:column headerText="Contenedor"  style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.contenedor}"  width="100" >
+                            <h:outputText value="#{objExp.contenedor}"/>
+                        </p:column>
+                        <p:column headerText="Creación" width="150">
+                            <h:outputText value="#{objExp.fechaCreacionTrans}">
+                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Fecha de Ingreso" width="150">
+                            <h:outputText value="#{objExp.fechaEirTrans}">
+                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Tipo Contenedor"  style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.tipoContenedor}"  width="100" >
+                            <h:outputText value="#{objExp.tipoContenedor}"/>
+                        </p:column>
+                        <p:column headerText="Condición"  style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.condicionContenedor}"  width="100" >
+                            <h:outputText value="#{objExp.condicionContenedor}"/>
+                        </p:column>
+                        <p:column headerText="Ruc Exportador"  style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.ruc}"  width="150" >
+                            <h:outputText value="#{objExp.ruc}"/>
+                        </p:column>
+                        <p:column headerText="Exportador"  style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.exportador}"  width="100" >
+                            <h:outputText value="#{objExp.exportador}"/>
+                        </p:column>
+                        <p:column headerText="Producto" style="text-align: center" filterStyle="width: 90px " width="100" filterBy="#{objExp.producto}">
+                            <h:outputText value="#{objExp.producto}"/>
+                        </p:column>
+                        <p:column headerText="Peso" style="text-align: center" filterStyle="width: 90px " width="100">
+                            <h:outputText value="#{objExp.peso}"/>
+                        </p:column>
+                        <p:column headerText="Carga Peligrosa" style="text-align: center" filterStyle="width: 90px " width="100">
+                            <h:outputText value="#{objExp.peligrosa}"/>
+                        </p:column>
+                        <p:column headerText="IMO" style="text-align: center" filterStyle="width: 90px " width="100" filterBy="#{objExp.imo}">
+                            <h:outputText value="#{objExp.imo}"/>
+                        </p:column>
+                        <p:column headerText="Sello1" style="text-align: center" filterStyle="width: 90px " width="100" filterBy="#{objExp.sello1}">
+                            <h:outputText value="#{objExp.sello1}"/>
+                        </p:column>
+                        <p:column headerText="Sello2" style="text-align: center" filterStyle="width: 90px " width="100" filterBy="#{objExp.sello2}">
+                            <h:outputText value="#{objExp.sello2}"/>
+                        </p:column>
+                        <p:column headerText="Sello3" style="text-align: center" filterStyle="width: 90px " width="100" filterBy="#{objExp.sello3}">
+                            <h:outputText value="#{objExp.sello3}"/>
+                        </p:column>
+                        <p:column headerText="Temp." style="text-align: center" filterStyle="width: 90px " width="100" filterBy="#{objExp.temperatura}">
+                            <h:outputText value="#{objExp.temperatura}"/>
+                        </p:column>
+                        <p:column headerText="Vent." style="text-align: center" filterStyle="width: 90px " width="100" filterBy="#{objExp.ventilacion}">
+                            <h:outputText value="#{objExp.ventilacion}"/>
+                        </p:column>
+                        <p:column headerText="#Embarque" style="text-align: center" filterStyle="width: 90px " width="100" filterBy="#{objExp.dae}">
+                            <h:outputText value="#{objExp.dae}"/>
+                        </p:column>
+                        <p:column headerText="Estado" style="text-align: center" filterStyle="width: 90px " width="100" filterBy="#{objExp.estadoTrans}">
+                            <h:outputText value="#{objExp.estadoTrans}"/>
+                        </p:column>
+                        <p:column headerText="PAN." style="text-align: center" filterStyle="width: 90px " width="100" filterBy="#{objExp.estadoPan}">
+                            <h:outputText value="#{objExp.estadoPan}"/>
+                        </p:column>
+                        <p:column headerText="Fecha de Inspeccion" width="150">
+                            <h:outputText value="#{objExp.fechaEirTrans}">
+                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                <p:dialog widgetVar="dlgInicio" header="Espere...">
+                    <h3>Espere un momento...</h3>
+                    <h3>Estamos procesando su informacion</h3>
+                </p:dialog>
+                <p:dialog widgetVar="dlgExportar" modal="true" header="Exportar Datos">
+                    <hr/>
+                    <h:panelGrid columns="4">
+                        <h:commandLink actionListener="#{precargaBean.reportePDF(actionEvent)}">
+                            <p:graphicImage id="pdfimagen" name="/iconos/PDF.png" alt="Exportar a PDF" height="60" width="60"/>
+                            <p:tooltip for="pdfimagen" value="Exportar a PDF"/>
+                        </h:commandLink>                    
+
+                        <h:commandLink actionListener="#{precargaBean.reporteEXCEL(actionEvent)}" >
+                            <p:graphicImage id="excelimagen" name="/iconos/EXCEL.png" alt="Exportar a Excel" height="60" width="60"/>
+                            <p:tooltip for="excelimagen" value="Exportar a Excel"/>
+                        </h:commandLink>
+
+                    </h:panelGrid>
+                    <hr/>
+                    <center>
+                        <p:commandButton value="Cerrar" type="button" onclick="PF('dlgExportar').hide();" icon="eliminar" style="height: 35px"/>
+                    </center>
+                </p:dialog>
+            </h:form>
+        </p:dialog>
+    </body>
+</html>

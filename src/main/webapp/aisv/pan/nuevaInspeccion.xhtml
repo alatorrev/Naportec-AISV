@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+        <p:dialog widgetVar="dialogPanInspeccion" width="400px" height="300px" modal="true" header="Guardar Datos de Inspección">
+            <h:form id="formNuevaInspeccion">
+                <h:panelGrid columns="2" id="panelPan">
+                    <h:outputLabel for="datetime" value="Fecha de Inspección *"/>
+                    <p:calendar id="datetime" value="#{panBean.entidad.fechaInspeccionTrans}" locale="es" pattern="MM/dd/yyyy HH:mm:ss" required="true" requiredMessage="La fecha de Inspección es Obligatoria"/>
+                </h:panelGrid>
+                <p:message for="datetime" showDetail="true" showSummary="false"/>
+                <p:commandButton icon="guardar" value="Guardar" actionListener="#{panBean.bloqueoAntinarcoticos()}" update=":formGeneral:listado,panelPan"
+                                 oncomplete="handleSaveRequest(xhr, status, args)" onstart="PF('dlgEnvioPan').show()" onsuccess="PF('dlgEnvioPan').hide()"
+                                 style="width: 150px;height: 30px;font-size: 14px!important"/>
+                <p:panel>
+                    <p>Recuerde que la Fecha de Inspección es Obligatoria</p>
+                </p:panel>
+            </h:form>
+        </p:dialog>
+
+        <p:dialog widgetVar="dlgEnvioPan" header="Espere" closable="false">
+            <h3>Espere un momento...</h3>
+            <h3>Se esta procesando el Bloqueo PAN</h3>
+        </p:dialog>
+    </body>
+</html>
+

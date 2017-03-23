@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <body>
+        <style>
+            body{
+                font-size: 10px !important;
+            }
+            .panBloqueo{
+                background-color: #00cc00 !important;
+            }
+            .pandesBloqueo{
+                background-color: #c498fa !important;
+            }
+        </style>
+        <p:growl id="mensaje" showDetail="true" showSummary="false"/>
+        <p:dialog id="dlgPrincipal" widgetVar="dlgPrincipal" width="1100" height="500" showEffect="clip" hideEffect="explode"
+                  resizable="false" fitViewport="true" position="center" header="AISV - Carga Suelta" onHide="emptyHtml();">
+            <h:form id="formGeneral">
+                <p:panel style="width:90%;margin-left: 5px;height:100%;border: 0px;background-color: transparent">
+                    <p:panel style="width:110%;border: 0px">
+                        <p:selectOneRadio id="tipo" value="#{sueltaBean.tipoTrasaccion}">
+                            <p:ajax listener="#{sueltaBean.mostrarDatosTipo}" update="listado"/>
+                            <f:selectItem itemLabel="IMPORTACION" itemValue="I"/>
+                            <f:selectItem itemLabel="EXPORTACION" itemValue="E"/>
+                        </p:selectOneRadio>
+                    </p:panel>
+                    <p:dataTable id="listado" paginator="true" emptyMessage="No se ha encontrado ningun AISV de Carga Suelta"
+                                 paginatorPosition="bottom" var="objExp" lazy="true" draggableColumns="true"
+                                 value="#{sueltaBean.listaAisv}"  rows="12" rowsPerPageTemplate="10,12,15,20,30"
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 resizableColumns="true" style="width:110%;height: 100%;font-size: 10px!important"
+                                 selectionMode="single" selection="#{sueltaBean.transaccion}" rowKey="#{objExp.codigoTrans}"
+                                 rowStyleClass="#{objExp.estado eq 'Aprobado'?objExp.estadoPan eq 'bloqueoPan'?'panBloqueo':objExp.estadoPan eq 'DesbloqueoPan'?'pandesBloqueo':'':''}">
+
+                        <p:ajax event="rowSelect" update="move detail delete new print"/>
+                        <p:ajax event="rowUnselect" update="move detail delete new print"/>
+
+                        <f:facet name="header">
+                            <p:commandButton value="Nuevo"  id="new" update=":dialogNuevo" oncomplete="PF('dlgNuevo').show()"
+                                             style="width: 150px;height: 30px;font-size: 14px!important" icon="nuevo"/>
+
+                            <p:commandButton value="Movimientos" id="move" update=":formMovi:listado" oncomplete="PF('dlgMovimiento').show()"  disabled="#{empty sueltaBean.transaccion.codigoTrans}"
+                                             style="width: 200px;height: 30px;font-size: 14px!important" icon="movimiento" />
+
+                            <p:commandButton value="Imprimir" id="print" actionListener="#{sueltaBean.exportar(evt)}" 
+                                             onstart="PF('dlgEspera').show()" onsuccess="PF('dlgEspera').hide()"
+                                             oncomplete="PF('dlgReporte').show()" update=":formGeneral:pnlReporte"   disabled="#{empty sueltaBean.transaccion.codigoTrans or sueltaBean.transaccion.estado eq 'Anulado'}"
+                                             style="width: 150px;height: 30px;font-size: 14px!important" icon="imprimir" />
+                            <p:commandButton value="Detalle"  id="detail"  update=":formDetalle:datos" onclick="PF('dlgDetalle').show()"   disabled="#{empty sueltaBean.transaccion.codigoTrans}"
+                                             style="width: 150px;height: 30px;font-size: 14px!important"  icon="detalle" />
+                            <p:commandButton value="Anular" id="delete" disabled="#{empty sueltaBean.transaccion.codigoTrans or sueltaBean.transaccion.estado eq 'Anulado' or sueltaBean.transaccion.estado eq 'Aprobado'}" 
+                                             actionListener="#{sueltaBean.anularAisv()}" update=":formGeneral:listado :formPrincipal:tabViewDatos" 
+                                             style="width: 150px;height: 30px;font-size: 14px!important" icon="anular">
+                                <p:confirm header="Anulacion" message="Esta seguro de Anular este AISV?" icon="ui-icon-alert" />
+                            </p:commandButton>
+                        </f:facet>
+
+                        <p:column headerText="Codigo" style="text-align: center" filterStyle="width: 40px " filterBy="#{objExp.codigoTrans}" width="50">
+                            <h:outputText value="#{objExp.codigoTrans}"/>
+                        </p:column>
+                        <p:column headerText="Estado"  style="text-align: center;font-size: 10px" filterStyle="width: 70px "  filterBy="#{objExp.estado}" width="80">
+                            <h:outputText value="#{objExp.estado}"/>
+                        </p:column>
+                        <p:column headerText="BL Hijo" rendered="#{sueltaBean.tipoTrasaccion eq 'I'}" style="text-align: center" filterStyle="width: 80px " filterBy="#{objExp.codigoPrec.blhijoPrec}" width="90">
+                            <h:outputText value="#{objExp.codigoPrec.blhijoPrec}"/>
+                        </p:column>
+                        <p:column headerText="Booking"  toggleable="true" rendered="#{sueltaBean.tipoTrasaccion eq 'E'}" style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.codigoPrec.bookingPrec}" width="100">
+                            <h:outputText value="#{objExp.codigoPrec.bookingPrec}"/>
+                        </p:column>
+                        <p:column headerText="Producto" style="text-align: center" filterStyle="width: 90px " width="100" filterBy="#{objExp.codigoPrec.descripcionPrec}">
+                            <h:outputText value="#{objExp.codigoPrec.descripcionPrec}"/>
+                        </p:column>
+                        <p:column headerText="Naviera"  style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.codigoPrec.idLineaPrec.nombreNavi}"  width="100" >
+                            <h:outputText value="#{objExp.codigoPrec.idLineaPrec.nombreNavi}"/>
+                        </p:column>
+                          <p:column headerText="Peso Bascula"  style="text-align: center" filterStyle="width: 40px " width="50" >
+                            <h:outputText value="#{objExp.pesoBasculaTrans}"/>
+                        </p:column>
+                        <p:column headerText="Pto. Destino"  rendered="#{sueltaBean.tipoTrasaccion eq 'E'}"  style="font-size: 90%;text-align: center" filterStyle="width: 90px " filterBy="#{objExp.codigoPrec.ptoDestinoPrec}"  width="100" >
+                            <h:outputText value="#{objExp.puertoDestinoTrans}"/>
+                        </p:column>
+                        <p:column headerText="Pto. Origen"  rendered="#{sueltaBean.tipoTrasaccion eq 'I'}"  style="font-size: 90%;text-align: center" filterStyle="width: 90px " filterBy="#{objExp.codigoPrec.ptoOrigenPrec}"  width="100" >
+                            <h:outputText value="#{objExp.puertoOrigenTrans}"/>
+                        </p:column>
+                        <p:column headerText="Creación" width="100" style="font-size: 10px">
+                            <h:outputText value="#{objExp.fechaCreacion}">
+                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Ingreso a Puerto" width="100"  style="font-size: 10px">
+                            <h:outputText value="#{objExp.fechaEirTrans}">
+                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                    <p:commandButton value="Aceptar" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="Cancelar" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+                <p:dialog widgetVar="dlgEspera">
+                    <h3>Espere un momento...</h3>
+                    <h3>Estamos procesando su informacion</h3>
+                </p:dialog>
+                <p:dialog widgetVar="dlgReporte" width="800" height="350"  closable="true" header="Documento AISV">
+                    <p:panel id="pnlReporte">
+
+                        <p:media  player="pdf" cache="false" value="#{sueltaBean.rutaReporteServidor}" style="width: 100%;height: 300px"/>
+                    </p:panel>
+                </p:dialog>
+            </h:form>
+        </p:dialog>
+        <ui:include src="nuevo.xhtml"/>
+        <ui:include src="movimientos.xhtml"/>
+        <ui:include src="detalle.xhtml"/>
+    </body>
+</html>

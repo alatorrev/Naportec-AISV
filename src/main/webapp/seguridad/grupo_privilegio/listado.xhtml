@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <p:growl id="mensaje" showDetail="true" showSummary="false"/>
+        <p:dialog id="dlgPrincipal" widgetVar="dlgPrincipal" width="950" height="400" showEffect="clip" hideEffect="explode"
+                  resizable="false" fitViewport="true" position="center" header="Aisv - Roles Grupos" onHide="emptyHtml();">
+            <h:form id="formPrincipal">
+
+                <p:commandButton value="Ayuda" icon="ayuda" style="float: left;font-size: 14px;width: 110px;height: 30px" />
+                <p:commandButton value="Guardar" icon="guardar" style="float: left;font-size: 14px;width: 110px;height: 30px" 
+                                 actionListener="#{grupoPrivilegioBean.guardarEntidad(evt)}" 
+                                 update=":mensaje"/>
+                <div style="float: left">    
+                    <p:dataTable id="listadoGrupo" paginator="true" emptyMessage="No se ha encontrado ningún Grupo" style="width: 50%;float: left"
+                                 paginatorPosition="bottom" var="obj" lazy="true" rowKey="#{obj.grpId}"
+                                 selectionMode="single" value="#{grupoBean.listadoEntidad}"
+                                 selection="#{grupoPrivilegioBean.grupo}"
+                                 rows="9" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 rowsPerPageTemplate="5,9">
+                        <f:facet name="header">
+                            Grupos
+                        </f:facet>
+                        <p:ajax event="rowSelect" listener="#{grupoPrivilegioBean.onSelectRol}" update=":formPrincipal:listadoPrivilegio :mensaje" />
+
+                        <p:column headerText="Grupo" style="font-size: 90%" filterBy="#{obj.grpShortdescription}">
+                            <h:outputText value="#{obj.grpShortdescription}"/>
+                        </p:column>
+                        <p:column headerText="Descripción" style="font-size: 90%" filterBy="#{obj.grpLongdescription}">
+                            <h:outputText value="#{obj.grpLongdescription}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <p:dataTable id="listadoPrivilegio" paginator="true" emptyMessage="No se ha encontrado ningún Privilegio"  style="width: 50%;float: left;"
+                                 paginatorPosition="bottom" var="objGrupo" rowKey="#{objGrupo.rigId}"
+                                 value="#{grupoPrivilegioBean.listarTodosPrivilegios}" selection="#{grupoPrivilegioBean.listaSeleccionados}"
+                                 rows="5" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 rowsPerPageTemplate="5">
+                        <f:facet name="header">
+                            Privilegios Actuales
+                        </f:facet>
+
+                        <p:column selectionMode="multiple" style="width:16px;text-align:center" />
+
+                        <p:column headerText="Permiso" style="font-size: 90%" filterBy="#{objGrupo.rigName}" filterMatchMode="contains">
+                            <h:outputText value="#{objGrupo.rigName}"/>
+                        </p:column>
+                        <p:column headerText="Tipo" style="font-size: 90%" filterBy="#{objGrupo.tipo}"  filterMatchMode="contains">
+                            <h:outputText value="#{objGrupo.tipo}"/>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+
+            </h:form>
+        </p:dialog>
+    </body>
+</html>
+

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <body>
+        <p:growl id="mensaje" showDetail="true" showSummary="false"/>
+        <p:dialog id="dlgPrincipal" widgetVar="dlgPrincipal" width="800" height="400" showEffect="clip" hideEffect="explode"
+                  resizable="false" fitViewport="true" position="center" header="Aisv - Correos" onHide="emptyHtml();">
+            <h:form id="formPrincipal">
+                <p:panel style="width:90%;margin-left: 5px;height:100%;border: 0px;background-color: transparent">
+                    <h:panelGrid columns="2" style="float: left;font-size: 16px !important;">
+                        <p:commandButton value="Ayuda" icon="ayuda" style="float: left;width: 100px"  />
+                        <p:commandButton value="Actualizar" icon="actualizar"  update="listado" style="float: left;width: 110px"  />
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" style="float: right;font-size: 16px !important;">
+                        <p:commandButton icon="nuevo"  style="float: left;width: 100px" value="Nuevo" />
+                        <p:commandButton value="Imprimir" style="float: left;width: 110px"  icon="imprimir"  />
+                    </h:panelGrid>
+                    <p:dataTable id="listado" paginator="true" emptyMessage="No se ha encontrado ningún Correo"
+                                 paginatorPosition="bottom" var="obj" lazy="true" rowKey="#{obj.codigoCorr}"
+                                 selectionMode="single" value="#{correoBean.listadoEntidad}"
+                                 selection="#{correoBean.entidad}"
+                                 draggableColumns="true" rows="12" rowsPerPageTemplate="10,12,15,20,30"
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 resizableColumns="true" style="width:110%;height: 100%;font-size: 10px!important;float: left"
+                                 >
+
+                        <p:column headerText="Clase Negocio" filterBy="#{obj.negocioClaseCorr}">
+                            <h:outputText value="#{obj.negocioClaseCorr}"/>
+                        </p:column>
+                        <p:column headerText="Objeto" filterBy="#{obj.objetoCorr}">
+                            <h:outputText value="#{obj.objetoCorr}"/>
+                        </p:column>
+                        <p:column headerText="Metodo" filterBy="#{obj.metodoCorr}">
+                            <h:outputText value="#{obj.metodoCorr}"/>
+                        </p:column>
+                        <p:column headerText="Correos">
+                            <h:outputText value="#{obj.correoAdicionalCorr}"/>
+                        </p:column>
+                        <p:column headerText="Asunto">
+                            <h:outputText value="#{obj.detalleCorr}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel> 
+            </h:form>
+        </p:dialog>
+    </body>
+</html>
+

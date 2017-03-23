@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <body>
+        <p:growl id="mensaje" showDetail="true" showSummary="false"/>
+        <p:dialog id="dlgPrincipal" widgetVar="dlgPrincipal" width="1100" height="400" showEffect="clip" hideEffect="explode"
+                  resizable="false" fitViewport="true" position="center" header="Aisv - Precargas" onHide="emptyHtml();">
+            <h:form id="formGeneral">
+                <p:panel style="width:100%;border: 0px">
+                    <h:panelGrid columns="6">
+                        <p:selectOneRadio id="tipo" value="#{precargaBean.tipoTrans}" style="font-size: 14px">
+                            <p:ajax listener="#{precargaBean.prepDatosCarga}" update=":formGeneral:pnlTabla"/>
+                            <f:selectItem itemLabel="IMPORTACIÓN" itemValue="I"/>
+                            <f:selectItem itemLabel="EXPORTACIÓN" itemValue="E"/>
+                        </p:selectOneRadio>
+                        <h:outputText value="Tipo de Carga" style="font-weight: bold;font-size: 14px"/>
+                        <p:selectOneMenu value="#{precargaBean.tipoCarga}">
+                            <p:ajax listener="#{precargaBean.prepDatosCarga}" update=":formGeneral:pnlTabla"/>
+                            <f:selectItem itemLabel="Carga Suelta" itemValue="LCL/LCL" />
+                            <f:selectItem itemLabel="Contenerizada" itemValue="FCL/FCL" />
+                            <f:selectItem itemLabel="Consolidación" itemValue="FCL/LCL"/>
+                        </p:selectOneMenu>
+                        <p:commandButton value="Exportar" icon="ui-icon-newwin" oncomplete="PF('dlgExportar').show();" 
+                                         onstart="PF('dlgInicio').show()" onsuccess="PF('dlgInicio').hide()" 
+                                         actionListener="#{precargaBean.prepExportarPrecargas()}"
+                                         style="width: 150px;height: 30px;font-size: 14px!important"/>
+                    </h:panelGrid>
+                </p:panel>
+
+                <p:panel id="pnlTabla" style="width:100%;height:80%;border: 0px">
+                    <p:dataTable id="listado" paginator="true" emptyMessage="No se ha encontrado ningun AISV"
+                                 paginatorPosition="bottom" var="objExp" lazy="true" draggableColumns="true" draggableRows="true"
+                                 value="#{precargaBean.listaCarga}" 
+                                 rows="8" rowsPerPageTemplate="8,10"
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 style="width:100%;height: 100px;font-size: 9px!important"
+                                 scrollable="true" scrollWidth="99%">
+
+
+                        <p:column headerText="Linea"  style="text-align: center" filterStyle="width: 180px " filterBy="#{objExp.idLineaPrec.nombreNavi}" width="200" >
+                            <h:outputText value="#{objExp.idLineaPrec.nombreNavi}"/>
+                        </p:column>
+                        <p:column headerText="Itinerario"  style="text-align: center" filterStyle="width: 150px " filterBy="#{objExp.idItinerarioPrec.descripcionItin}"  width="100" >
+                            <h:outputText value="#{objExp.idItinerarioPrec.descripcionItin}"/>
+                        </p:column>
+                        <p:column headerText="Booking" rendered="#{precargaBean.tipoTrans eq 'E'}"  toggleable="true" style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.bookingPrec}" width="100">
+                            <h:outputText value="#{objExp.bookingPrec}"/>
+                        </p:column>
+                        <p:column headerText="Bl Master" rendered="#{precargaBean.tipoTrans eq 'I'}"  toggleable="true" style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.blmasterPrec}" width="100">
+                            <h:outputText value="#{objExp.blmasterPrec}"/>
+                        </p:column>
+                        <p:column headerText="BL Hijo" rendered="#{precargaBean.tipoTrans eq 'I'}"  toggleable="true" style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.blhijoPrec}" width="100">
+                            <h:outputText value="#{objExp.blhijoPrec}"/>
+                        </p:column>
+                        <p:column headerText="Espacios Disp." rendered="#{precargaBean.tipoCarga eq 'FCL/FCL' and precargaBean.tipoTrans eq 'E'}"  toggleable="true" style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.espaciosDisponiblesPrec}" width="100">
+                            <h:outputText value="#{objExp.espaciosDisponiblesPrec}"/>
+                        </p:column>
+                        <p:column headerText="Contenedor" rendered="#{precargaBean.tipoCarga eq 'FCL/FCL' and precargaBean.tipoTrans eq 'I'}"  style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.contenedorPrec}"  width="100" >
+                            <h:outputText value="#{objExp.contenedorPrec}"/>
+                        </p:column>
+                        <p:column headerText="Tipo Contenedor" rendered="#{precargaBean.tipoCarga eq 'FCL/FCL'}"  style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.tipoContenedorPrec}"  width="100" >
+                            <h:outputText value="#{objExp.tipoContenedorPrec}"/>
+                        </p:column>
+                        <p:column headerText="Condición"  style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.condicionContenedorPrec}"  width="100" >
+                            <h:outputText value="#{objExp.condicionContenedorPrec}"/>
+                        </p:column>
+                        <p:column headerText="Ruc Exp/Imp"  style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.impExpIdPrec}"  width="100" >
+                            <h:outputText value="#{objExp.impExpIdPrec}"/>
+                        </p:column>
+                        <p:column headerText="Exportador/Importador"  style="text-align: center" filterStyle="width: 200px " filterBy="#{objExp.importadorPrec}"  width="100" >
+                            <h:outputText value="#{objExp.importadorPrec}"/>
+                        </p:column>
+                        <p:column headerText="Producto" style="text-align: center" filterStyle="width: 150px " width="150" filterBy="#{objExp.descripcionPrec}">
+                            <h:outputText value="#{objExp.descripcionPrec}"/>
+                        </p:column>
+                        <p:column headerText="Peso" style="text-align: center" filterStyle="width: 90px " width="100" filterBy="#{objExp.pesoPrec}">
+                            <h:outputText value="#{objExp.pesoPrec}"/>
+                        </p:column>
+                        <p:column headerText="Carga Peligrosa" style="text-align: center" filterStyle="width: 90px " width="100" filterBy="#{objExp.cargaPeligrosaPrec}">
+                            <h:outputText value="#{objExp.cargaPeligrosaPrec}"/>
+                        </p:column>
+                        <p:column headerText="IMO" style="text-align: center" filterStyle="width: 90px " width="100" filterBy="#{objExp.codigoImoPre}">
+                            <h:outputText value="#{objExp.codigoImoPre}"/>
+                        </p:column>
+                        <p:column headerText="Sello1" style="text-align: center" filterStyle="width: 90px " width="100" filterBy="#{objExp.sello1Prec}">
+                            <h:outputText value="#{objExp.sello1Prec}"/>
+                        </p:column>
+                        <p:column headerText="Sello2" style="text-align: center" filterStyle="width: 90px " width="100" filterBy="#{objExp.sello2Prec}">
+                            <h:outputText value="#{objExp.sello2Prec}"/>
+                        </p:column>
+                        <p:column headerText="Sello3" style="text-align: center" filterStyle="width: 90px " width="100" filterBy="#{objExp.sello3Prec}">
+                            <h:outputText value="#{objExp.sello3Prec}"/>
+                        </p:column>
+                        <p:column headerText="Temp." rendered="#{precargaBean.tipoTrans eq 'E'}"  style="text-align: center" filterStyle="width: 90px " width="100" filterBy="#{objExp.temperaturaPrec}">
+                            <h:outputText value="#{objExp.temperaturaPrec}"/>
+                        </p:column>
+                        <p:column headerText="Vent."  rendered="#{precargaBean.tipoTrans eq 'E'}"  style="text-align: center" filterStyle="width: 90px " width="100" filterBy="#{objExp.ventilacionPrec}">
+                            <h:outputText value="#{objExp.ventilacionPrec}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+                <p:dialog widgetVar="dlgInicio" header="Espere...">
+                    <h3>Espere un momento...</h3>
+                    <h3>Estamos procesando su informacion</h3>
+                </p:dialog>
+                <p:dialog widgetVar="dlgExportar" header="Exportar Datos">
+                    <hr/>
+                    <h:panelGrid columns="4">
+                        <h:commandLink actionListener="#{precargaBean.reportePDF(actionEvent)}">
+                            <p:graphicImage id="pdfimagen" name="/iconos/PDF.png" alt="Exportar a PDF" height="60" width="60"/>
+                            <p:tooltip for="pdfimagen" value="Exportar a PDF"/>
+                        </h:commandLink>                    
+
+                        <h:commandLink actionListener="#{precargaBean.reporteEXCEL(actionEvent)}" >
+                            <p:graphicImage id="excelimagen" name="/iconos/EXCEL.png" alt="Exportar a Excel" height="60" width="60"/>
+                            <p:tooltip for="excelimagen" value="Exportar a Excel"/>
+                        </h:commandLink>
+
+                    </h:panelGrid>
+                    <hr/>
+                    <center>
+                        <p:commandButton value="Cerrar" type="button" onclick="PF('dlgExportar').hide();" icon="eliminar" style="height: 35px"/>
+                    </center>
+                </p:dialog>
+            </h:form>
+        </p:dialog>
+    </body>
+</html>

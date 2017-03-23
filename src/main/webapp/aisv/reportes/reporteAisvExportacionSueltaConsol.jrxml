@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="d5b493ec-a357-4882-8538-f16e57891a54">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="45"/>
+	<property name="ireport.y" value="554"/>
+	<parameter name="tipoTransaccion" class="java.lang.String"/>
+	<parameter name="bookingBl" class="java.lang.String"/>
+	<parameter name="codigoBarraInf" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[1234]]></defaultValueExpression>
+	</parameter>
+	<parameter name="imagen" class="java.io.InputStream"/>
+	<parameter name="primercodigo" class="java.lang.String"/>
+	<parameter name="codigoseguridad" class="java.lang.String"/>
+	<parameter name="numeroDae" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="usrFirstname" class="java.lang.String">
+		<fieldDescription><![CDATA[usrId.usrFirstname]]></fieldDescription>
+	</field>
+	<field name="descripcionPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.descripcionPrec]]></fieldDescription>
+	</field>
+	<field name="nombreTrasnportistaTrans" class="java.lang.String">
+		<fieldDescription><![CDATA[nombreTrasnportistaTrans]]></fieldDescription>
+	</field>
+	<field name="blmasterPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.blmasterPrec]]></fieldDescription>
+	</field>
+	<field name="fechaCreacion" class="java.util.Date">
+		<fieldDescription><![CDATA[fechaCreacinTrans]]></fieldDescription>
+	</field>
+	<field name="tarjaPrec" class="java.lang.Integer">
+		<fieldDescription><![CDATA[codigoPrec.tarjaPrec]]></fieldDescription>
+	</field>
+	<field name="bookingPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.bookingPrec]]></fieldDescription>
+	</field>
+	<field name="descripcionViajeItin" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.idItinerarioPrec.descripcionItin]]></fieldDescription>
+	</field>
+	<field name="nombreSoli" class="java.lang.String">
+		<fieldDescription><![CDATA[usrId.codigoSoli.nombreSoli]]></fieldDescription>
+	</field>
+	<field name="cedulaTrasnportistaTrans" class="java.lang.String">
+		<fieldDescription><![CDATA[cedulaTrasnportistaTrans]]></fieldDescription>
+	</field>
+	<field name="codigoImoPre" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.codigoImoPre]]></fieldDescription>
+	</field>
+	<field name="nombreNavi" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.idLineaPrec.nombreNavi]]></fieldDescription>
+	</field>
+	<field name="placaTrasnportistaTrans" class="java.lang.String">
+		<fieldDescription><![CDATA[placaTrasnportistaTrans]]></fieldDescription>
+	</field>
+	<field name="blhijoPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.blhijoPrec]]></fieldDescription>
+	</field>
+	<field name="numeroCajasTrans" class="java.lang.Integer">
+		<fieldDescription><![CDATA[numeroCajasTrans]]></fieldDescription>
+	</field>
+	<field name="codigoTrans" class="java.lang.Long">
+		<fieldDescription><![CDATA[codigoTrans]]></fieldDescription>
+	</field>
+	<field name="usrLoginname" class="java.lang.String">
+		<fieldDescription><![CDATA[usrId.usrLoginname]]></fieldDescription>
+	</field>
+	<field name="mostrarTipo" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.mostrarTipo]]></fieldDescription>
+	</field>
+	<field name="cargaPeligrosaPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.cargaPeligrosaPrec]]></fieldDescription>
+	</field>
+	<field name="contenedorPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.contenedorPrec]]></fieldDescription>
+	</field>
+	<field name="condicionContenedorPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.condicionContenedorPrec]]></fieldDescription>
+	</field>
+	<field name="sello1Prec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.sello1Prec]]></fieldDescription>
+	</field>
+	<field name="daesTrans" class="java.lang.String">
+		<fieldDescription><![CDATA[daesTrans]]></fieldDescription>
+	</field>
+	<field name="tipoContenedorPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.tipoContenedorPrec]]></fieldDescription>
+	</field>
+	<field name="temperaturaPrec" class="java.lang.Double">
+		<fieldDescription><![CDATA[codigoPrec.temperaturaPrec]]></fieldDescription>
+	</field>
+	<field name="ventilacionPrec" class="java.lang.Double">
+		<fieldDescription><![CDATA[codigoPrec.ventilacionPrec]]></fieldDescription>
+	</field>
+	<field name="tipo" class="java.lang.String">
+		<fieldDescription><![CDATA[tipo]]></fieldDescription>
+	</field>
+	<field name="propositoCargaTrans" class="java.lang.String">
+		<fieldDescription><![CDATA[propositoCargaTrans.descripcionProp]]></fieldDescription>
+	</field>
+	<field name="importadorPrecarga" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.importadorPrec]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="802" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="118" y="308" width="190" height="23" backcolor="#CCCCCC" uuid="c7ed514e-52d3-4b65-996e-f45558295d25"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{importadorPrecarga}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="521" width="285" height="20" forecolor="#666666" uuid="15cf8ad5-1d41-40a6-b08a-7208fbc94a5d"/>
+				<textElement>
+					<font fontName="Calibri" size="14"/>
+				</textElement>
+				<text><![CDATA[Datos de Autorización:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="156" y="475" width="390" height="20" backcolor="#CCCCCC" uuid="711ebe18-a95e-41e1-aba1-4a7d2cac9495"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombreTrasnportistaTrans}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="369" width="298" height="20" forecolor="#666666" uuid="bef1d2d7-6514-449b-a29a-e7e0b829976a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="14"/>
+				</textElement>
+				<text><![CDATA[Datos de carga:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="256" width="293" height="20" forecolor="#666666" uuid="02fee67f-b452-45c6-b5fc-498d051b8f39"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="14"/>
+				</textElement>
+				<text><![CDATA[Datos Generales]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="431" y="307" width="116" height="24" backcolor="#CCCCCC" uuid="6e7f13fd-1520-4ce4-a731-18e3c821c08e"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{bookingPrec}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="12" y="283" width="100" height="20" backcolor="#999999" uuid="862b5f51-2a23-4533-9858-eaaffdfe6a2b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Itinerario:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="458" y="399" width="30" height="20" backcolor="#999999" uuid="2cb38181-f5c3-4782-b4d6-b0710cebab72"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UN:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="13" y="547" width="139" height="20" backcolor="#999999" uuid="9e2a4da9-8090-4706-a832-90d6827c3e2d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código de Seguridad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="12" y="337" width="101" height="20" backcolor="#999999" uuid="4af99870-9302-4377-a90c-884abc0c1933"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Línea:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="12" y="475" width="140" height="20" backcolor="#999999" uuid="818e7cd6-70eb-44fa-8c74-7677c5fc901c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre del conductor:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="414" y="399" width="41" height="20" backcolor="#CCCCCC" uuid="5b4f4465-0cb1-4d56-9102-a25f1024cff6"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{codigoImoPre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="430" y="283" width="116" height="20" backcolor="#CCCCCC" uuid="6ee3e1c0-649c-470d-a7c8-bb707ceb92dd"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{codigoTrans}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="13" y="498" width="35" height="20" backcolor="#999999" uuid="f7829c38-407b-4a94-9de7-99e9f175b901"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[C.I:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="11" y="399" width="101" height="20" backcolor="#999999" uuid="9c19a614-2a44-4de7-9dcf-e00819546ebd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Producto:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="452" width="286" height="20" forecolor="#666666" uuid="023459d1-59c9-4a95-8974-d706b6626353"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="14"/>
+				</textElement>
+				<text><![CDATA[Datos del Transporte:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="157" y="547" width="390" height="20" backcolor="#CCCCCC" uuid="4fdfe95d-194b-4d8f-bbd4-19b58a67a20e"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{codigoBarraInf}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="157" y="573" width="390" height="24" backcolor="#CCCCCC" uuid="01c040e8-633f-4473-820d-8a7620df211d"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daesTrans}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="491" y="399" width="55" height="20" backcolor="#CCCCCC" uuid="e51890d4-0d97-4c4e-840b-1fc531f253a1"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{codigoImoPre}.length()>0?"SI":"NO"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="157" y="498" width="37" height="20" backcolor="#999999" uuid="87c89238-018d-4a49-bd7a-20c5f425a4ed"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Placa:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="197" y="498" width="100" height="20" backcolor="#CCCCCC" uuid="a958461c-21e0-4d67-9b88-53101b7711f6"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{placaTrasnportistaTrans}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="314" y="283" width="112" height="20" backcolor="#999999" uuid="1a03b2b1-3e23-4c68-9e65-42befad9c799"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código de seguridad:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="117" y="283" width="192" height="20" backcolor="#CCCCCC" uuid="50f996c2-1650-4c67-8dea-13c072cfcfdf"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descripcionViajeItin}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="117" y="399" width="237" height="20" backcolor="#CCCCCC" uuid="3e01b592-3c90-47ca-acea-9c009293f59e"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descripcionPrec}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="118" y="337" width="190" height="20" backcolor="#CCCCCC" uuid="fd64009b-2686-4d0e-95bd-80d408bc79cd"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombreNavi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="358" y="399" width="53" height="20" backcolor="#999999" uuid="1b899640-cc1b-4450-a2e5-f4fec05f40b8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IMO Class:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="12" y="573" width="140" height="25" backcolor="#999999" uuid="d17f4673-d667-4a00-ae72-c4fe2ad5afcf"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Código DAE:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="51" y="498" width="101" height="20" backcolor="#CCCCCC" uuid="17ed89c4-2739-4b7f-b951-c872ccb41cbb"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cedulaTrasnportistaTrans}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="314" y="308" width="112" height="23" backcolor="#999999" uuid="2e353f27-b70c-4ab1-90b1-1a46d7a451ae"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro de Booking:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="12" y="308" width="100" height="23" backcolor="#999999" uuid="867f9877-ad6a-40db-bdb5-fba1fc89713b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Exportador:]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement mode="Opaque" x="0" y="689" width="555" height="83" uuid="1babbe58-f200-4baf-b70b-db485f4350de"/>
+				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="none">
+					<jr:codeExpression><![CDATA[$P{codigoBarraInf}]]></jr:codeExpression>
+				</jr:Code39>
+			</componentElement>
+			<componentElement>
+				<reportElement x="378" y="31" width="169" height="50" uuid="bcf97e8b-f765-4c87-9549-fcbe4f9a2b76"/>
+				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="none">
+					<jr:codeExpression><![CDATA[$P{primercodigo}]]></jr:codeExpression>
+				</jr:Code39>
+			</componentElement>
+			<staticText>
+				<reportElement x="11" y="125" width="535" height="25" uuid="099623c7-7b36-4974-9c2d-fcf88fe2c541"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EXPORTACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="103" width="535" height="25" uuid="913dec9b-5086-43b8-b6f3-961ba119a0f0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Autorización de Ingreso/Salida de Vehículos]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="120" y="235" width="428" height="20" backcolor="#CCCCCC" uuid="96f8913c-fab3-4f2f-b732-c896b04734da"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tipo}+" - "+$F{nombreSoli}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="120" y="186" width="191" height="20" backcolor="#CCCCCC" uuid="a89fcb71-777e-408c-a4f5-c615e9eb257d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{usrLoginname}+" - "+$F{usrFirstname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="14" y="235" width="100" height="20" backcolor="#999999" uuid="8ec5d94b-dd79-4586-9722-f0d008a1ae68"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contacto:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="14" y="187" width="100" height="20" backcolor="#999999" uuid="f190bc1b-0a04-468b-8f79-dbcce1c6a6e2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH:mm" isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="120" y="211" width="190" height="20" backcolor="#CCCCCC" uuid="e5c78495-380b-4684-899d-48f3710e2fb9"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fechaCreacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="14" y="211" width="100" height="20" backcolor="#999999" uuid="13df8460-19ca-45e3-8aa1-13e962973003"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="160" width="295" height="20" forecolor="#666666" uuid="fa7129b4-58b2-4bdc-8ff9-b44e7c19204c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="14"/>
+				</textElement>
+				<text><![CDATA[Datos del Emisor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="315" y="337" width="112" height="20" backcolor="#999999" uuid="3c0cf5b3-ebbc-42a5-b186-8d5b860f4117"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Condición:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="432" y="337" width="116" height="20" backcolor="#CCCCCC" uuid="889bf8b6-35c1-4c80-bcf4-baea28848334"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{condicionContenedorPrec}.equals("FCL/FCL")?"FULL":
+$F{condicionContenedorPrec}.equals("LCL/LCL")?"SUELTA":
+$F{condicionContenedorPrec}.equals("FCL/LCL")?"CONSOLIDADA":
+$F{condicionContenedorPrec}.equals("LCL/FCL")?"CONSOLIDADA":""]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="2" width="263" height="101" uuid="d6faab3e-2c83-4df0-ad05-0bfa97f4045f"/>
+				<imageExpression><![CDATA["nap.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="10" y="423" width="101" height="20" backcolor="#999999" uuid="1d925c49-0a20-40a1-b7dc-3bf340efc50b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Propósito de Carga:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="116" y="423" width="237" height="20" backcolor="#CCCCCC" uuid="e4c2aa80-60f9-4968-adf2-2d0ffbb2c814"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{propositoCargaTrans}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="84" y="573" width="68" height="24" uuid="b52a04f1-8fbe-4af9-8ace-7a0be8872c06"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{numeroDae}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

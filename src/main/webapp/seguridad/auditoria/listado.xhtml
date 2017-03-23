@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <p:growl id="mensaje" showDetail="true" showSummary="false"/>
+        <p:dialog id="dlgPrincipal" widgetVar="dlgPrincipal" width="1100" height="400" showEffect="clip" hideEffect="explode"
+                  resizable="false" fitViewport="true" position="center" header="Aisv - Auditoría" onHide="emptyHtml();">
+            <h:form id="formPrincipal">
+                <h:panelGrid columns="6" style="float: left">
+                    <h:outputText value="Fecha Inicial"/>
+                    <p:calendar value="#{auditoriaBean.inicio}"/>
+                    <h:outputText value="Fecha Final"/>
+                    <p:calendar value="#{auditoriaBean.fin}"/>
+                    <p:commandButton value="Buscar" icon="ui-icon-search" actionListener="#{auditoriaBean.buscar()}"
+                                     update=":formPrincipal:listado"/>
+                    <p:commandButton value="Imprimir"  icon="imprimir" styleClass="boton-imprimir"
+                                     oncomplete="PF('dlgExportar').show();" onstart="PF('dlgInicio').show()" onsuccess="PF('dlgInicio').hide()" 
+                                     actionListener="#{auditoriaBean.prepararExportacion()}"/>
+                </h:panelGrid>
+                <p:dataTable id="listado" style="font-size: 80%;float: left" paginator="true" emptyMessage="No se ha encontrado ningún Registro"
+                             paginatorPosition="bottom" var="obj" lazy="true" rowKey="#{obj.audId}"
+                             selectionMode="single" value="#{auditoriaBean.listadoEntidad}" 
+                             selection="#{auditoriaBean.entidad}" resizableColumns="true"
+                             rows="12" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                             rowsPerPageTemplate="12,20">
+
+                    <p:column headerText="Tabla" filterBy="#{obj.audTabla}">
+                        <h:outputText value="#{obj.audTabla}"/>
+                    </p:column>
+                    <p:column headerText="PK" filterBy="#{obj.primaryKeyField}">
+                        <h:outputText value="#{obj.primaryKeyField}"/>
+                    </p:column>
+                    <p:column headerText="Valor de PK" filterBy="#{obj.primaryKeyValue}">
+                        <h:outputText value="#{obj.primaryKeyValue}"/>
+                    </p:column>
+                    <p:column headerText="Operación"  filterBy="#{obj.audOperacion}">
+                        <h:outputText value="#{obj.audOperacion}"/>
+                    </p:column>
+                    <p:column headerText="Fecha" >
+                        <h:outputText value="#{obj.audData}">
+                            <f:convertDateTime timeZone="" pattern="yyyy/MM/dd HH:mm:ss a" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Usuario"  filterBy="#{obj.audUsuario}">
+                        <h:outputText value="#{obj.audUsuario}"/>
+                    </p:column>
+                    <p:column headerText="Campo" style="font-size: 90%" filterBy="#{obj.fieldName}">
+                        <h:outputText value="#{obj.fieldName}"/>
+                    </p:column>
+                    <p:column headerText="Dato Antiguo" style="font-size: 90%" filterBy="#{obj.oldValue}">
+                        <h:outputText value="#{obj.oldValue}"/>
+                    </p:column>
+                    <p:column headerText="Dato Nuevo" style="font-size: 90%" filterBy="#{obj.newValue}">
+                        <h:outputText value="#{obj.newValue}"/>
+                    </p:column>
+                </p:dataTable>
+                <p:dialog widgetVar="dlgInicio" header="Espere" closable="false">
+                    <h3>Espere un momento...</h3>
+                    <h3>Su información estara lista</h3>
+                </p:dialog>
+            </h:form>
+        </p:dialog>
+        <p:dialog widgetVar="dlgExportar"  modal="true" header="Exportar Datos de Auditoría">
+            <h:form id="frmExportar">
+                <hr/>
+                <h:panelGrid columns="4">
+                    <h:commandLink actionListener="#{auditoriaBean.reportePDF(actionEvent)}">
+                        <p:graphicImage id="pdfimagen" name="/iconos/PDF.png" alt="Exportar a PDF" height="60" width="60"/>
+                        <p:tooltip for="pdfimagen" value="Exportar a PDF"/>
+                    </h:commandLink>                    
+                    <h:commandLink actionListener="#{auditoriaBean.reporteWORD(actionEvent)}">
+                        <p:graphicImage id="wordimagen" name="/iconos/WORD.png" alt="Exportar a Word" height="60" width="60"/>
+                        <p:tooltip for="wordimagen" value="Exportar a Word"/>
+                    </h:commandLink>
+                    <h:commandLink actionListener="#{auditoriaBean.reporteEXCEL(actionEvent)}" >
+                        <p:graphicImage id="excelimagen" name="/iconos/EXCEL.png" alt="Exportar a Excel" height="60" width="60"/>
+                        <p:tooltip for="excelimagen" value="Exportar a Excel"/>
+                    </h:commandLink>
+                    <h:commandLink actionListener="#{auditoriaBean.reporteODT(actionEvent)}">
+                        <p:graphicImage id="odtimagen" name="/iconos/ODT.png" alt="Exportar a OpenDocument" height="60" width="60"/>
+                        <p:tooltip for="odtimagen" value="Exportar a OpenDocument"/>
+                    </h:commandLink>
+                </h:panelGrid>
+                <hr/>
+                <center>
+                    <p:commandButton value="Cerrar" type="button" onclick="PF('dlgExportar').hide();" icon="eliminar" style="height: 35px;width: 110px"/>
+                </center>
+            </h:form>
+        </p:dialog>
+    </body>
+</html>
+

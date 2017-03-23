@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="1430" pageHeight="595" orientation="Landscape" columnWidth="1390" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="54662527-8432-4028-a50a-1220503e3c03">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="usrFirstname" class="java.lang.String">
+		<fieldDescription><![CDATA[usrId.usrFirstname]]></fieldDescription>
+	</field>
+	<field name="nombreTrasnportistaTrans" class="java.lang.String">
+		<fieldDescription><![CDATA[nombreTrasnportistaTrans]]></fieldDescription>
+	</field>
+	<field name="descripcionPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.descripcionPrec]]></fieldDescription>
+	</field>
+	<field name="fechaCreacion" class="java.util.Date">
+		<fieldDescription><![CDATA[fechaCreacion]]></fieldDescription>
+	</field>
+	<field name="blmasterPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.blmasterPrec]]></fieldDescription>
+	</field>
+	<field name="bookingPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.bookingPrec]]></fieldDescription>
+	</field>
+	<field name="tarjaPrec" class="java.lang.Integer">
+		<fieldDescription><![CDATA[codigoPrec.tarjaPrec]]></fieldDescription>
+	</field>
+	<field name="descripcionViajeItin" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.idItinerarioPrec.descripcionViajeItin]]></fieldDescription>
+	</field>
+	<field name="nombreSoli" class="java.lang.String">
+		<fieldDescription><![CDATA[usrId.codigoSoli.nombreSoli]]></fieldDescription>
+	</field>
+	<field name="cedulaTrasnportistaTrans" class="java.lang.String">
+		<fieldDescription><![CDATA[cedulaTrasnportistaTrans]]></fieldDescription>
+	</field>
+	<field name="codigoImoPre" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.codigoImoPre]]></fieldDescription>
+	</field>
+	<field name="nombreNavi" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.idLineaPrec.nombreNavi]]></fieldDescription>
+	</field>
+	<field name="placaTrasnportistaTrans" class="java.lang.String">
+		<fieldDescription><![CDATA[placaTrasnportistaTrans]]></fieldDescription>
+	</field>
+	<field name="blhijoPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.blhijoPrec]]></fieldDescription>
+	</field>
+	<field name="numeroCajasTrans" class="java.lang.Integer">
+		<fieldDescription><![CDATA[numeroCajasTrans]]></fieldDescription>
+	</field>
+	<field name="codigoTrans" class="java.lang.Long">
+		<fieldDescription><![CDATA[codigoTrans]]></fieldDescription>
+	</field>
+	<field name="usrLoginname" class="java.lang.String">
+		<fieldDescription><![CDATA[usrId.usrLoginname]]></fieldDescription>
+	</field>
+	<field name="mostrarTipo" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.mostrarTipo]]></fieldDescription>
+	</field>
+	<field name="cargaPeligrosaPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.cargaPeligrosaPrec]]></fieldDescription>
+	</field>
+	<field name="contenedorPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.contenedorPrec]]></fieldDescription>
+	</field>
+	<field name="condicionContenedorPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.condicionContenedorPrec]]></fieldDescription>
+	</field>
+	<field name="sello1Prec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.sello1Prec]]></fieldDescription>
+	</field>
+	<field name="daesTrans" class="java.lang.String">
+		<fieldDescription><![CDATA[daesTrans]]></fieldDescription>
+	</field>
+	<field name="temperaturaPrec" class="java.lang.Double">
+		<fieldDescription><![CDATA[codigoPrec.temperaturaPrec]]></fieldDescription>
+	</field>
+	<field name="tipoContenedorPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.tipoContenedorPrec]]></fieldDescription>
+	</field>
+	<field name="ventilacionPrec" class="java.lang.Double">
+		<fieldDescription><![CDATA[codigoPrec.ventilacionPrec]]></fieldDescription>
+	</field>
+	<field name="estadoTran" class="java.lang.String">
+		<fieldDescription><![CDATA[estadoTran]]></fieldDescription>
+	</field>
+	<field name="puertoLlegada" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.ptoDestinoPrec]]></fieldDescription>
+	</field>
+	<field name="pesoPrec" class="java.lang.Double">
+		<fieldDescription><![CDATA[codigoPrec.pesoPrec]]></fieldDescription>
+	</field>
+	<field name="fechaInspeccionTrans" class="java.util.Date">
+		<fieldDescription><![CDATA[fechaInspeccionTrans]]></fieldDescription>
+	</field>
+	<field name="sello2Prec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.sello2Prec]]></fieldDescription>
+	</field>
+	<field name="sello3Prec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.sello3Prec]]></fieldDescription>
+	</field>
+	<field name="fechaIngresoPuerto" class="java.util.Date">
+		<fieldDescription><![CDATA[fechaIngresoPuerto]]></fieldDescription>
+	</field>
+	<field name="fechaEirTrans" class="java.util.Date">
+		<fieldDescription><![CDATA[fechaEirTrans]]></fieldDescription>
+	</field>
+	<field name="eirTrans" class="java.lang.String">
+		<fieldDescription><![CDATA[eirTrans]]></fieldDescription>
+	</field>
+	<field name="propositoCargaTrans" class="java.lang.String">
+		<fieldDescription><![CDATA[propositoCargaTrans.descripcionProp]]></fieldDescription>
+	</field>
+	<field name="ptoOrigenPrec" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoPrec.ptoOrigenPrec]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="84" splitType="Stretch">
+			<staticText>
+				<reportElement x="-1" y="24" width="1391" height="35" uuid="63298112-307e-4792-9b07-7a0265e4db91"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AISV de Exportación Carga Suelta/Consolidada]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="244" height="82" uuid="67ae998f-fb80-47fa-b115-092b3452fcf3"/>
+				<imageExpression><![CDATA["nap.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<line>
+				<reportElement x="2" y="1" width="1387" height="1" uuid="4bab3a1b-b180-47ce-a96f-4d3fde6bcca4"/>
+			</line>
+			<line>
+				<reportElement x="3" y="27" width="1386" height="1" uuid="7ee00c57-2725-4fb4-9042-d7ed7f353d89"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="2" y="2" width="1" height="26" uuid="2d450ca3-e282-4d7c-a83b-ebb18ff2bb89"/>
+			</line>
+			<staticText>
+				<reportElement x="1" y="2" width="83" height="25" uuid="8be596b3-0f68-4f70-be77-7c8c1b2c5670"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Booking]]></text>
+			</staticText>
+			<line direction="BottomUp">
+				<reportElement x="84" y="2" width="1" height="26" uuid="ff73317d-0a6e-428f-acf7-dd8ef525828e"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="73" y="-320" width="1" height="26" uuid="e4591686-547d-4838-a154-4ad95419f0cd"/>
+			</line>
+			<staticText>
+				<reportElement x="204" y="2" width="70" height="23" uuid="362db966-4c33-4a2d-b122-3900401529a0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Linea]]></text>
+			</staticText>
+			<line direction="BottomUp">
+				<reportElement x="273" y="1" width="1" height="26" uuid="473a266b-1d17-4bcf-b206-e0b68fbd398c"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="350" y="1" width="1" height="26" uuid="22a87eb7-80f8-466e-bd61-a8f37ec9d28f"/>
+			</line>
+			<staticText>
+				<reportElement x="274" y="2" width="76" height="23" uuid="f21c01f3-0dd2-4fd9-9239-d4f8764caa0b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Itinerario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="3" width="147" height="23" uuid="686ed470-3b76-4eb1-8f3d-b405c5996d96"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<line direction="BottomUp">
+				<reportElement x="446" y="-318" width="1" height="22" uuid="a883f6cc-a1ab-41ac-be0d-795d01aec70a"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="748" y="1" width="1" height="26" uuid="bebb8367-32d1-4349-ab1b-eafc6a614cf4"/>
+			</line>
+			<staticText>
+				<reportElement x="497" y="4" width="146" height="20" uuid="7e40a4c3-17c4-4c1a-a18c-c4e7cc2dc270"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre de Transportista]]></text>
+			</staticText>
+			<line direction="BottomUp">
+				<reportElement x="861" y="2" width="1" height="26" uuid="1a686afe-6442-4aad-bb4b-2ee5ae4c36bb"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="1012" y="2" width="1" height="26" uuid="8e08cc7d-6ebc-424e-b04a-d5746e429b52"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="1100" y="1" width="1" height="26" uuid="aa8e68f5-2220-4a59-83b3-6f5d3afe393d"/>
+			</line>
+			<staticText>
+				<reportElement x="645" y="1" width="104" height="28" uuid="b8d1ceb7-e6f0-409a-8e71-4e7c5f5c8504"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Placa de Transportista]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="749" y="3" width="113" height="23" uuid="8ad70c8d-3754-4e8a-8607-e161b52f6974"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha EIR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="862" y="1" width="150" height="24" uuid="c0f6e509-aa8a-4878-b394-495be1e0fa73"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="85" y="3" width="118" height="25" uuid="231da09f-7539-47f2-b76b-236b5708f68a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Consignatario]]></text>
+			</staticText>
+			<line direction="BottomUp">
+				<reportElement x="203" y="1" width="1" height="26" uuid="ac4df82c-d314-4e2d-900f-032bfab34fbe"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="497" y="1" width="1" height="25" uuid="c3402737-3fa9-4420-a046-65519f1b1eff"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="644" y="1" width="1" height="26" uuid="4936b429-1b52-4306-a655-ba9df8289608"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="1226" y="2" width="1" height="26" uuid="fb0b954f-d6cf-4532-88aa-be15c2ce6798"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="1316" y="2" width="1" height="26" uuid="dcade67c-120a-490c-aff5-0cdf18d6258f"/>
+			</line>
+			<staticText>
+				<reportElement x="1227" y="1" width="89" height="25" uuid="4770d31b-4f87-450c-bd65-d73453f752b4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N° de Cajas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1317" y="1" width="72" height="23" uuid="2a1e8b18-5cfa-4a5d-8d98-7452cd51b33d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código AISV]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1101" y="2" width="126" height="25" uuid="e0e7d6ed-9d4f-49de-99f3-38033ad4d494"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DAES]]></text>
+			</staticText>
+			<line direction="BottomUp">
+				<reportElement x="1389" y="2" width="1" height="26" uuid="947bad8c-4571-4c72-8a46-68b1cb2ec18d"/>
+			</line>
+			<staticText>
+				<reportElement x="1013" y="3" width="88" height="25" uuid="ed867b99-379c-4bef-8592-83e78db75b3c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Puerto de Destino]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="-1" y="2" width="121" height="20" uuid="b5561b92-5fdd-442b-9fe8-84f6a3243e7b"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{bookingPrec}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="85" y="0" width="118" height="20" uuid="ed2f6a36-20dc-484e-8e5d-8255b7e707a6"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreSoli}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="203" y="2" width="70" height="20" uuid="585b1aa3-befb-40c5-b4d6-e2a72a29d6e0"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreNavi}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="273" y="2" width="77" height="20" uuid="933eaaa2-5e40-4433-b86d-861ff16323f2"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcionViajeItin}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="350" y="2" width="147" height="20" uuid="660e47e8-1f33-4593-be2d-4f6f76c8b7eb"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcionPrec}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="498" y="2" width="145" height="20" uuid="2a30571a-3d42-445c-8a9d-83553c52bd39"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreTrasnportistaTrans}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="645" y="0" width="104" height="20" uuid="81bef0d2-9046-4c0c-a4f5-ba9d53a358c9"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{placaTrasnportistaTrans}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="1015" y="1" width="86" height="20" uuid="842dc54b-4cf4-4bf9-a87b-16f938c269de"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{puertoLlegada}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="1227" y="1" width="89" height="20" uuid="4e456c53-afd6-40b9-80b7-9b5d6699e7fd"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeroCajasTrans}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="1316" y="1" width="73" height="20" uuid="b655e74c-8113-4fc8-8e10-9b3f5e61ee85"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigoTrans}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="749" y="2" width="112" height="20" uuid="6ec4723d-de62-4223-8cfe-07b464520edf"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaEirTrans}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="862" y="1" width="150" height="20" uuid="a8af26de-abb6-4129-985c-76d9d419484a"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{propositoCargaTrans}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="1101" y="2" width="125" height="20" uuid="eda7ca92-7945-46fc-80ad-31a09c113be8"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{daesTrans}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="18" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="2" width="100" height="20" uuid="7c9b5f65-05ef-42d4-b5b6-bdbe6ad0fc9b"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

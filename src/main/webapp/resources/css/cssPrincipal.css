@@ -1,0 +1,116 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family:  helvetica;
+    font-size: 80%;
+}
+.ui-button {
+    float:right !important;
+    border-radius:5px !important;
+    -webkit-border-radius:5px !important;
+    -moz-border-radius:5px !important;
+    height:30px !important;
+    background:#FFFFFF !important;
+    border:1px solid #CCCCCC !important;
+    color: #000000 !important;
+    font-weight: normal !important;
+}
+.ui-button.ui-state-hover{
+    border:2px solid #042c3b!important;
+    font-weight: bold !important;  
+}
+
+.ayuda {
+    background-image: url('../..//resources/imagentoolbar/foco_1.png') !important;
+    width: 40px !important;
+    height: 30px !important;
+    margin-top: -15px !important;
+}
+.guardar-segundo {
+    background-image: url('../..//resources/imagentoolbar/guardar.png') !important;
+    width: 40px !important;
+    height: 30px !important;
+    margin-top: -15px !important;
+}
+.actualizar {
+    background-image: url('../..//resources/imagentoolbar/feedBack.png') !important;
+    width: 40px !important;
+    height: 30px !important;
+    margin-top: -15px !important;
+}
+.nuevo {
+    background-image: url('../..//resources/imagentoolbar/nuevo-02_1.png') !important;
+    width: 40px !important;
+    height: 30px !important;
+    margin-top: -15px !important;
+}
+.imprimir {
+    background-image: url('../..//resources/imagentoolbar/nuevo-02_1.png') !important;
+    width: 40px !important;
+    height: 30px !important;
+    margin-top: -15px !important;
+}
+.salir{
+    background-image: url('../..//resources/imagentoolbar/logout.png') !important;
+    width: 40px !important;
+    height: 30px !important;
+    margin-top: -12px !important;
+}
+.bloquear{
+    background-image: url('../..//resources/imagentoolbar/en-blanco.png') !important;
+    width: 40px !important;
+    height: 30px !important;
+    margin-top: -12px !important;
+}
+.editar{
+    background-image: url('../..//resources/imagentoolbar/lapiz.png') !important;
+    width: 40px !important;
+    height: 30px !important;
+    margin-top: -12px !important;
+}
+.guardar{
+    background-image: url('../..//resources/imagentoolbar/nuevo.png') !important;
+    width: 40px !important;
+    height: 30px !important;
+    margin-top: -12px !important;
+}
+
+.eliminar{
+    background-image: url('../..//resources/imagentoolbar/cerrar.png') !important;
+    width: 40px !important;
+    height: 30px !important;
+    margin-top: -12px !important;
+}
+.boton-ayuda {
+    height: 40px!important;
+    width: 110px!important;
+    float: left !important;
+}
+.boton-guardar-segundo {
+    height: 40px!important;
+    width: 140px!important;
+    float: right !important;
+}
+.boton-actualizar {
+    height: 40px!important;
+    width: 140px!important
+}
+.boton-actualizar-segundo {
+    height: 40px!important;
+    width: 140px!important;
+    float: left !important;
+}
+.boton-nuevo {
+    height: 40px!important;
+    width: 120px!important
+}
+.boton-imprimir{
+    height: 40px!important;
+    width: 140px!important
+}
+.boton-datos {
+    height: 40px!important;
+    width: 52px!important
+}
+
+

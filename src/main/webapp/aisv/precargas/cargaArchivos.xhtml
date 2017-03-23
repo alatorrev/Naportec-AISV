@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:body>
+        <p:dialog widgetVar="datosCarga" header="AISV - Carga Archivos" modal="true" hideEffect="fade">
+            <h:form id="formCarga" enctype="multipart/form-data">
+                <h:panelGrid id="datosCrear" columns="2">
+                    <h:outputText value="NAVIERA"/>
+                    <h:outputText value="#{precargaBean.usuario.usrDescripcion}"/>
+                    <h:outputText value="Escoja el Itinerario"/>
+                    <p:selectOneMenu value="#{precargaBean.itinerario}" var="it" converter="itinerarioConverter" filter="true" filterMatchMode="contains">
+                        <f:selectItems  var="iti"  value="#{itinerarioBean.listado}" itemLabel="#{iti.codItinerarioItin}" itemValue="#{iti}"/>
+                        <p:column>
+                            <h:outputText value="#{it.descripcionItin}"/>
+                        </p:column>
+
+                        <p:column>
+                            <h:outputText value="#{it.codItinerarioItin}" />
+                        </p:column>
+                    </p:selectOneMenu>
+                 
+                    <p:fileUpload value="#{precargaBean.file}" mode="simple" label="Escoja un Archivo CSV o EDI"/>
+                </h:panelGrid>
+                <p:commandButton value="Guardar" style="height: 35px" actionListener="#{precargaBean.guardarDesdeArchivo(evt)}"
+                                 ajax="false"
+                                 update=":mensaje :formPrincipal:listado" oncomplete="PF('datosCarga').hide()"/>
+                <p:commandButton value="Cerrar" type="button" onclick="PF('datosCarga').hide();"  style="height: 35px"/>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>
+

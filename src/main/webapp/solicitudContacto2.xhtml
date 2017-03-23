@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet name="/css/solicitudContacto.css"/>
+    </h:head>
+    <h:body>
+        <p:dialog id="dlgContacto" widgetVar="dlgContacto" resizable="false" closable="false" hideEffect="clip" showEffect="clip" position="center" dynamic="true">
+            <h:form id="formContacto"> 
+                <fieldset class="fieldSetPrincipal">
+                    <legend id="fieldsetSecLegend">
+                        <h:panelGrid columns="2">
+                            <p:graphicImage value="resources/images/SOLICITUDDECONTACTO.png"/>
+                            <h:outputText value="SOLICITUD DE CONTACTO"/>
+                        </h:panelGrid>
+                    </legend>
+                    <p:panel styleClass="panelPrincipal">
+                        <p:tabView style="background-color: #FFFFFF !important;width: 100%" widgetVar="tabDatos" id="tabViewDatos">
+                            <p:tab title="DATOS GENERALES">
+                                <h:panelGrid columns="4" cellpadding="2" style="text-align: right;color: #000000">
+                                    <p:outputLabel styleClass="label" value="NOMBRE:" for="cnombre" />
+                                    <p:inputText styleClass="soli" id="cnombre" value="#{solicitudBean.entidad.nombreSoli}" style="width: 400px!important;" required="true" onkeypress="validarLetrasSimbolos(this.value, 200)"/>
+                                    <p:column/>
+                                    <p:column/>
+                                    <p:outputLabel styleClass="label" value="USUARIO:" for="cuser" />
+                                    <p:inputText styleClass="soli" id="cuser" value="#{solicitudBean.entidad.usuarioSoli}" style="width: 100px!important;text-transform: uppercase"  required="true" onkeypress="validarAlfanumerico(this.value, 13)">
+                                    </p:inputText>
+                                    <p:column/>
+                                    <p:column/>
+                                    <p:outputLabel styleClass="label" value="TIPO IDENTIFICACION:" for="ctipo" />
+                                    <p:selectOneMenu widgetVar="tipoIde" id="ctipo" style="float: left" value="#{solicitudBean.entidad.tipoIdentificacionSoli}">
+                                        <f:selectItem itemValue="ruc" itemLabel="RUC"/>
+                                        <f:selectItem itemValue="cedula" itemLabel="CEDULA"/>
+                                        <f:selectItem itemValue="pasaporte" itemLabel="PASAPORTE"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel styleClass="label" value="IDENTIFICACION:" for="cident"  style="float: left !important;margin-left: -300px"/>
+                                    <p:inputText styleClass="soli"  id="cident" value="#{solicitudBean.entidad.identificacionSoli}"  style="width: 150px!important;float: left !important;margin-left: -176px;text-transform: uppercase"  
+                                                 required="true" onkeypress="validarIdentificacion(this.value, PF('tipoIde').getSelectedValue())"/>
+                                    <p:outputLabel styleClass="label" value="DIRECCIÓN:" for="cdireccion" />
+                                    <p:inputTextarea styleClass="area" id="cdireccion" value="#{solicitudBean.entidad.direccionSoli}"  style="float: left !important;width: 400px!important" required="true"/>
+                                    <p:column/>
+                                    <p:column/>
+                                    <p:outputLabel styleClass="label" value="TIPO DE CONTACTO:" for="ctipocontacto" />
+                                    <p:selectOneMenu id="ctipocontacto" required="true" value="#{solicitudBean.entidad.tipoContactoSoli}" style="float: left !important;">
+                                        <p:ajax update=":formContacto:tabViewDatos:pnlNaviera"/>
+                                        <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                                        <f:selectItem itemLabel="AGENTE AFIANZADO" itemValue="AA"/>
+                                        <f:selectItem itemLabel="IMPORTADOR/EXPORTADOR" itemValue="IE"/>
+                                        <f:selectItem itemLabel="NAVIERA" itemValue="NA"/>
+                                    </p:selectOneMenu>
+                                    <p:column/>
+                                    <p:column/>
+                                    <p:outputLabel styleClass="label" value="CORREO NOTIF." for="cemail" />
+                                    <p:inputText  styleClass="soli" id="cemail" value="#{solicitudBean.entidad.correoSoli}" style="width: 400px!important;float: left !important;" validatorMessage="Verifique su Email"  required="true">
+                                    </p:inputText>
+                                    <p:watermark for="cemail" value="Ejm: contacto@dole.com;miempresa@hotmail.com"/>
+                                    <p:tooltip for="cemail" value="Correo para notificación Antinarcóticos"  />
+                                    <p:outputLabel styleClass="label" value="TELEFONO:" for="ctelefono" />
+                                    <p:inputText styleClass="soli" id="ctelefono" value="#{solicitudBean.entidad.telefonoSoli}" style="width: 100px!important;float: left !important;" required="true" onkeypress="ValidarNumeros(this.value, 15)"/>
+                                    <p:inputText styleClass="soli" id="ccelular" value="#{solicitudBean.entidad.celularSoli}" style="width: 100px!important;float: left !important;margin-left: -160px"  onkeypress="ValidarNumeros(this.value, 10)"/>
+                                    <p:outputLabel styleClass="label" value="CELULAR:" for="ccelular" style="width: 100px!important;float: left !important;margin-left: -300px"/>
+                                </h:panelGrid>
+
+
+                                <p:panel styleClass="panelNaviera" id="pnlNaviera" visible="#{solicitudBean.entidad.tipoContactoNaviera}">
+                                    <h:panelGrid columns="2" style="text-align: right;color: #000000">
+                                        <p:outputLabel styleClass="label" value="CODIGO OCE: *" for="coce" />
+                                        <p:inputText styleClass="soli" id="coce" value="#{solicitudBean.entidad.oceSoli}" style="width: 100px!important;float: left !important;"/>
+                                        <p:outputLabel styleClass="label" value="CODIGO CAE: *" for="cdes" />
+                                        <p:inputText styleClass="soli" id="cdes" value="#{solicitudBean.entidad.descripcionSoli}" style="width: 100px!important;float: left !important;">
+                                        </p:inputText>
+                                    </h:panelGrid>
+                                </p:panel>
+                            </p:tab>
+
+                            <p:tab title="CONTACTO">
+                                <p:fieldset styleClass="fieldSetContacto" legend="Información de Usuarios" toggleable="true">
+                                    <h:panelGrid id="datContact" columns="4" cellpadding="2" style="text-align: right;font-weight: 900;color: #000000">
+                                        <p:outputLabel styleClass="label" value="NOMBRES:*" for="conombre" />
+                                        <p:inputText styleClass="soli" id="conombre" value="#{solicitudBean.contacto.nombreCont}" style="width: 200px!important;text-transform: uppercase" onkeypress="validarLetras(this.value, 150)"/>
+                                        <p:outputLabel styleClass="label" value="TELEFONO:*" for="cotelefono" />
+                                        <p:inputText styleClass="soli" id="cotelefono" value="#{solicitudBean.contacto.telefonoCont}" style="width: 100px!important"  onkeypress="ValidarNumeros(this.value, 15)"/>
+                                        <p:outputLabel styleClass="label" value="CORREO:*" for="coemail" />
+                                        <p:inputText styleClass="soli" id="coemail" value="#{solicitudBean.contacto.emailCont}" style="width: 250px!important"/>
+                                        <p:outputLabel styleClass="label" value="CELULAR:" for="cocelular" />
+                                        <p:inputText styleClass="soli" id="cocelular" value="#{solicitudBean.contacto.celularCont}" style="width: 100px!important"  onkeypress="ValidarNumeros(this.value, 10)"/>
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="2" width="100%">
+                                        <p:commandButton id="btAgregar" value="AGREGAR" style="font-size: 10px!important;height: 30px!important;width: 100px!important"
+                                                         actionListener="#{solicitudBean.agregarContacto()}" process="@all" update=":formContacto:tabViewDatos:listadoContactos datContact panelAviso :formContacto:btGuardar"/>
+                                        <p:panel style="background: #D80100;float: right" id="panelAviso" visible="#{solicitudBean.entidad.contactoList.size() gt 2}">
+                                            <h:outputText style="color: #FFFFFF!important;" value="Se sugiere el ingreso de 2 contactos como mínimo y 3 máximo"/>
+                                        </p:panel>
+                                    </h:panelGrid>
+                                </p:fieldset>
+
+                                <p:dataTable styleClass="tablaContacto" id="listadoContactos" emptyMessage="No se ha encontrado ningún Usuario" resizableColumns="true"
+                                             var="obj" value="#{solicitudBean.entidad.contactoList}">
+                                    <p:column style="width:32px;text-align: center">
+                                        <p:commandButton update=":formContacto:tabViewDatos:listadoContactos :formContacto:btGuardar" icon="ui-icon-close" title="Eliminar" actionListener="#{solicitudBean.quitarContacto()}">
+                                            <f:setPropertyActionListener value="#{obj}" target="#{solicitudBean.seleccionado}" />
+                                        </p:commandButton>
+                                    </p:column>
+                                    <p:column headerText="Nombres" style="font-size: 90%">
+                                        <h:outputText value="#{obj.nombreCont}"/>
+                                    </p:column>
+                                    <p:column headerText="Email" style="font-size: 90%">
+                                        <h:outputText value="#{obj.emailCont}"/>
+                                    </p:column>
+                                    <p:column headerText="Telf" style="font-size: 90%">
+                                        <h:outputText value="#{obj.telefonoCont}"/>
+                                    </p:column>
+                                    <p:column headerText="Cel" style="font-size: 90%">
+                                        <h:outputText value="#{obj.celularCont}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </p:tab>
+                        </p:tabView>
+                        <p:panel styleClass="panelAyuda">
+                            <center>
+                                <h:panelGrid styleClass="tablaAyuda" columns="1">
+                                    <h:outputText styleClass="textos" value="Se recomienda colocar por lo menos 2 Contactos"/>
+                                    <h:outputText styleClass="textos" value="Los campos que contengan asteriscos son obligatorios (*)."/>
+                                    <h:outputText styleClass="textos"  value="Para colocar varios correos para notificación usar punto y coma entre cada uno."/>
+                                </h:panelGrid>
+                            </center>
+                        </p:panel>
+
+                        <p:commandButton  id="btCancelar" icon="cancelar" actionListener="#{solicitudBean.salirSolicitud(evt)}" update=":formContacto:tabViewDatos :formContacto:btGuardar"  oncomplete="PF('dlgContacto').hide()" value="Salir"  style="font-size: 12px!important;height: 30px!important;width: 100px!important;float: left"/>
+                        <p:commandButton styleClass="btnSiguiente" id="btGuardar" disabled="#{solicitudBean.entidad.contactoList.size() lt 1}" value="Enviar Solicitud" oncomplete="PF('dlgConfirmar').show()"
+                                         update=":formContacto:tabViewDatos :formConfirmacion:msg">
+                        </p:commandButton>
+                        <br/>
+                        <br/>
+                    </p:panel>
+                </fieldset>
+                <br/>
+
+            </h:form>
+        </p:dialog>
+        <p:dialog widgetVar="dlgConfirmar" header="Solicitud de Contacto" modal="true" position="center">
+            <h:form id="formConfirmacion">
+                <h:panelGrid columns="1">
+                    <h:outputText id="msg" value="#{solicitudBean.mensajeConfirmacionSolicitud}"/>
+                    <h:outputText value="¿Esta seguro que desea Enviar la Solicitud?"/>
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <p:commandButton id="btGuardar" icon="ui-icon-check" value="Aceptar" actionListener="#{solicitudBean.guardarEntidad(evt)}"
+                                     update=":formContacto :formContacto:btGuardar" oncomplete="PF('dlgConfirmar').hide();PF('dlgContacto').hide()"/>
+                    <p:commandButton  id="btCancelar" icon="ui-icon-closethick" oncomplete="PF('dlgConfirmar').hide()" value="Cancelar"  />
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

@@ -1,0 +1,335 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+    <body>
+        <style>
+            body{
+                font-size: 10px !important;
+            }
+            .panBloqueo{
+                background-color: #00cc00 !important;
+            }
+            .pandesBloqueo{
+                background-color: #c498fa !important;
+            }
+            .panAnulado{
+                background-color: #ffe577 !important;
+            }
+            .panPreembarque{
+                background-color: #128a9c !important;
+            }
+            .panDesPreembarque{
+                background-color: #f2a6c1 !important;
+            }
+            .ingresoIrregular{
+                background-color: #f9ca98 !important;
+            }
+            .difPeso{
+                background-color: #bf6f18 !important;
+            }
+            div[id|="formGeneral:filter"]{
+                width: 30px;
+                height: 30px;
+                border: 1px solid #003399;
+                border-radius: 100%;
+                cursor: pointer;
+            }
+            .cuadro{
+                width: 30px;
+                height: 30px;
+                border: 1px solid #003399;
+                border-radius: 100%;
+                cursor: pointer;
+            }
+            .cuadro:hover{
+
+            }
+            .texto-cuadro{
+                font-size: 12px!important;
+                font-weight: 800 !important;
+            }
+        </style>
+        <script>
+            function handleSaveRequest(xhr, status, args) {
+                if (args.notValid || args.validationFailed)
+                    return;
+                PF('dialogPanInspeccion').hide();
+                //
+            }
+        </script>
+        <p:growl id="mensaje" showDetail="true" showSummary="false" autoUpdate="false"/>
+        <p:dialog id="dlgPrincipal" widgetVar="dlgPrincipal" width="1200" height="500" showEffect="clip" hideEffect="explode"
+                  resizable="false" fitViewport="true" position="center" header="AISV - Antinarcóticos" onHide="emptyHtml();"
+                  focus="formGeneral:fechaFiltro">
+            <h:form id="formGeneral">
+                <p:remoteCommand name="filtroColor" actionListener="#{panBean.agregarFiltro()}" update=":formGeneral:listado"/>
+                <p:panel style="width:93%;height:100%;border: 0px;background-color: transparent">
+                    <center>
+                        <h:panelGrid columns="9">
+                            <p:selectOneRadio id="fechaFiltro" value="#{panBean.fechaAproCrea}">
+                                <f:selectItem itemLabel="Fecha Creación" itemValue="CR" />
+                                <f:selectItem itemLabel="Fecha Aprobación" itemValue="AP"/>
+                            </p:selectOneRadio>
+                            <h:outputText value="Fecha de Inicio"/>
+                            <p:calendar value="#{panBean.fechaInicio}" pattern="dd/MM/yyyy"/>
+                            <h:outputText value="Fecha de Fin"/>
+                            <p:calendar value="#{panBean.fechaFinal}" pattern="dd/MM/yyyy"/>
+                            <p:commandButton value="Buscar" icon="ui-icon-search" process="@(all)" actionListener="#{panBean.agregarFiltroFechas()}"
+                                             update=":formGeneral:listado"/>
+                        </h:panelGrid>
+                    </center>
+                    <h:panelGrid columns="30" style="width: 100%">
+                        <div jsf:id="filter-todos"  value=""  style="background-color: #FFFFFF" onclick="filtroColor([{name: 'fil', value: 'estado:todos'}]);"/>
+                        <h:outputText styleClass="texto-cuadro" value="Todos"/>
+                        <p:tooltip for="filter-todos" value="Click aquí para visualizar Todos los Registros"/>
+                        <div jsf:id="filter-ing_irr" value="" styleClass="cuadro" style="background-color: #00cc00" onclick="filtroColor([{name: 'fil', value: 'estadopan:bloqueoPan'}]);"/>
+                        <h:outputText styleClass="texto-cuadro" value="Bloqueado PAN"/>
+                        <p:tooltip for="filter-ing_irr" value="Click aquí para visualizar los Registros bloqueados por PAN"/>
+                        <div jsf:id="filter-ing_des" value="" styleClass="cuadro" style="background-color: #c498fa"  onclick="filtroColor([{name: 'fil', value: 'estadopan:DesbloqueoPan'}]);"/>
+                        <h:outputText styleClass="texto-cuadro" value="Desbloqueado PAN"/>
+                        <p:tooltip for="filter-ing_des" value="Click aquí para visualizar los Registros desbloqueados por PAN"/>
+                        <div jsf:id="filter-dif_pesos" styleClass="cuadro" style="background-color: #bf6f18" ></div>
+                        <h:outputText styleClass="texto-cuadro" value="Diferencia de Peso mayor al 10%"/>
+                        <p:tooltip for="filter-dif_pesos" value="Click aquí para visualizar los Registros Diferencia"/>
+                        <div jsf:id="filter-anula" styleClass="cuadro" style="background-color: #ffe577"   onclick="filtroColor([{name: 'fil', value: 'estado:Anulado'}]);"></div>
+                        <h:outputText styleClass="texto-cuadro" value="Anulado"/>
+                        <p:tooltip for="filter-anula" value="Click aquí para visualizar los Registros Anulados"/>
+                        <div jsf:id="filter-blo_pree" styleClass="cuadro" style="background-color: #128a9c"   onclick="filtroColor([{name: 'fil', value: 'estadopan:bloqueoPreembarque'}]);"></div>
+                        <h:outputText styleClass="texto-cuadro" value="Bloqueado por Preembraque "/>
+                        <p:tooltip for="filter-blo_pree" value="Click aquí para visualizar los Registros Bloqueados Preembarque"/>
+                        <div jsf:id="filter-desblo_pree" styleClass="cuadro" style="background-color: #f2a6c1"   onclick="filtroColor([{name: 'fil', value: 'estadopan:DesbloqueoPreembarque'}]);"></div>
+                        <h:outputText styleClass="texto-cuadro" value="Desbloqueado por Preembraque "/>
+                        <p:tooltip for="filter-desblo_pree" value="Click aquí para visualizar los Registros Desbloqueados Preembarque"/>
+                    </h:panelGrid>
+                    <center>
+                        <p:dataTable id="listado" paginator="true" emptyMessage="No se ha encontrado ningún AISV Contenerizado"
+                                     paginatorPosition="bottom" var="objExp" lazy="true"
+                                     value="#{panBean.listadoEntidad}" 
+                                     rowStyleClass="#{objExp.estadoPan eq 'bloqueoPan'? 'panBloqueo':(objExp.diferenciaPeso eq true? 'difPeso':(objExp.estado eq 'Anulado'? 'panAnulado' :(objExp.estadoPan eq 'bloqueoPreembarque'? 'panPreembarque':(objExp.estadoPan eq 'DesbloqueoPreembarque'? 'panDesPreembarque':(objExp.estadoPan eq 'DesbloqueoPan'? 'pandesBloqueo':null)))))}"
+                                     selectionMode="single" selection="#{panBean.entidad}" rowKey="#{objExp.codigoTrans}"
+                                     draggableColumns="true"  rows="100" rowsPerPageTemplate="100,250,500"
+                                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     resizableColumns="true" style="width:1100px;height: 100%;font-size: 10px!important"
+                                     scrollable="true" scrollWidth="100%" scrollHeight="220" liveScroll="true" scrollRows="12">
+
+                            <p:ajax event="rowSelect" update="apro noapro move aproem noaproem"/>
+                            <p:ajax event="rowUnselect" update="noapro apro move aproem noaproem"/>
+                            <p:ajax event="rowDblselect" listener="#{panBean.exportar(evt)}" update=":formGeneral:pnlReporte"  onstart="PF('dlgEspera').show()" onsuccess="PF('dlgEspera').hide()" oncomplete="PF('dlgReporte').show()"/>
+
+                            <f:facet name="header">
+                                <p:commandButton value="Bloqueo Preembarque" id="aproem" actionListener="#{panBean.bloqueoPrembarque()}"
+                                                 disabled="#{empty panBean.entidad.codigoTrans}"
+                                                 update=":formGeneral:listado" 
+                                                 style="width: 200px;height: 30px;font-size: 12px!important">
+                                    <p:confirm header="Bloqueo Preembarque" message="¿Esta seguro que desea Bloquear como Preembarque este AISV?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton value="Desbloquear Preembarque" id="noaproem" actionListener="#{panBean.desBloqueoPrembarque()}" 
+                                                 disabled="#{empty panBean.entidad.codigoTrans or panBean.entidad.estado eq 'Anulado'  or panBean.entidad.estadoPan != 'bloqueoPreembarque'}"
+                                                 update=":formGeneral:listado" 
+                                                 style="width: 200px;height: 30px;font-size: 12px!important">
+                                    <p:confirm header="Desbloqueo PAN" message="¿Esta seguro que desea desbloquear este AISV?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton value="Bloqueo PAN" id="apro" oncomplete="PF('dialogPanInspeccion').show()"   
+                                                 disabled="#{empty panBean.entidad.codigoTrans or panBean.entidad.estado eq 'Anulado' or panBean.entidad.estadoPan eq 'bloqueoPan'}"
+                                                 style="width: 150px;height: 30px;font-size: 12px!important"/>
+                                <p:commandButton value="Desbloquear" id="noapro" actionListener="#{panBean.desBloqueoAntinarcoticos()}" 
+                                                 disabled="#{empty panBean.entidad.codigoTrans or panBean.entidad.estado eq 'Anulado'  or panBean.entidad.estadoPan != 'bloqueoPan'}"
+                                                 update=":formGeneral:listado" 
+                                                 style="width: 150px;height: 30px;font-size: 14px!important">
+                                    <p:confirm header="Desbloqueo PAN" message="¿Esta seguro que desea desbloquear este AISV?" icon="ui-icon-alert" />
+                                </p:commandButton>
+
+                                <p:commandButton value="Movimientos" icon="movimiento" id="move" update=":formMovi:listado" 
+                                                 oncomplete="PF('dlgMovimiento').show()"  disabled="#{empty  panBean.entidad.codigoTrans}"
+                                                 style="width: 130px;height: 30px;font-size: 12px!important"/>
+
+                                <p:commandButton value="Exportar" icon="ui-icon-newwin" oncomplete="PF('dlgExportar').show();" 
+                                                 onstart="PF('dlgInicio').show()" onsuccess="PF('dlgInicio').hide()" 
+                                                 actionListener="#{panBean.prepExportar()}"
+                                                 style="width: 130px;height: 30px;font-size: 12px!important"/>
+                            </f:facet>
+
+                            <p:column headerText="Codigo" style="text-align: center" filterStyle="width: 40px " filterBy="#{objExp.codigoTrans}" width="50">
+                                <h:outputText value="#{objExp.codigoTrans}"/>
+                            </p:column>
+                            <p:column headerText="Estado"  style="text-align: center;font-size: 10px" filterStyle="width: 70px "  filterBy="#{objExp.estado}" width="80">
+                                <h:outputText value="#{objExp.estado}"/>
+                            </p:column>
+                            <p:column headerText="Contenedor"  style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.contenedorTrans}"  width="100" >
+                                <h:outputText value="#{objExp.contenedorTrans}"/>
+                            </p:column>
+                            <p:column headerText="Carga"  style="text-align: center;font-size: 10px" filterStyle="width: 70px "  filterBy="#{objExp.codigoPrec.descripcionPrec}" width="120">
+                                <h:outputText value="#{objExp.codigoPrec.descripcionPrec}"/>
+                            </p:column>
+                            <p:column headerText="RUC Exportador"  style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.codigoPrec.impExpIdPrec}"  width="100" >
+                                <h:outputText value="#{objExp.codigoPrec.impExpIdPrec}"/>
+                            </p:column>
+                            <p:column headerText="Exportador"  style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.codigoPrec.importadorPrec}"  width="100" >
+                                <h:outputText value="#{objExp.codigoPrec.importadorPrec}"/>
+                            </p:column>
+                            <p:column headerText="Agencia"  style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.codigoPrec.idLineaPrec.nombreNavi}"  width="100" >
+                                <h:outputText value="#{objExp.codigoPrec.idLineaPrec.nombreNavi}"/>
+                            </p:column>
+                            <p:column headerText="Itinerario"  style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.codigoPrec.idItinerarioPrec.descripcionItin}"  width="100" >
+                                <h:outputText value="#{objExp.codigoPrec.idItinerarioPrec.descripcionItin}"/>
+                            </p:column>
+                            <p:column headerText="Pto. Trasbordo" style="font-size: 90%;text-align: center" filterStyle="width: 90px " filterBy="#{objExp.puertoTrasbordoTrans}"  width="100" >
+                                <h:outputText value="#{objExp.puertoTrasbordoTrans}"/>
+                            </p:column>
+                            <p:column headerText="Pto. Destino" style="font-size: 90%;text-align: center" filterStyle="width: 90px " filterBy="#{objExp.puertoDestinoTrans}"  width="100" >
+                                <h:outputText value="#{objExp.puertoDestinoTrans}"/>
+                            </p:column>
+                            <p:column headerText="Pto. Final" style="font-size: 90%;text-align: center" filterStyle="width: 90px " filterBy="#{objExp.puertoFinalTrans}"  width="100">
+                                <h:outputText value="#{objExp.puertoFinalTrans}" title="Datos de la DAE"/>
+                            </p:column>
+                            <p:column headerText="Peso Manifestado"  style="text-align: center" filterStyle="width: 90px " width="100" >
+                                <h:outputText value="#{objExp.codigoPrec.pesoPrec}"/>
+                            </p:column>
+                            <p:column headerText="Peso Bruto"  style="text-align: center" filterStyle="width: 90px "   width="100" >
+                                <h:outputText value="#{objExp.pesoBasculaTrans}"/>
+                            </p:column> 
+                            <p:column headerText="Peso Neto"  style="text-align: center" filterStyle="width: 90px "  width="100" >
+                                <h:outputText value="#{objExp.pesoNetoTrans}"/>
+                            </p:column>
+                            <p:column headerText="Tara"  style="text-align: center" filterStyle="width: 90px " width="100" >
+                                <h:outputText value="#{objExp.taraTrans}"/>
+                            </p:column>
+                            <p:column headerText="Creación" width="100" style="font-size: 10px">
+                                <h:outputText value="#{objExp.fechaCreacion}">
+                                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Salida de Planta" width="150"  style="font-size: 10px">
+                                <h:outputText value="#{objExp.fechaSalidaTrans}">
+                                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="Aprobacion" width="100" style="font-size: 10px">
+                                <h:outputText value="#{objExp.fechaEirTrans}">
+                                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Programación de Inspección" width="100"  style="font-size: 10px">
+                                <h:outputText value="#{objExp.fechaInspeccionTrans}">
+                                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Dif. Fechas"  style="text-align: center" filterStyle="width: 90px "  width="100" >
+                                <h:outputText value="#{objExp.difFechas} H"/>
+                            </p:column>
+                            <p:column headerText="Bloqueo"  style="text-align: center;font-size: 10px" filterStyle="width: 70px "  filterBy="#{objExp.estadoPan}" width="80">
+                                <h:outputText value="#{objExp.estadoPan}"/>
+                            </p:column>
+                            <p:column headerText="Preembarque" width="100"  style="font-size: 10px">
+                                <h:outputText value="#{objExp.preembarqueTrans eq true?'SI':'NO'}"/>
+                            </p:column>
+                            <p:column headerText="DAES" width="200"  style="font-size: 10px" filterBy="#{objExp.daesTrans}">
+                                <h:outputText value="#{objExp.daesTrans}"/>
+                            </p:column>
+                            <p:column headerText="Chofer" width="100"  style="font-size: 10px" filterBy="#{objExp.nombreTrasnportistaTrans}">
+                                <h:outputText value="#{objExp.nombreTrasnportistaTrans}"/>
+                            </p:column>
+                            <p:column headerText="Cedula Chofer" width="100"  style="font-size: 10px" filterBy="#{objExp.cedulaTrasnportistaTrans}">
+                                <h:outputText value="#{objExp.cedulaTrasnportistaTrans}"/>
+                            </p:column>
+                            <p:column headerText="Placa" width="100"  style="font-size: 10px" filterBy="#{objExp.placaTrasnportistaTrans}">
+                                <h:outputText value="#{objExp.placaTrasnportistaTrans}"/>
+                            </p:column>
+                            <p:column headerText="Ciudad de Planta" width="100"  style="font-size: 10px" filterBy="#{objExp.ciudadPlantaTrans}">
+                                <h:outputText value="#{objExp.ciudadPlantaTrans}"/>
+                            </p:column>
+                            <p:column headerText="Sello Uno" width="100"  style="font-size: 10px" filterBy="#{objExp.selloUnoTrans}">
+                                <h:outputText value="#{objExp.selloUnoTrans}"/>
+                            </p:column>
+                            <p:column headerText="Sello Dos" width="100"  style="font-size: 10px" filterBy="#{objExp.selloDosTrans}">
+                                <h:outputText value="#{objExp.selloDosTrans}"/>
+                            </p:column>
+                            <p:column headerText="Sello Tres" width="100"  style="font-size: 10px" filterBy="#{objExp.selloTresTrans}">
+                                <h:outputText value="#{objExp.selloTresTrans}"/>
+                            </p:column>
+                            <p:column headerText="Sello Cuatro" width="100"  style="font-size: 10px" filterBy="#{objExp.selloCuatroTrans}">
+                                <h:outputText value="#{objExp.selloCuatroTrans}"/>
+                            </p:column>
+                            <p:column headerText="Usu. Bloqueo" width="100"  style="font-size: 10px">
+                                <h:outputText value="#{objExp.usuarioBloqueo}"/>
+                            </p:column>
+                            <p:column headerText="Fecha Bloqueo" width="100" style="font-size: 10px">
+                                <h:outputText value="#{objExp.fechaBloqueo}">
+                                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Usu. DesBloqueo" width="100"  style="font-size: 10px">
+                                <h:outputText value="#{objExp.usuarioDesbloqueo}"/>
+                            </p:column>
+                            <p:column headerText="Fecha Desbloqueo" width="100" style="font-size: 10px">
+                                <h:outputText value="#{objExp.fechaDesbloqueo}">
+                                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="Usu. Bloqueo Pre" width="100"  style="font-size: 10px">
+                                <h:outputText value="#{objExp.usuarioBloqueoPre}"/>
+                            </p:column>
+                            <p:column headerText="Fecha Bloqueo Pre" width="100" style="font-size: 10px">
+                                <h:outputText value="#{objExp.fechaBloqueoPre}">
+                                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Usu. DesBloqueo Pre" width="100"  style="font-size: 10px">
+                                <h:outputText value="#{objExp.usuarioDesbloqueoPre}"/>
+                            </p:column>
+                            <p:column headerText="Fecha Desbloqueo Pre" width="100" style="font-size: 10px">
+                                <h:outputText value="#{objExp.fechaDesbloqueoPre}">
+                                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                                </h:outputText>
+                            </p:column>
+
+                        </p:dataTable>
+                    </center>
+                </p:panel>
+                <p:dialog widgetVar="dlgInicio" header="Espere" closable="false">
+                    <h3>Espere un momento...</h3>
+                    <h3>Su información estará lista</h3>
+                </p:dialog>
+                <p:dialog widgetVar="dlgEspera">
+                    <h3>Espere un momento...</h3>
+                    <h3>Estamos procesando su informacion</h3>
+                </p:dialog>
+                <p:dialog widgetVar="dlgReporte" width="800" height="350" closable="true">
+                    <p:panel id="pnlReporte">
+                        <p:media  player="pdf" cache="false" value="#{panBean.rutaReporteServidor}" style="width: 100%;height: 300px"/>
+                    </p:panel>
+                </p:dialog>
+            </h:form>
+        </p:dialog>
+        <p:dialog widgetVar="dlgExportar"  header="Exportar Datos" width="250" closable="false">
+            <h:form id="frmExportar">
+                <hr/>
+                <center>
+                        <h:commandLink actionListener="#{panBean.reportePDF(actionEvent)}">
+                            <p:graphicImage id="pdfimagen" name="/iconos/PDF.png" alt="Exportar a PDF" height="60" width="60"/>
+                            <p:tooltip for="pdfimagen" value="Exportar a PDF"/>
+                        </h:commandLink>                    
+
+                        <h:commandLink actionListener="#{panBean.reporteEXCEL(actionEvent)}">
+                            <p:graphicImage id="excelimagen" name="/iconos/EXCEL.png" alt="Exportar a Excel" height="60" width="60"/>
+                            <p:tooltip for="excelimagen" value="Exportar a Excel"/>
+                        </h:commandLink>
+                </center>
+                <hr/>
+                <center>
+                    <p:commandButton value="Cerrar" oncomplete="PF('dlgExportar').hide();" actionListener="#{panBean.liberaReporte()}" icon="eliminar" style="height: 35px"/>
+                </center>
+            </h:form>
+        </p:dialog>
+        <ui:include src="movimientos.xhtml"/>
+        <ui:include src="nuevaInspeccion.xhtml"/>
+    </body>
+</html>

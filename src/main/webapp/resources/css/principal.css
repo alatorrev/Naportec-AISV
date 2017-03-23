@@ -1,0 +1,258 @@
+
+body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-size: 70%;
+    font-family: Century Gothic, sans-serif;
+    background: url(../..//resources/images/fondo.jpg) center center fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+html{
+    height: 100%;
+}
+
+#imagenSuperior{
+    margin-left: 41%;
+    top: 0px;
+    width: 20%;
+    height: 15%;
+    position: absolute;
+    z-index: 1;
+}
+
+#imagenInferior{
+    margin-left: 41%;
+    margin-top: 3%;
+    width: 20%;
+    height: 15%;
+    position:absolute; /*El div será ubicado con relación a la pantalla*/
+    left:0px; /*A la derecha deje un espacio de 0px*/
+    right:0px; /*A la izquierda deje un espacio de 0px*/
+    bottom:0px; /*Abajo deje un espacio de 0px*/
+    z-index:0;
+}
+
+#panelLogin{
+     behavior:url(/PIE.htc);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border: 4px solid #F04141;
+    padding: 0px 0;
+    border-width: 6px;
+    border-style: solid;
+    border-radius: 20px;
+    border-color: #666666;
+    background-color: #F0F0F0;
+    margin-left: 33%;
+    top: 25%;
+    width: 35%;
+    position: absolute;
+    z-index: 2;
+   
+}
+#panelInternoLogin{
+     behavior:url(/PIE.htc);
+    background: #C8C8C8;
+    border: 0px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    border-radius: 10px; 
+    float: left;
+    width: 90%;
+
+}
+h1{
+    color: #111074;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+h2{
+    color: #000000;
+    font-size: 15px;
+}
+
+h3{
+    color: #000000;
+    font-size: 11px;
+}
+
+p.textologin{
+    text-align: justify;
+    font-size: 14px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+p.textoInicial{
+    text-align: center;
+    font-size: 18px;
+    color: #111076;
+    font-weight: 900;
+}
+p.textoInicial2{
+    text-align: center;
+    font-size: 18px;
+    color: #111076;
+    font-weight: 900;
+    margin-top: -20px;
+}
+p.userpass{
+    font-size: 20px;
+    font-weight: 900;
+    margin-top: 0px;
+
+}
+hr{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: -10px;
+}
+strong:hover{
+    color: #D80100;
+    cursor: pointer;
+}
+.ui-button{
+    border-radius: 8px !important;
+    font-size: 16px !important;
+    font-weight: lighter!important;
+    background-color: transparent;
+    background-image: url('../..//resources/images/btBlue.jpg')!important;
+    //background-repeat: no-repeat!important;
+    background-size: cover!important;
+    color: #F0F0F0 !important;
+    behavior: url(PIE.htc)!important;
+}
+.ui-button.ui-state-hover{
+    color: #ffe577 !important;
+    border: 0px;
+    border-color: transparent;
+    background-color: transparent;
+    background-image: url('../..//resources/images/btRed.jpg')!important;
+    //background-repeat: no-repeat!important;
+    background-size: cover!important;
+    behavior:url(/PIE.htc)!important;
+}
+
+.ui-inputtext{
+    height: 20px !important;
+    width: 90% !important;
+    float: left;
+    margin-top: -20px;
+    border-radius: 0px !important;
+}
+.ui-password{
+    height: 20px !important;
+    width: 90% !important;
+    float: left;
+    margin-top: -20px;
+    border-radius: 0px !important;
+}
+
+@media all and (max-width: 1024px) and (min-width: 800px){
+    .ui-inputtext{
+        height: 12px !important;
+        width: 60% !important;
+        font-size: 10px!important;
+    }
+    .ui-password{
+        height:12px !important;
+        width: 60% !important;
+    }
+    .ui-button{
+        border-radius: 8px !important;
+        font-size: 12px!important;
+        font-weight: lighter!important;
+        background-color: transparent;
+        background-image: url('../..//resources/images/btBlue.jpg')!important;
+        background-repeat: no-repeat!important;
+        background-size: cover!important;
+        color: #F0F0F0 !important;
+    }
+    p.textoInicial{
+        text-align: center;
+        font-size: 13px;
+        color: #111076;
+        font-weight: 900;
+
+    }
+    p.textoInicial2{
+        text-align: center;
+        font-size: 13px;
+        color: #111076;
+        font-weight: 900;
+        margin-top: -10px;
+    }
+    p.textologin{
+        text-align: justify;
+        font-size: 11px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    #panelLogin{
+        border: 4px solid #F04141;
+        padding: 0px 0;
+        border-width: 6px;
+        border-style: solid;
+        border-radius: 20px;
+        border-color: #666666;
+        background-color: #F0F0F0;
+        margin-left: 31%;
+        top: 18%;
+        width:40%;
+        position: absolute;
+        /*        height: 60%;*/
+        z-index: 2;
+    }
+    .ui-outputlabel.texto{
+        font-size: 12px!important;
+        font-weight: bold!important;
+    }
+    #recuperar{
+        float: left !important;
+        font-size: 10px!important; 
+        text-decoration: underline;
+        font-weight: 700
+    }
+
+}
+
+@media all and (max-width: 1680px) and (min-width: 1200px){
+    p.textoInicial{
+        text-align: center;
+        font-size: 14px;
+        color: #111076;
+        font-weight: 900;
+
+    }
+    p.textoInicial2{
+        text-align: center;
+        font-size: 14px;
+        color: #111076;
+        font-weight: 900;
+        margin-top: -10px;
+    }
+    p.textologin{
+        text-align: justify;
+        font-size: 12px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .ui-button{
+        border-radius: 8px !important;
+        font-size: 13px!important;
+        font-weight: lighter!important;
+        background-color: transparent;
+        background-image: url('../..//resources/images/btBlue.jpg')!important;
+        background-repeat: no-repeat!important;
+        background-size: cover!important;
+        color: #F0F0F0 !important;
+    }
+    .ui-outputlabel.texto{
+        font-size: 14px!important;
+        font-weight: bold!important;
+    }
+}

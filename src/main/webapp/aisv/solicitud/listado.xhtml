@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <body>
+        <p:growl id="mensaje" showDetail="true" showSummary="false"/>
+        <p:dialog id="dlgPrincipal" widgetVar="dlgPrincipal" width="950" height="350" showEffect="clip" hideEffect="explode"
+                  resizable="false" fitViewport="true" position="center" header="Aisv - Solicitud de Contacto" onHide="emptyHtml();">
+            <h:form id="formPrincipal">
+                <p:panel style="width:90%;margin-left: 5px;height:100%;border: 0px;background-color: transparent">
+
+                    <p:dataTable id="listado" paginator="true" emptyMessage="No se ha encontrado ningúna Solicitud"
+                                 paginatorPosition="bottom" var="obj" lazy="true" rowKey="#{obj.codigoSoli}"
+                                 selectionMode="single" value="#{solicitudContactoBean.listadoEntidad}"
+                                 selection="#{solicitudContactoBean.entidad}"
+                                 rows="12" rowsPerPageTemplate="10,12,15,20,30" draggableColumns="true" draggableRows="true"
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 resizableColumns="true" style="width:110%;height: 100%;font-size: 10px!important">
+
+                        <p:ajax event="rowDblselect" listener="#{solicitudContactoBean.actualizar()}" update=":formDetalle :formDetalle:listadoContactos" oncomplete="PF('dlgInformacion').show()"/>
+
+                        <p:column headerText="Solicitante" filterBy="#{obj.nombreSoli}" filterMatchMode="contains">
+                            <h:outputText value="#{obj.nombreSoli}"/>
+                        </p:column>
+                        <p:column headerText="Identificacion" filterBy="#{obj.identificacionSoli}" filterMatchMode="contains">
+                            <h:outputText value="#{obj.identificacionSoli}"/>
+                        </p:column>
+                        <p:column headerText="Teléfono">
+                            <h:outputText value="#{obj.telefonoSoli}"/>
+                        </p:column>
+                        <p:column headerText="Celular">
+                            <h:outputText value="#{obj.celularSoli}"/>
+                        </p:column>
+                        <p:column headerText="Usuario">
+                            <h:outputText value="#{obj.usuarioSoli}"/>
+                        </p:column>
+
+                        <p:column headerText="Estado" filterBy="#{obj.estado}" filterMatchMode="contains">
+                            <h:outputText value="#{obj.estado}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <p:dialog widgetVar="dlgEspera" header="Espere un Momento">
+                        <h:panelGrid columns="1">
+                            <h3>Espere un momento</h3>
+                            <h3>Estamos procesando su Información...</h3>
+                        </h:panelGrid>
+                    </p:dialog>
+                </p:panel>
+            </h:form>
+        </p:dialog>
+        <ui:include src="detalle.xhtml"/>
+    </body>
+</html>
+

@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+        <p:dialog id="dlgInformacion" widgetVar="dlgInformacion" header="Aisv - Itinerario" position="center" modal="true">
+            <div id="divInformacion">
+                <h:form id="formDatos">
+                    <div>
+                        <p:commandButton value="Ayuda" icon="ayuda"  style="float: left;height: 30px;width: 110px"/>
+                        <h:panelGrid columns="6" style="float: right;height: 35px" id="botones">
+                            <p:commandButton id="guardar" icon="guardar" style="height: 25px"  value="" disabled="#{itinerarioBean.botonGuardar}" actionListener="#{itinerarioBean.guardarEntidad(evt)}" update=":mensaje datos :formPrincipal:listado">
+                                <p:confirm header="Confirmación" message="Esta seguro que desea realizar la Acción" icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <p:commandButton icon="editar"  style="height: 25px"  value="" disabled="#{itinerarioBean.botonEditar}"  actionListener="#{itinerarioBean.prepararEditar(evt)}" update="datos :formDatos:botones"/>
+                            <p:commandButton icon="eliminar"  style="height: 25px" value="" disabled="#{itinerarioBean.botonEliminar}"  actionListener="#{itinerarioBean.eliminarEntidad(evt)}" update=":mensaje datos :formPrincipal:listado">
+                                <p:confirm header="Confirmación" message="Esta seguro que desea Eliminar el ROL" icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <p:commandButton icon="bloquear" style="height: 25px"  value="" disabled="#{itinerarioBean.botonBloquear}" actionListener="#{itinerarioBean.bloquearEntidad(evt)}" update="datos :formDatos:botones"/>
+                            <p:commandButton type="button" value="" id="salir" icon="cancelar" style="height: 25px" onclick="PF('dlgInformacion').hide()"/>
+                            <p:tooltip for="salir" value="Cerrar Pantalla" hideEffect="clip"/>
+                        </h:panelGrid>
+                    </div>
+                    <h:panelGrid columns="2" id="datos" style="float:left">
+                        <p:outputLabel for="cod" value="Código BPN"/>
+                        <p:inputText id="cod" readonly="#{itinerarioBean.readOnly}" value="#{itinerarioBean.entidad.codItinerarioItin}"/>
+                        <p:outputLabel for="codll" value="Código Lloyd"/>
+                        <p:inputText id="codll" readonly="#{itinerarioBean.readOnly}" value="#{itinerarioBean.entidad.codigoLloydItin}"/>
+                        <p:outputLabel for="man" value="MRN"/>
+                        <p:inputText id="man" readonly="#{itinerarioBean.readOnly}" value="#{itinerarioBean.entidad.manifiestoItin}"/>
+                        <p:outputLabel for="arrivo" value="Fecha de Arrivo"/>
+                        <p:calendar id="arrivo" readonly="#{itinerarioBean.readOnly}" value="#{itinerarioBean.entidad.fechaArriboItin}" pattern="MM/dd/yyyy HH:mm:ss"/>
+                        <p:outputLabel for="zarpe" value="Fecha de Zarpe"/>
+                        <p:calendar id="zarpe" readonly="#{itinerarioBean.readOnly}" value="#{itinerarioBean.entidad.fechaZarpeItin}" pattern="MM/dd/yyyy HH:mm:ss"/>
+                        <p:outputLabel for="buque" value="Buque"/>
+                        <p:inputText id="buque" readonly="#{itinerarioBean.readOnly}" value="#{itinerarioBean.entidad.buqueItin}"/>
+                        <p:outputLabel for="desv" value="Viaje"/>
+                        <p:inputText id="desv" readonly="#{itinerarioBean.readOnly}" value="#{itinerarioBean.entidad.descripcionViajeItin}" style="width: 400px"/>
+                        <p:outputLabel for="des" value="Descripción"/>
+                        <p:inputText id="des" readonly="#{itinerarioBean.readOnly}" value="#{itinerarioBean.entidad.descripcionItin}" style="width: 400px"/>                 
+                    </h:panelGrid>
+                </h:form>
+            </div>
+        </p:dialog>
+    </body>
+</html>
+

@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:body>
+        <p:dialog id="dialogNuevo" widgetVar="dlgNuevo" header="AISV - Carga Suelta" modal="true">
+            <h:form id="formPrincipal">
+                <p:remoteCommand name="prepaImpo" update=":dialogImportacion :formDatos:tabDatos,:formDatos:guardar" actionListener="#{sueltaBean.prepararAisv(evt)}" oncomplete="PF('dlgAisvImpCont').show()"/>
+                <p:remoteCommand name="prepaExpo" update=":dialogExportacion :formDatosExp:tabDatos,:formDatosExp:guardar" actionListener="#{sueltaBean.prepararAisv(evt)}" oncomplete="PF('dlgAisvExpCont').show()"/>
+                <p:tabView id="tabViewDatos" style="background-color: #FFFFFF;width: 800px;height: 350px">
+                    <p:tab title="AISV Importación"  rendered="#{sueltaBean.tipoTrasaccion eq 'I'}">
+                        <p:dataTable id="listadoImportacion" paginator="true" emptyMessage="No se ha encontrado ningún registro de Importación"
+                                     paginatorPosition="bottom" var="objImp" lazy="true"
+                                     value="#{sueltaBean.listaImportacion}"
+
+                                     rows="5" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     rowsPerPageTemplate="5">
+
+                            <p:column style="width:32px;text-align: center">
+                                <p:commandButton oncomplete="prepaImpo()" icon="ui-icon-search" title="Nuevo">
+                                    <f:setPropertyActionListener value="#{objImp}" target="#{sueltaBean.seleccionadoEksat}"/>
+                                </p:commandButton>
+                            </p:column>
+                            
+                            <p:column headerText="Bl Hijo" style="font-size: 90%" filterBy="#{objImp.blhijoPrec}" filterMatchMode="contains">
+                                <h:outputText value="#{objImp.blhijoPrec}"/>
+                            </p:column>
+                            <p:column headerText="Itinerario" style="font-size: 90%"  filterBy="#{objImp.idItinerarioPrec.descripcionItin}" filterMatchMode="contains">
+                                <h:outputText value="#{objImp.idItinerarioPrec.descripcionItin}"/>
+                            </p:column>
+                            <p:column headerText="Peso Báscula" style="font-size: 90%!important" filterMatchMode="contains">
+                                <h:outputText value="#{objImp.pesoPrec}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+                    <p:tab title="AISV Exportación"  rendered="#{sueltaBean.tipoTrasaccion eq 'E'}">
+                        <p:dataTable id="listado" paginator="true" emptyMessage="No se ha encontrado ninguna Exportación"
+                                     paginatorPosition="bottom" var="objExp" lazy="true"
+                                     value="#{sueltaBean.listaExportacion}"
+                                     rows="5" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                     rowsPerPageTemplate="5">
+
+                            <p:column style="width:32px;text-align: center">
+                                <p:commandButton oncomplete="prepaExpo()" icon="ui-icon-search" title="Nuevo">
+                                    <f:setPropertyActionListener value="#{objExp}" target="#{sueltaBean.seleccionadoEksat}" />
+                                </p:commandButton>
+                            </p:column>
+
+                            <p:column headerText="Naviera" style="font-size: 70%!important" filterBy="#{objExp.idLineaPrec.nombreNavi}" filterMatchMode="contains">
+                                <h:outputText value="#{objExp.idLineaPrec.nombreNavi}"/>
+                            </p:column>
+
+                            <p:column headerText="Itinerario" style="font-size: 70%!important" filterBy="#{objExp.idItinerarioPrec.descripcionItin}" filterMatchMode="contains">
+                                <h:outputText value="#{objExp.idItinerarioPrec.descripcionItin}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Booking" style="font-size: 70%!important" filterBy="#{objExp.bookingPrec}" filterMatchMode="contains">
+                                <h:outputText value="#{objExp.bookingPrec}"/>
+                            </p:column>
+                                 <p:column headerText="Exportador" style="font-size: 70%!important" filterBy="#{objExp.importadorPrec}" filterMatchMode="contains">
+                                <h:outputText value="#{objExp.importadorPrec}"/>
+                            </p:column>
+
+                        </p:dataTable>
+                    </p:tab>
+                </p:tabView>
+            </h:form>
+        </p:dialog>
+        <ui:include src="datosExportacion.xhtml"  rendered="#{sueltaBean.tipoTrasaccion eq 'E'}"/>
+        <ui:include src="datosImportacion.xhtml"  rendered="#{sueltaBean.tipoTrasaccion eq 'I'}"/>
+    </h:body>
+</html>
+

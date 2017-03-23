@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <body>
+        <style>
+            body{
+                font-size: 10px !important;
+            }
+            .panBloqueo{
+                background-color: #00cc00 !important;
+            }
+            .pandesBloqueo{
+                background-color: #c498fa !important;
+            }
+        </style>
+        <p:growl id="mensaje" showDetail="true" showSummary="false"/>
+        <p:dialog id="dlgPrincipal" widgetVar="dlgPrincipal" width="1100" height="500" showEffect="clip" hideEffect="explode"
+                  resizable="false" fitViewport="true" position="center" header="AISV - Carga Contenerizada" onHide="emptyHtml();">
+            <h:form id="formGeneral">
+                <p:panel style="width:90%;margin-left: 5px;height:100%;border: 0px;background-color: transparent">
+                    <p:panel style="width:110%;border: 0px">
+                        <p:selectOneRadio id="tipo" value="#{contenerizadoBean.tipoTrasaccion}">
+                            <p:ajax listener="#{contenerizadoBean.mostrarDatosTipo}" update="listado"/>
+                            <f:selectItem itemLabel="IMPORTACION" itemValue="I"/>
+                            <f:selectItem itemLabel="EXPORTACION" itemValue="E"/>
+                        </p:selectOneRadio>
+                    </p:panel>
+                    <p:dataTable id="listado" widgetVar="tblListado" paginator="true" emptyMessage="No se ha encontrado ningun AISV Contenerizado"
+                                 paginatorPosition="bottom" var="objExp" lazy="true" draggableColumns="true"
+                                 value="#{contenerizadoBean.listaAisv}" rows="12" rowsPerPageTemplate="10,12,15,20,30"
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                 resizableColumns="true" style="width:110%;height: 100%;font-size: 10px!important"
+                                 selectionMode="single" selection="#{contenerizadoBean.transaccion}" rowKey="#{objExp.codigoTrans}"
+                                 rowStyleClass="#{objExp.estado eq 'Aprobado'?objExp.estadoPan eq 'bloqueoPan'?'panBloqueo':objExp.estadoPan eq 'DesbloqueoPan'?'pandesBloqueo':'':''}">
+
+                        <p:ajax event="rowSelect" update="move detail delete new print"/>
+                        <p:ajax event="rowUnselect" update="move detail delete new print"/>
+
+
+                        <f:facet name="header">
+                            <p:commandButton value="Nuevo"  id="new" update=":dialogNuevo" icon="nuevo"  oncomplete="PF('dlgNuevo').show()" 
+                                             style="width: 150px;height: 30px;font-size: 14px!important"/>
+                            <p:commandButton value="Movimientos" icon="movimiento" id="move" update=":formMovi:listado" 
+                                             oncomplete="PF('dlgMovimiento').show()"  disabled="#{empty contenerizadoBean.transaccion.codigoTrans}"
+                                             style="width: 200px;height: 30px;font-size: 14px!important"/>
+                            <p:commandButton value="Imprimir" id="print" icon="imprimir" actionListener="#{contenerizadoBean.exportar(evt)}" 
+                                             onstart="PF('dlgEspera').show()" onsuccess="PF('dlgEspera').hide()"
+                                             style="width: 150px;height: 30px;font-size: 14px!important"
+                                             oncomplete="PF('dlgReporte').show()" update=":formGeneral:pnlReporte"   disabled="#{empty contenerizadoBean.transaccion.codigoTrans or contenerizadoBean.transaccion.estado eq 'Anulado'}"/>
+                            <p:commandButton value="Detalle" icon="detalle"  id="detail"  update=":formDetalle" onclick="PF('dlgDetalle').show()"   
+                                             style="width: 150px;height: 30px;font-size: 14px!important"
+                                             disabled="#{empty contenerizadoBean.transaccion.codigoTrans}"/>
+                            <p:commandButton value="Anular" icon="anular" id="delete" disabled="#{empty contenerizadoBean.transaccion.codigoTrans or contenerizadoBean.transaccion.estado eq 'Anulado' or contenerizadoBean.transaccion.estado eq 'Aprobado'}" 
+                                             actionListener="#{contenerizadoBean.anularAisv()}" 
+                                             style="width: 150px;height: 30px;font-size: 14px!important"
+                                             update=":formGeneral:listado :formPrincipal:tabViewDatos" >
+                                <p:confirm header="Anulacion" message="Esta seguro de Anular este AISV?" icon="ui-icon-alert" />
+                            </p:commandButton>
+                        </f:facet>
+
+                        <p:column headerText="Codigo" style="text-align: center" filterStyle="width: 90%" filterBy="#{objExp.codigoTrans}" width="3%">
+                            <h:outputText value="#{objExp.codigoTrans}"/>
+                        </p:column>
+                        <p:column headerText="Estado"  style="text-align: center;font-size: 10px;font-weight: bold" filterStyle="width: 90%"  filterBy="#{objExp.estado}" width="5%">
+                            <h:outputText value="#{objExp.estado}"/>
+                        </p:column>
+                        <p:column headerText="BL Hijo" rendered="#{contenerizadoBean.tipoTrasaccion eq 'I'}" style="text-align: center" filterStyle="width: 90% " filterBy="#{objExp.codigoPrec.blhijoPrec}" width="5%">
+                            <h:outputText value="#{objExp.codigoPrec.blhijoPrec}"/>
+                        </p:column>
+                        <p:column headerText="Booking"  toggleable="true" rendered="#{contenerizadoBean.tipoTrasaccion eq 'E'}" style="text-align: center" filterStyle="width: 90%" filterBy="#{objExp.codigoPrec.bookingPrec}" width="6%">
+                            <h:outputText value="#{objExp.codigoPrec.bookingPrec}"/>
+                        </p:column>
+                        <p:column headerText="Contenedor"  style="text-align: center" filterStyle="width: 90%" filterBy="#{objExp.contenedorTrans}"  width="5%" >
+                            <h:outputText value="#{objExp.contenedorTrans}"/>
+                        </p:column>
+                        <p:column headerText="Producto" style="text-align: center" filterStyle="width: 90% " width="10%" filterBy="#{objExp.codigoPrec.descripcionPrec}">
+                            <h:outputText value="#{objExp.codigoPrec.descripcionPrec}"/>
+                        </p:column>
+                        <p:column headerText="Peso Bascula"  style="text-align: center" filterStyle="width: 40px " width="50" >
+                            <h:outputText value="#{objExp.pesoBasculaTrans}"/>
+                        </p:column>
+                        <p:column headerText="Naviera"  style="text-align: center" filterStyle="width: 90% " filterBy="#{objExp.codigoPrec.idLineaPrec.nombreNavi}"  width="5%" >
+                            <h:outputText value="#{objExp.codigoPrec.idLineaPrec.nombreNavi}"/>
+                        </p:column>
+                        <p:column headerText="Pto. Destino"  rendered="#{contenerizadoBean.tipoTrasaccion eq 'E'}"  style="font-size: 90%;text-align: center" filterStyle="width: 90%" filterBy="#{objExp.puertoDestinoTrans}"  width="5%" >
+                            <h:outputText value="#{objExp.puertoDestinoTrans}"/>
+                        </p:column>
+                        <p:column headerText="Pto. Origen"  rendered="#{contenerizadoBean.tipoTrasaccion eq 'I'}"  style="font-size: 90%;text-align: center" filterStyle="width: 90% " filterBy="#{objExp.puertoOrigenTrans}"  width="5%" >
+                            <h:outputText value="#{objExp.puertoOrigenTrans}"/>
+                        </p:column>
+                        <p:column headerText="Creación" width="5%">
+                            <h:outputText value="#{objExp.fechaCreacion}">
+                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Aprobación" width="5%" rendered="#{contenerizadoBean.tipoTrasaccion eq 'I'}">
+                            <h:outputText value="#{objExp.fechaEirTrans}">
+                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Ingreso a Puerto" width="5%" rendered="#{contenerizadoBean.tipoTrasaccion eq 'E'}">
+                            <h:outputText value="#{objExp.fechaEirTrans}">
+                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Inspección" width="5%" rendered="#{contenerizadoBean.tipoTrasaccion eq 'E'}">
+                            <h:outputText value="#{objExp.fechaInspeccionVista}">
+                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                            </h:outputText>
+                        </p:column>
+
+                    </p:dataTable>
+                </p:panel>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                    <p:commandButton value="Aceptar" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="Cancelar" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+                <p:dialog widgetVar="dlgEspera">
+                    <h3>Espere un momento...</h3>
+                    <h3>Estamos procesando su informacion</h3>
+                </p:dialog>
+                <p:dialog widgetVar="dlgReporte" width="900" height="350" closable="true" header="Documento AISV">
+                    <p:panel id="pnlReporte">
+                        <p:media  player="pdf" cache="false" value="#{contenerizadoBean.rutaReporteServidor}" style="width: 100%;height: 300px"/>
+                    </p:panel>
+                </p:dialog>
+            </h:form>
+        </p:dialog>
+        <ui:include src="nuevo.xhtml"/>
+        <ui:include src="movimientos.xhtml"/>
+        <ui:include src="detalle.xhtml"/>
+    </body>
+</html>

@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+        <p:dialog id="dlgInformacion" widgetVar="dlgInformacion" width="600" height="250" header="Seguridades - Grupo" position="center" modal="true">
+            <div id="divInformacion">
+                <h:form id="formDatos">
+                    <p:commandButton value="Ayuda" icon="ayuda" style="float: left;height: 30px;width: 110px"/>
+                    <h:panelGrid columns="6" style="float: right;height: 35px" id="botones">
+                        <p:commandButton id="guardar" icon="guardar" style="height: 25px"  value="" disabled="#{grupoBean.botonGuardar}" actionListener="#{grupoBean.guardarEntidad(evt)}" update=":mensaje datos :formPrincipal:listado">
+                            <p:confirm header="Confirmación" message="Esta seguro que desea realizar la Acción" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        <p:commandButton icon="editar" style="height: 25px" value="" disabled="#{grupoBean.botonEditar}"  actionListener="#{grupoBean.prepararEditar(evt)}" update="datos :formDatos:botones"/>
+                        <p:commandButton icon="eliminar" style="height: 25px"  value="" disabled="#{grupoBean.botonEliminar}"  actionListener="#{grupoBean.eliminarEntidad(evt)}" update=":mensaje datos :formPrincipal:listado">
+                            <p:confirm header="Confirmación" message="Esta seguro que desea Eliminar el ROL" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        <p:commandButton icon="bloquear" style="height: 25px"   value="" disabled="#{grupoBean.botonBloquear}" actionListener="#{grupoBean.bloquearEntidad(evt)}" update="datos :formDatos:botones"/>
+                        <p:commandButton type="button" value="" id="salir"  icon="cancelar" style="height: 25px"  onclick="PF('dlgInformacion').hide()"/>
+                        <p:tooltip for="salir" value="Cerrar Pantalla" hideEffect="clip"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" id="datos" style="float: left;margin-top: 50px;position: relative">
+                        <p:outputLabel for="nom" value="Grupo"/>
+                        <p:inputText id="nom" readonly="#{grupoBean.readOnly}" value="#{grupoBean.entidad.grpShortdescription}"/>
+                        <p:outputLabel for="des" value="Descripción"/>
+                        <p:inputTextarea id="des" readonly="#{grupoBean.readOnly}" value="#{grupoBean.entidad.grpLongdescription}" style="width: 400px"/>
+                    </h:panelGrid>
+                </h:form>
+            </div>
+        </p:dialog>
+    </body>
+</html>
+

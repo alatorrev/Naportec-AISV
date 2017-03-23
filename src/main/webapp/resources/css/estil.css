@@ -1,0 +1,6 @@
+.ui-dialog-titlebar {
+    padding: 9px 15px;
+    border-bottom: 1px solid #EEE;
+    background-image: url('../..//resources/images/btBlue.jpg')!important;
+    background-repeat: repeat !important;
+}

@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Naportec</title>
+        <h:outputStylesheet name="/css/iconos.css"/>
+        <h:outputStylesheet name="/css/inicioNaportec.css"/>
+        <h:outputStylesheet name="/css/tercero.css"/>
+        <h:outputScript name="/js/Validaciones.js"/>
+        <h:outputScript name="/js/localizacion.js"/>
+        <link rel="shortcut icon" href="#{resource['iconos/favicon.ico']}" type="image/x-icon" />
+        <script>
+            var redireccionar = true;
+
+            function cargarHtml(div, page) {
+                PF('dlgWait').show();
+                redireccionar = false;
+                page = '#{request.contextPath}' + page;
+                emptyHtml();
+                $.ajax({
+                    url: page,
+                    success: function (data) {
+                        $(div).html(data);
+                        PF('dlgWait').hide();
+                        PF('dlgPrincipal').show();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        var titulo = '';
+                        var error = '';
+                        tipoError = jqXHR.status;
+                        switch (jqXHR.status) {
+                            case 403:
+                                titulo = 'Acceso Denegado';
+                                error = 'Usted no cuenta con los privilegios necesarios para visualizar esta opción. Comuníquese con el administrador del sistema';
+                                break;
+                            case 500:
+                                titulo = 'Ha sucedido un error';
+                                error = 'Error del Sistema: ' + errorThrown;
+                                break;
+                            default:
+                                titulo = jqXHR.status;
+                                error = errorThrown;
+                        }
+                        $('#titleError').text(titulo);
+                        $('#error').text(error);
+                        PF('dlgWait').hide();
+                        PF('dlgError').show();
+                    }
+                });
+            }
+
+            function emptyHtml() {
+                $('#page').empty();
+                $('#dlgInformacion').remove();
+                $('.ui-tooltip').remove();
+                $('.ui-selectonemenu-panel').remove();
+                $('.ui-datepicker').remove();
+                $('.ui-autocomplete-panel').remove();
+            }
+            function reiniciarStatus() {
+                redireccionar = true;
+            }
+
+            function comprobarStatus() {
+                if (redireccionar == true) {
+                    window.location.href = '#{request.contextPath}/error/expired-session.html';
+                }
+            }
+        </script>
+    </h:head>
+    <h:body>
+        <p:graphicImage id="imagenNaportec" value="#{resource['images/naportec_login1.png']}"/>
+        <h:form id="principal">
+            <p:menubar model="#{vistaNaportec.model}" styleClass="menubar"/>
+            <p:panel styleClass="panelSesion">
+                <p:commandButton styleClass="btnCerrarSesion" value="Cerrar Sesión" icon="cerrarsesion" 
+                                 actionListener="#{loginBean.logout()}"/>
+            </p:panel>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+
+        </h:form>
+        <p:dialog widgetVar="dlgError" width="500" modal="true">
+            <f:facet name="header">
+                <p id="titleError" style="color: #8c0101"></p>
+            </f:facet>
+            <p id="error" style="text-align: justify;font-size: 17px">
+                descripcion
+            </p>
+        </p:dialog>
+        <p:dialog widgetVar="dlgWait" style="background: transparent;"
+                  closable="false" position="center" resizable="false">
+            <p:graphicImage value="#{resource['loading/progress.gif']}"/>
+        </p:dialog>
+        <p:dialog widgetVar="dlgWaitClose"  style="background: transparent" 
+                  closable="false" position="10,10" resizable="false" modal="true">
+            <p:graphicImage value="#{resource['loading/progress.gif']}"/>
+        </p:dialog>
+        <div style="position: absolute;z-index:200;bottom:20px;left:20px">
+            <a title="EliteSystem" href="http://www.elitesystem.ec">
+                <img src="#{resource['images/elite.png']}" alt="EliteSystem" style="width: 100px;height: 25px"/>
+            </a>
+        </div>
+
+        <div id="page">
+        </div>
+  <p:idleMonitor timeout="#{facesContext.externalContext.sessionMaxInactiveInterval*1000}">
+            <p:ajax event="idle"  onstart="window.location='#{request.contextPath}/error/expired-session.html'" />
+        </p:idleMonitor>
+
+    </h:body>
+</html>
+

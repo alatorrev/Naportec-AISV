@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <body>
+        <p:dialog id="dlgInformacion" widgetVar="dlgInformacion" header="Solicitud - Detalle" position="center" width="600" resizable="false" modal="true">
+            <div id="divInformacion">
+                <h:form id="formDetalle">
+                    <h:panelGrid columns="4" style="float: right" id="botones">
+                        <p:commandButton value="Aprobar" actionListener="#{solicitudContactoBean.aprobarSolicitud()}" update=":formPrincipal:listado :formDetalle:estado :formDetalle:botones"
+                                         onstart="PF('dlgEspera').show()" onsuccess="PF('dlgEspera').hide()" 
+                                         disabled="#{solicitudContactoBean.entidad.estado != 'Pendiente' and solicitudContactoBean.entidad.estado != 'Desaprobado' and solicitudContactoBean.entidad.estado != 'PenAuto'}"/>
+                        <p:commandButton value="Desaprobar" update=":formDesaprobar:datos :formDetalle:botones" oncomplete="PF('dlgDesaprobar').show()"
+                                         disabled="#{solicitudContactoBean.entidad.estado != 'Aprobado'}"/>
+                        <p:commandButton value="Anular"  update=":formAnular:datos :formDetalle:botones"  oncomplete="PF('dlgAnular').show()"
+                                         disabled="#{solicitudContactoBean.entidad.estado  != 'Pendiente' and solicitudContactoBean.entidad.estado != 'Desaprobado' and solicitudContactoBean.entidad.estado != 'PenAuto'}"
+                                         />
+                    </h:panelGrid>
+                    <h:panelGrid columns="1"  style="float: left">
+                        <p:panelGrid id="datos" columns="2" style="width: 100%">
+                            <h:outputText value="Solicitante" style="font-size: 14px;font-weight: bold"/>
+                            <h:outputText value="#{solicitudContactoBean.entidad.nombreSoli}"/>
+                            <h:outputText value="Usuario" style="font-size: 14px;font-weight: bold"/>
+                            <h:outputText value="#{solicitudContactoBean.entidad.usuarioSoli}"/>
+                            <h:outputText rendered="#{not empty solicitudContactoBean.entidad.oceSoli}" value="OCE" style="font-size: 14px;font-weight: bold"/>
+                            <h:outputText rendered="#{not empty solicitudContactoBean.entidad.oceSoli}" value="#{solicitudContactoBean.entidad.oceSoli}"/>
+                            <h:outputText rendered="#{not empty solicitudContactoBean.entidad.descripcionSoli}" value="CAE" style="font-size: 14px;font-weight: bold"/>
+                            <h:outputText rendered="#{not empty solicitudContactoBean.entidad.descripcionSoli}" value="#{solicitudContactoBean.entidad.descripcionSoli}"/>
+                            <h:outputText value="Correo" style="font-size: 14px;font-weight: bold"/>
+                            <h:outputText value="#{solicitudContactoBean.entidad.correoSoli}"/>
+                            <h:outputText value="Dirección" style="font-size: 14px;font-weight: bold"/>
+                            <h:outputText value="#{solicitudContactoBean.entidad.direccionSoli}"/>
+                            <h:outputText value="Tipo" style="font-size: 14px;font-weight: bold"/>
+                            <h:outputText value="#{solicitudContactoBean.entidad.tipo}"/>
+                            <h:outputText value="Teléfono" style="font-size: 14px;font-weight: bold"/>
+                            <h:outputText value="#{solicitudContactoBean.entidad.telefonoSoli}"/>
+                            <h:outputText value="Celular" style="font-size: 14px;font-weight: bold"/>
+                            <h:outputText value="#{solicitudContactoBean.entidad.celularSoli}"/>
+                            <h:outputText value="Estado"  style="font-size: 14px;font-weight: bold"/>
+                            <h:outputText id="estado" value="#{solicitudContactoBean.entidad.estado}" style="font-weight: bold"/>
+                        </p:panelGrid>
+
+                        <p:dataTable id="listadoContactos" emptyMessage="No se ha encontrado ningún Contacto"
+                                     var="objl" value="#{solicitudContactoBean.entidad.contactoList}" resizableColumns="true" >
+                            <p:column headerText="Nombres" style="font-size: 90%">
+                                <h:outputText value="#{objl.nombreCont}"/>
+                            </p:column>
+                            <p:column headerText="Email" style="font-size: 90%">
+                                <h:outputText value="#{objl.emailCont}"/>
+                            </p:column>
+                            <p:column headerText="Teléfono" style="font-size: 90%">
+                                <h:outputText value="#{objl.telefonoCont}"/>
+                            </p:column>
+                            <p:column headerText="Celular" style="font-size: 90%">
+                                <h:outputText value="#{objl.celularCont}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGrid>
+                </h:form>
+            </div>
+        </p:dialog>
+        <ui:include src="anular.xhtml"/>
+        <ui:include src="desaprobar.xhtml"/>
+        </body>
+</html>
+
