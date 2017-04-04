@@ -2,11 +2,12 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d5b493ec-a357-4882-8538-f16e57891a54">
 	<property name="ireport.zoom" value="1.6105100000000008"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="350"/>
+	<property name="ireport.y" value="855"/>
 	<parameter name="tipoTransaccion" class="java.lang.String"/>
 	<parameter name="bookingBl" class="java.lang.String"/>
 	<parameter name="codigoBarraInf" class="java.lang.String"/>
 	<parameter name="primercodigo" class="java.lang.String"/>
+	<parameter name="imageQR" class="java.lang.Object"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -314,18 +315,6 @@
 				</textElement>
 				<text><![CDATA[Importador:]]></text>
 			</staticText>
-			<componentElement>
-				<reportElement x="388" y="41" width="169" height="50" uuid="921c7d86-d2a1-4068-92e4-aaaf5a4247b9"/>
-				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="none">
-					<jr:codeExpression><![CDATA[$P{primercodigo}]]></jr:codeExpression>
-				</jr:Code39>
-			</componentElement>
-			<componentElement>
-				<reportElement mode="Opaque" x="7" y="719" width="533" height="83" uuid="e2957167-460c-4aaa-9bdb-78d33322697f"/>
-				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="none">
-					<jr:codeExpression><![CDATA[$P{codigoBarraInf}]]></jr:codeExpression>
-				</jr:Code39>
-			</componentElement>
 			<image>
 				<reportElement x="7" y="0" width="358" height="103" uuid="8982fd7b-f743-489d-90d1-cf6b6c78aaf4"/>
 				<imageExpression><![CDATA["nap.png"]]></imageExpression>
@@ -483,6 +472,10 @@
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{blmasterHijo}]]></textFieldExpression>
 			</textField>
+			<image onErrorType="Blank">
+				<reportElement x="414" y="4" width="117" height="103" uuid="20caee3f-5a9a-4014-81bf-1dc086f92971"/>
+				<imageExpression><![CDATA[$P{imageQR}]]></imageExpression>
+			</image>
 		</band>
 	</detail>
 </jasperReport>

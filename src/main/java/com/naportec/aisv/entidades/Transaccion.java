@@ -47,6 +47,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Transaccion.findAll", query = "SELECT t FROM Transaccion t"),
     @NamedQuery(name = "Transaccion.countIngresos", query = "SELECT COUNT(t) FROM Transaccion t WHERE t.ingresoRochoTrans=true AND t.salidaRochoTrans=false AND t.estado='Activo'"),
+    @NamedQuery(name = "Transaccion.findByAndroidList", query = "SELECT t FROM Transaccion t WHERE t.codigoTrans IN :valuesList"),
     @NamedQuery(name = "Transaccion.findByCodigoTrans", query = "SELECT t FROM Transaccion t WHERE t.codigoTrans = :codigoTrans"),
     @NamedQuery(name = "Transaccion.findByPrecarga", query = "SELECT t FROM Transaccion t WHERE t.codigoPrec = :codigoPrec AND t.estado != 'Anulado'"),
     @NamedQuery(name = "Transaccion.findByContenedorTrans", query = "SELECT t FROM Transaccion t WHERE t.contenedorTrans = :contenedorTrans"),

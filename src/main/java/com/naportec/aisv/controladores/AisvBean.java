@@ -1,27 +1,29 @@
 package com.naportec.aisv.controladores;
 
 import com.naportec.aisv.entidades.Transaccion;
+import com.naportec.aisv.websocket.DespachoNotificationEndPoint;
 import com.naportec.aisv.websocket.MensajeWebSocket;
-import com.naportec.aisv.websocket.TipoMensaje;
-import com.naportec.aisv.websocket.WebSocketUtil;
 import com.naportec.utilidades.controladores.LazyDataModelAdvance;
 import com.naportec.utilidades.controladores.Mensaje;
 import com.naportec.utilidades.controladores.UtilAisvController;
 import com.naportec.utilidades.enumeraciones.Estado;
-import com.naportec.utilidades.logica.Conexion;
 import com.naportec.utilidades.logica.Filtro;
 import com.naportec.utilidades.otros.Fechas;
 import java.io.Serializable;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.websocket.OnMessage;
+import javax.websocket.server.ServerEndpoint;
 import net.sf.jasperreports.engine.JRException;
 import org.primefaces.event.SelectEvent;
 
@@ -38,9 +40,10 @@ public class AisvBean extends UtilAisvController implements Serializable {
      */
     private String tipoCarga;
     private String ruta = "/aisv/reportes/reporteAisvImportCont.jasper";
-    private int contadorIngresos;
+    private int queueSize;
     private String mensajeWebSocket;
     private MensajeWebSocket msg;
+    
 
     public AisvBean() {
         super();
@@ -50,23 +53,17 @@ public class AisvBean extends UtilAisvController implements Serializable {
     @Override
     public void inicializar() {
         super.inicializarAprobacion();
+        queueSize=DespachoNotificationEndPoint.getListaValores().size();
     }
-
+    
+    
     public void recibirNotificacion() {
-        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String mens = String.valueOf(params.get("msg"));
-        if (mens != null) {
-            this.msg = new MensajeWebSocket(mens);
-            if (this.msg.getTipo() != TipoMensaje.INICIADOR) {
-                Transaccion tran = this.logicaTransaccion.buscarPorCodigo(Long.parseLong(this.msg.getNumeroAisv()));
-                this.logicaTransaccion.ingresoRochoTrans(tran, msg.getUsuario());
-            }
-        }
-
+        queueSize = DespachoNotificationEndPoint.getListaValores().size();
     }
 
-    public void inicializarNotificacion() {
-        WebSocketUtil.envioNotificacionInicial(this.logicaTransaccion.contadorIngresosR8());
+    public void obtenerAisvfromQueue() {
+        DespachoNotificationEndPoint.getListaValores().clear();
+        queueSize=DespachoNotificationEndPoint.getListaValores().size();
     }
 
     public void filtrarPorPendiente() {
@@ -74,9 +71,8 @@ public class AisvBean extends UtilAisvController implements Serializable {
         this.getListaAisv().filtroEqual("salidaRochoTrans", false);
     }
 
-    public void quitarFiltroPorPendiente() {
-        this.getListaAisv().removeFiltro("ingresoRochoTrans");
-        this.getListaAisv().removeFiltro("salidaRochoTrans");
+    public void verTodos() {
+        super.inicializarAprobacion();
     }
 
     /**
@@ -297,7 +293,7 @@ public class AisvBean extends UtilAisvController implements Serializable {
             this.logicaTransaccion.aprobacionDocumental(this.getTransaccion(), this.getCurrentloggeduser());
             Logger.getLogger(PanBean.class.getName()).log(Level.INFO, "PASO LA APROBACION DOCUMENTAL" + this.getTransaccion());
             //WebSocketUtil.envioNotificacionDocumental(this.getTransaccion());
-
+            DespachoNotificationEndPoint.getListaValores().remove(this.getTransaccion().getCodigoTrans().toString());
             Mensaje.SUCESO_DIALOG("Aprobacion Documental", "Se ha aprobado Documentalmente");
         } catch (Exception ex) {
             Mensaje.ERROR_DIALOG("Aprobacion Documental", "Operacion Imposible " + ex.getMessage());
@@ -338,6 +334,7 @@ public class AisvBean extends UtilAisvController implements Serializable {
             this.logicaTransaccion.setContexto(FacesContext.getCurrentInstance());
             this.logicaTransaccion.modificar(this.getTransaccion(), Estado.Activo);
             //WebSocketUtil.envioNotificacionDocumental(this.getTransaccion());
+            DespachoNotificationEndPoint.getListaValores().remove(this.getTransaccion().getCodigoTrans().toString());
             Mensaje.SUCESO_DIALOG("Desaprobación", "Se ha desaprobado este AISV");
         } catch (Exception ex) {
             Mensaje.ERROR_DIALOG("Desaprobación", "Operacion Imposible");
@@ -358,11 +355,12 @@ public class AisvBean extends UtilAisvController implements Serializable {
         this.tipoCarga = tipoCarga;
     }
 
-    /**
-     * @return the contadorIngresos
-     */
-    public int getContadorIngresos() {
-        return contadorIngresos;
+    public int getQueueSize() {
+        return queueSize;
+    }
+
+    public void setQueueSize(int queueSize) {
+        this.queueSize = queueSize;
     }
 
     /**

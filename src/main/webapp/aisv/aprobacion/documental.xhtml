@@ -5,17 +5,18 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <body>
-        <!--<h:outputScript library="js" name="comunicacion.js"/>-->
+        <h:outputScript library="js" name="comunicacion.js"/>
         <p:growl id="mensaje" showDetail="true" showSummary="false"/>
         <p:dialog id="dlgPrincipal" widgetVar="dlgPrincipal" width="1200" height="400" showEffect="clip" hideEffect="explode"
                   resizable="false" fitViewport="true" position="center" header="Aisv - Aprobación Documental" onHide="emptyHtml();">
             <h:form id="formGeneral">
-            <!--    <p:remoteCommand autoRun="true" name="inicializarNotificacion" actionListener="# {aisvBean.inicializarNotificacion()}" update=":formGeneral:listado:btnnotificacion"/>
-                <p:remoteCommand name="recibirNotificacion" actionListener="# {aisvBean.recibirNotificacion()}" update=":formGeneral:listado:btnnotificacion"/> -->
+                <p:poll interval="10" listener="#{aisvBean.recibirNotificacion}" update=":formGeneral:listado:btnnotificacion" />
+                    
+                <!--<p:remoteCommand name="updateButton" actionListener="# {aisvBean.recibirNotificacion()}" update=":formGeneral:listado:btnnotificacion"/>-->
                 <p:dataTable id="listado" paginator="true" emptyMessage="No se ha encontrado ningun AISV"
                              paginatorPosition="bottom" var="objExp" lazy="true" draggableColumns="true"  draggableRows="true"
                              value="#{aisvBean.listaAisv}"
-                             rows="12" rowsPerPageTemplate="10,12,15,20,30"
+                             rows="12" rowsPerPageTemplate="10,12,15,20,30"                             
                              paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                              resizableColumns="true" style="width:100%;height: 100%;font-size: 10px!important"
                              selectionMode="single" selection="#{aisvBean.transaccion}" rowKey="#{objExp.codigoTrans}">
@@ -25,7 +26,7 @@
 
                     <f:facet name="header">
                         <p:commandButton value="Ver Todo" 
-                                         actionListener="#{aisvBean.quitarFiltroPorPendiente()}"
+                                         actionListener="#{aisvBean.verTodos()}"
                                          update=":formGeneral:listado"
                                          style="float: left;width: 100px;height:50px;margin-top: 5px;font-size: 14px!important"/>
 
@@ -41,11 +42,10 @@
                                          disabled="#{!aisvBean.desaprobar}">
                             <p:confirm header="Desaprobacion" message="Esta seguro que desea Desaprobar este AISV?" icon="ui-icon-alert" />
                         </p:commandButton>
-                    <!--    <p:commandButton id="btnnotificacion" value="# {aisvBean.msg.contador}" 
-                                         actionListener="# {aisvBean.filtrarPorPendiente()}"
-                                         update=":formGeneral:listado"
+                        <p:commandButton id="btnnotificacion" value="#{aisvBean.queueSize}" 
+                                         actionListener="#{aisvBean.obtenerAisvfromQueue()}"
+                                         update=":formGeneral:listado btnnotificacion"
                                          style="float: right;width: 50px;height:50px;border-radius:100%!important;margin-top: 5px;border-color: #8c0101!important;border-width: 2px!important;background: #D20005!important;font-size: 16px!important;box-shadow: none!important"/>
-                    -->
                     </f:facet>
 
                     <p:column headerText="Codigo" style="text-align: center" filterStyle="width: 40px " filterBy="#{objExp.codigoTrans}" width="50">

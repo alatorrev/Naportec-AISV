@@ -271,7 +271,6 @@ public abstract class UtilAisvController implements Serializable {
         mostrarDatosTipoAux();
         listaAisvAux.filtroOrderBy("ingresoRochoTrans", "desc");
         listaAisvAux.filtroOrderBy("codigoTrans", "desc");
-        
     }
 
     /**

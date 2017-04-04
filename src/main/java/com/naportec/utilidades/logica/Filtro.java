@@ -108,6 +108,13 @@ public class Filtro implements Serializable {
             sb.append(" AND :");
             sb.append(parametroKey2());
         }
+        
+        if(tipo.equals("IN")){
+            sb.append("x.");
+            sb.append(key1);
+            sb.append(" IN :");
+            sb.append(parametroKey1());
+        }
         if (tipo.equals("ORDER")) {
             sb.append("ORDER BY x.");
             sb.append(key1);

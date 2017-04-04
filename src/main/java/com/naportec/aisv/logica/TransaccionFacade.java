@@ -15,7 +15,12 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
@@ -23,6 +28,7 @@ import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.primefaces.context.RequestContext;
 
 /**
  * Logica de Negocios de la entidad Transaccion
@@ -49,11 +55,6 @@ public class TransaccionFacade extends AbstractFacade<Transaccion> implements Se
 
     public TransaccionFacade() {
         super(Transaccion.class);
-    }
-
-    public int contadorIngresosR8() {
-        Query q = getEntityManager().createNamedQuery("Transaccion.countIngresos");
-        return Integer.parseInt(q.getSingleResult().toString());
     }
 
     public void ingresoRochoTrans(Transaccion entity, String usua) {

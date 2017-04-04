@@ -46,6 +46,7 @@ public class Consulta {
     public void agregarFiltrado(List<Filtro> fil) {
         filtros = fil;
         int order = 0;
+        int in = 0;
         int ultimoand = 0;
         if (filtros != null) {
             if (filtros.size() > 0) {
@@ -54,14 +55,36 @@ public class Consulta {
                 }
                 for (Filtro f : filtros) {
                     if (!f.getTipo().equals("ORDER")) {
-                        sb.append(f.obtenerConsultaParcial());
-                        sb.append(" AND ");
-                        ultimoand = 1;
+                        if (!f.getTipo().equals("IN")) {
+                            sb.append(f.obtenerConsultaParcial());
+                            sb.append(" AND ");
+                            ultimoand++;
+                        }
                     }
                 }
-                if (ultimoand == 1) {
-                    sb.delete(sb.length() - 4, sb.length());
+//                if (ultimoand == 1) {
+                sb.delete(sb.length() - 4, sb.length());
+//                }
+
+                for (Filtro f : filtros) {
+                    if (f.getTipo().equals("IN")) {
+                        List<String> lista = (List<String>) f.getValue1();
+                        in++;
+                        if (in == 1) {
+                            if (ultimoand > 0) {
+                                sb.append("AND ");
+                                sb.append(f.obtenerConsultaParcial());
+                                sb.append(" ");
+                            }
+                        } else {
+                            int init = sb.length();
+                            sb.append(f.obtenerConsultaParcial());
+                            sb.replace(init - 2, (init + 2) + (f.getKey1().length() + 5), ",");
+
+                        }
+                    }
                 }
+
                 for (Filtro f : filtros) {
                     if (f.getTipo().equals("ORDER")) {
                         order++;
@@ -70,7 +93,7 @@ public class Consulta {
                         } else {
                             int init = sb.append(" ").length();
                             sb.append(f.obtenerConsultaParcial());
-                            sb.replace(init, init+(f.getTipo().length()+3),",");
+                            sb.replace(init, init + (f.getTipo().length() + 3), ",");
                         }
                     }
                 }

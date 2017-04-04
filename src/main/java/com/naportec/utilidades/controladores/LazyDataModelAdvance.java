@@ -46,7 +46,7 @@ public class LazyDataModelAdvance<T> extends LazyDataModel<T> {
             ent = this.facade.buscarPorCodigo(Integer.parseInt(rowKey));
         } else if (clasePK.equals(Long.class) || clasePK.equals(long.class)) {
             ent = this.facade.buscarPorCodigo(Long.parseLong(rowKey));
-        }else if(clasePK.equals(String.class)){
+        } else if (clasePK.equals(String.class)) {
             ent = this.facade.buscarPorCodigo(rowKey);
         }
         return ent;
@@ -68,7 +68,7 @@ public class LazyDataModelAdvance<T> extends LazyDataModel<T> {
     public List<T> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
         this.filters = filters;
         try {
-            this.infoLazyDataModel=getFacade().loadLazy(first, pageSize, sortField, sortOrder, filters,  getFiltros());
+            this.infoLazyDataModel = getFacade().loadLazy(first, pageSize, sortField, sortOrder, filters, getFiltros());
         } catch (Exception ex) {
             Logger.getLogger(LazyDataModelAdvance.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -78,11 +78,11 @@ public class LazyDataModelAdvance<T> extends LazyDataModel<T> {
             setRowCount(0);
             tamanioLista = 0;
         } else {
-            setRowCount((int)this.getInfoLazyDataModel()[1]);
+            setRowCount((int) this.getInfoLazyDataModel()[1]);
             tamanioLista = getRowCount();
         }
-        log.info(this.getInfoLazyDataModel()[2]+"");
-        return (List<T>)this.getInfoLazyDataModel()[0];
+        log.info(this.getInfoLazyDataModel()[2] + "");
+        return (List<T>) this.getInfoLazyDataModel()[0];
     }
 
     public List<T> loadTotalList() throws Exception {
@@ -128,6 +128,10 @@ public class LazyDataModelAdvance<T> extends LazyDataModel<T> {
 
     public void filtroOrderBy(String key1, String modo) {
         getFiltros().add(new Filtro("ORDER", key1, modo));
+    }
+
+    public void filtroIN(String key1, List<String> listIN) {
+        getFiltros().add(new Filtro("IN", key1, listIN));
     }
 
     public void removeFiltro(String key) {
