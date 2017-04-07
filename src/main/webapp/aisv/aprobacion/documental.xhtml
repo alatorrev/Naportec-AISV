@@ -5,6 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <body>
+        <h:outputStylesheet library="css" name="estilo.css"  />
         <h:outputScript library="js" name="comunicacion.js"/>
         <p:growl id="mensaje" showDetail="true" showSummary="false"/>
         <p:dialog id="dlgPrincipal" widgetVar="dlgPrincipal" width="1200" height="400" showEffect="clip" hideEffect="explode"
@@ -19,6 +20,7 @@
                              rows="12" rowsPerPageTemplate="10,12,15,20,30"                             
                              paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                              resizableColumns="true" style="width:100%;height: 100%;font-size: 10px!important"
+                             rowStyleClass="#{aisvBean.customStyle(objExp)}"
                              selectionMode="single" selection="#{aisvBean.transaccion}" rowKey="#{objExp.codigoTrans}">
 
                     <p:ajax event="rowSelect" listener="#{aisvBean.rowSelect}" update="apro noapro"/>
@@ -72,6 +74,9 @@
                             <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
                         </h:outputText>
                     </p:column>
+                    <p:column headerText="Forma Pago" filterBy="#{objExp.codigo_pago.tipoPago}" filterStyle="width: 90px " width="100" style="font-size: 10px;text-align: center">
+                        <h:outputText value="#{objExp.codigo_pago.tipoPago}"/>
+                    </p:column>
                     <p:column headerText="Estado Pago" filterBy="#{objExp.codigo_pago.estado}" filterStyle="width: 90px " width="100" style="font-size: 10px;text-align: center">
                         <h:outputText value="#{objExp.codigo_pago.estado}"/>
                     </p:column>
@@ -84,11 +89,14 @@
                     <p:column headerText="Contenedor"  style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.contenedorTrans}"  width="100" >
                         <h:outputText value="#{objExp.contenedorTrans}"/>
                     </p:column>
-                    <p:column headerText="Producto" style="text-align: center" filterStyle="width: 90px " width="100" filterBy="#{objExp.codigoPrec.descripcionPrec}">
-                        <h:outputText value="#{objExp.codigoPrec.descripcionPrec}"/>
+                    <p:column headerText="Placa" filterBy="#{objExp.placaTrasnportistaTrans}" filterStyle="width: 90px " width="100" style="font-size: 10px;text-align: center">
+                        <h:outputText value="#{objExp.placaTrasnportistaTrans}"/>
                     </p:column>
-                    <p:column headerText="Naviera"  style="text-align: center" filterStyle="width: 90px " filterBy="#{objExp.codigoPrec.idLineaPrec.nombreNavi}"  width="100" >
-                        <h:outputText value="#{objExp.codigoPrec.idLineaPrec.nombreNavi}"/>
+                    <p:column headerText="Id. Transportista" filterBy="#{objExp.cedulaTrasnportistaTrans}" width="100" filterStyle="width: 90px " style="font-size: 10px;text-align: center">
+                        <h:outputText value="#{objExp.cedulaTrasnportistaTrans}"/>
+                    </p:column>
+                    <p:column headerText="Nombre Transportista" filterBy="#{objExp.nombreTrasnportistaTrans}" width="100" filterStyle="width: 90px " style="font-size: 10px;text-align: center">
+                        <h:outputText value="#{objExp.nombreTrasnportistaTrans}"/>
                     </p:column>
                     <p:column headerText="Creación" width="100" style="font-size: 10px">
                         <h:outputText value="#{objExp.fechaCreacion}">

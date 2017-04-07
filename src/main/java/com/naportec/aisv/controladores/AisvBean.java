@@ -43,7 +43,6 @@ public class AisvBean extends UtilAisvController implements Serializable {
     private int queueSize;
     private String mensajeWebSocket;
     private MensajeWebSocket msg;
-    
 
     public AisvBean() {
         super();
@@ -53,17 +52,16 @@ public class AisvBean extends UtilAisvController implements Serializable {
     @Override
     public void inicializar() {
         super.inicializarAprobacion();
-        queueSize=DespachoNotificationEndPoint.getListaValores().size();
+        queueSize = DespachoNotificationEndPoint.getListaValores().size();
     }
-    
-    
+
     public void recibirNotificacion() {
         queueSize = DespachoNotificationEndPoint.getListaValores().size();
     }
 
     public void obtenerAisvfromQueue() {
         DespachoNotificationEndPoint.getListaValores().clear();
-        queueSize=DespachoNotificationEndPoint.getListaValores().size();
+        queueSize = DespachoNotificationEndPoint.getListaValores().size();
     }
 
     public void filtrarPorPendiente() {
@@ -129,6 +127,14 @@ public class AisvBean extends UtilAisvController implements Serializable {
                 this.desaprobar = true;
                 break;
         }
+    }
+    
+    public String customStyle(Transaccion s){
+        if((s.getEstado().equals("Activo")||s.getEstado().equals("noAprobado")) && s.getIngresoRochoTrans()!=null) return "rowStyleNaranja";
+        if(s.getEstado().equals("Documental") && s.getSalidaRochoTrans()==null) return "rowStyleVerde";
+        if(s.getEstado().equals("Documental") && s.getSalidaRochoTrans()!=null) return "rowStyleCeleste";
+        if(s.getEstado().equals("Aprobado")) return "rowStyleAmarillo";
+        return null;
     }
 
     public void rowunSelect() {
@@ -293,7 +299,6 @@ public class AisvBean extends UtilAisvController implements Serializable {
             this.logicaTransaccion.aprobacionDocumental(this.getTransaccion(), this.getCurrentloggeduser());
             Logger.getLogger(PanBean.class.getName()).log(Level.INFO, "PASO LA APROBACION DOCUMENTAL" + this.getTransaccion());
             //WebSocketUtil.envioNotificacionDocumental(this.getTransaccion());
-            DespachoNotificationEndPoint.getListaValores().remove(this.getTransaccion().getCodigoTrans().toString());
             Mensaje.SUCESO_DIALOG("Aprobacion Documental", "Se ha aprobado Documentalmente");
         } catch (Exception ex) {
             Mensaje.ERROR_DIALOG("Aprobacion Documental", "Operacion Imposible " + ex.getMessage());
@@ -334,7 +339,6 @@ public class AisvBean extends UtilAisvController implements Serializable {
             this.logicaTransaccion.setContexto(FacesContext.getCurrentInstance());
             this.logicaTransaccion.modificar(this.getTransaccion(), Estado.Activo);
             //WebSocketUtil.envioNotificacionDocumental(this.getTransaccion());
-            DespachoNotificationEndPoint.getListaValores().remove(this.getTransaccion().getCodigoTrans().toString());
             Mensaje.SUCESO_DIALOG("Desaprobación", "Se ha desaprobado este AISV");
         } catch (Exception ex) {
             Mensaje.ERROR_DIALOG("Desaprobación", "Operacion Imposible");
