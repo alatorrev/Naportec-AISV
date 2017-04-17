@@ -5,6 +5,7 @@ import com.naportec.aisv.entidades.Transaccion;
 import com.naportec.utilidades.controladores.Mensaje;
 import com.naportec.utilidades.controladores.UtilAisvController;
 import com.naportec.utilidades.otros.Aes;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -111,7 +112,11 @@ public class SueltaBean extends UtilAisvController implements Serializable {
             String datoBarra = Aes.encryptData(this.transaccion.toString());
             String datoBarraDos = Aes.encryptData(this.transaccion.getCodigoTrans() + "");
             parametros.put("codigoBarraInf", datoBarra.substring(0, datoBarra.length() - 2));
-            parametros.put("imagen", this.getClass().getResourceAsStream("/com/naportec/utilidades/img/nap.png"));
+            BufferedImage QRImage = com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(
+                    new com.google.zxing.qrcode.QRCodeWriter().encode(
+                            datoBarraDos, com.google.zxing.BarcodeFormat.QR_CODE, 300, 300));
+            //parametros.put("imagen", this.getClass().getResourceAsStream("/com/naportec/utilidades/img/nap.png"));
+            parametros.put("imageQR",QRImage);
             parametros.put("primercodigo", datoBarraDos.substring(0, datoBarraDos.length() - 2));
             //COLOCAR AQUI CODIGO DE BARRA
             //---------------------------------------------------------------

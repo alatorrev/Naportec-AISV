@@ -13,9 +13,6 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
-import org.primefaces.push.EventBus;
-import org.primefaces.push.EventBusFactory;
-import org.primefaces.push.annotation.PushEndpoint;
 
 /**
  *
@@ -25,6 +22,7 @@ import org.primefaces.push.annotation.PushEndpoint;
 public class DespachoNotificationEndPoint implements Serializable {
 
     public static List<String> listaValores = new ArrayList<>();
+    public static List<Session> listaSession = new ArrayList<>();
 
     @OnMessage
     public void messageRecive(Session s, String message) {
@@ -34,12 +32,13 @@ public class DespachoNotificationEndPoint implements Serializable {
 
     @OnOpen
     public void onOpen(Session s) {
+        listaSession.add(s);
         System.out.println(s.getId());
     }
 
     @OnClose
     public void onClose(Session s) {
-
+        listaSession.remove(s);
     }
 
     public static void resetResource() {
@@ -52,6 +51,14 @@ public class DespachoNotificationEndPoint implements Serializable {
 
     public static void setListaValores(List<String> listaValores) {
         DespachoNotificationEndPoint.listaValores = listaValores;
+    }
+
+    public static List<Session> getListaSession() {
+        return listaSession;
+    }
+
+    public static void setListaSession(List<Session> listaSession) {
+        DespachoNotificationEndPoint.listaSession = listaSession;
     }
 
 }

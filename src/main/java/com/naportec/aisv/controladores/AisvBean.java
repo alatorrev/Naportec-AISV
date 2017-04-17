@@ -2,7 +2,7 @@ package com.naportec.aisv.controladores;
 
 import com.naportec.aisv.entidades.Transaccion;
 import com.naportec.aisv.websocket.DespachoNotificationEndPoint;
-import com.naportec.aisv.websocket.MensajeWebSocket;
+import com.naportec.aisv.websocket.WebSocketUtil;
 import com.naportec.utilidades.controladores.LazyDataModelAdvance;
 import com.naportec.utilidades.controladores.Mensaje;
 import com.naportec.utilidades.controladores.UtilAisvController;
@@ -11,19 +11,15 @@ import com.naportec.utilidades.logica.Filtro;
 import com.naportec.utilidades.otros.Fechas;
 import java.io.Serializable;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.websocket.OnMessage;
-import javax.websocket.server.ServerEndpoint;
 import net.sf.jasperreports.engine.JRException;
 import org.primefaces.event.SelectEvent;
 
@@ -41,8 +37,6 @@ public class AisvBean extends UtilAisvController implements Serializable {
     private String tipoCarga;
     private String ruta = "/aisv/reportes/reporteAisvImportCont.jasper";
     private int queueSize;
-    private String mensajeWebSocket;
-    private MensajeWebSocket msg;
 
     public AisvBean() {
         super();
@@ -106,7 +100,7 @@ public class AisvBean extends UtilAisvController implements Serializable {
             case "Activo":
                 if (t.getCodigo_pago().getEstado().equals("Cancelado")
                         && Fechas.FechaFormat(this.getTransaccion().getIngresoRochoTrans(), "yyyy-MM-dd").getTime() == Fechas.FechaFormat(new Date(), "yyyy-MM-dd").getTime()
-                        && Fechas.FechaFormat(this.getTransaccion().getFechaRetiroTrans(), "yyyy-MM-dd").getTime() >= Fechas.FechaFormat(new Date(), "yyyy-MM-dd").getTime()) {
+                        && Fechas.FechaFormat(this.getTransaccion().getFechaRetiroTrans(), "yyyy-MM-dd").getTime() == Fechas.FechaFormat(new Date(), "yyyy-MM-dd").getTime()) {
                     this.aprobar = true;
                     this.desaprobar = false;
                 } else {
@@ -298,7 +292,7 @@ public class AisvBean extends UtilAisvController implements Serializable {
             this.logicaTransaccion.setContexto(FacesContext.getCurrentInstance());
             this.logicaTransaccion.aprobacionDocumental(this.getTransaccion(), this.getCurrentloggeduser());
             Logger.getLogger(PanBean.class.getName()).log(Level.INFO, "PASO LA APROBACION DOCUMENTAL" + this.getTransaccion());
-            //WebSocketUtil.envioNotificacionDocumental(this.getTransaccion());
+            WebSocketUtil.sendNotificationDocumental("aprobado");
             Mensaje.SUCESO_DIALOG("Aprobacion Documental", "Se ha aprobado Documentalmente");
         } catch (Exception ex) {
             Mensaje.ERROR_DIALOG("Aprobacion Documental", "Operacion Imposible " + ex.getMessage());
@@ -338,7 +332,7 @@ public class AisvBean extends UtilAisvController implements Serializable {
         try {
             this.logicaTransaccion.setContexto(FacesContext.getCurrentInstance());
             this.logicaTransaccion.modificar(this.getTransaccion(), Estado.Activo);
-            //WebSocketUtil.envioNotificacionDocumental(this.getTransaccion());
+            WebSocketUtil.sendNotificationDocumental("desaprobado");
             Mensaje.SUCESO_DIALOG("Desaprobación", "Se ha desaprobado este AISV");
         } catch (Exception ex) {
             Mensaje.ERROR_DIALOG("Desaprobación", "Operacion Imposible");
@@ -365,28 +359,6 @@ public class AisvBean extends UtilAisvController implements Serializable {
 
     public void setQueueSize(int queueSize) {
         this.queueSize = queueSize;
-    }
-
-    /**
-     * @return the mensajeWebSocket
-     */
-    public String getMensajeWebSocket() {
-        return mensajeWebSocket;
-    }
-
-    /**
-     * @param mensajeWebSocket the mensajeWebSocket to set
-     */
-    public void setMensajeWebSocket(String mensajeWebSocket) {
-        this.msg = new MensajeWebSocket(mensajeWebSocket);
-        this.mensajeWebSocket = mensajeWebSocket;
-    }
-
-    /**
-     * @return the msg
-     */
-    public MensajeWebSocket getMsg() {
-        return msg;
     }
 
 }

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d5b493ec-a357-4882-8538-f16e57891a54">
 	<property name="ireport.zoom" value="1.6105100000000008"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="855"/>
+	<property name="ireport.y" value="651"/>
 	<parameter name="tipoTransaccion" class="java.lang.String"/>
 	<parameter name="bookingBl" class="java.lang.String"/>
 	<parameter name="codigoBarraInf" class="java.lang.String"/>
@@ -109,6 +109,12 @@
 	</field>
 	<field name="importador" class="java.lang.String">
 		<fieldDescription><![CDATA[codigoPrec.importadorPrec]]></fieldDescription>
+	</field>
+	<field name="fechaRetiroTrans" class="java.util.Date">
+		<fieldDescription><![CDATA[fechaRetiroTrans]]></fieldDescription>
+	</field>
+	<field name="numeroPago" class="java.lang.String">
+		<fieldDescription><![CDATA[codigo_pago.numeroPago]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -327,7 +333,7 @@
 				<text><![CDATA[IMPORTACIÓN]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="407" y="443" width="139" height="20" backcolor="#CCCCCC" uuid="3521bfaf-3547-425f-a73b-b36bb4b2fc61"/>
+				<reportElement mode="Opaque" x="407" y="443" width="140" height="20" backcolor="#CCCCCC" uuid="3521bfaf-3547-425f-a73b-b36bb4b2fc61"/>
 				<textElement verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
@@ -356,13 +362,6 @@
 					<font fontName="Calibri" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[UN:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="280" y="490" width="124" height="20" backcolor="#999999" uuid="af2097e6-4095-4e29-8ebe-db3d7c1b4ab7"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[No. Cajas:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="11" y="467" width="124" height="20" backcolor="#999999" uuid="3d46a239-9076-4fbe-ae1b-47f4a40eb829"/>
@@ -402,11 +401,6 @@
 				</textElement>
 				<text><![CDATA[Producto:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="407" y="490" width="139" height="20" backcolor="#CCCCCC" uuid="da7eb9a3-89cd-4111-9f94-c3c6eeff3570"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{numeroCajasTrans}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement mode="Opaque" x="11" y="443" width="124" height="20" backcolor="#999999" uuid="b95d4870-ac6d-431e-a54b-3a012eef6068"/>
 				<textElement verticalAlignment="Middle">
@@ -449,12 +443,12 @@
 				<textFieldExpression><![CDATA[$F{temperaturaPrec}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="138" y="514" width="139" height="20" backcolor="#CCCCCC" uuid="12ec3c2b-4fa4-493f-89d6-b0d80d739964"/>
+				<reportElement mode="Opaque" x="407" y="490" width="140" height="20" backcolor="#CCCCCC" uuid="12ec3c2b-4fa4-493f-89d6-b0d80d739964"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{propositoCarga}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="11" y="514" width="124" height="20" backcolor="#999999" uuid="bcd1599d-e115-4740-b5df-e127a66b17ec"/>
+				<reportElement mode="Opaque" x="280" y="490" width="124" height="20" backcolor="#999999" uuid="bcd1599d-e115-4740-b5df-e127a66b17ec"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Calibri" size="12" isBold="true"/>
 				</textElement>
@@ -476,6 +470,30 @@
 				<reportElement x="414" y="4" width="117" height="103" uuid="20caee3f-5a9a-4014-81bf-1dc086f92971"/>
 				<imageExpression><![CDATA[$P{imageQR}]]></imageExpression>
 			</image>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="407" y="513" width="140" height="20" backcolor="#CCCCCC" uuid="904a82b9-a5be-4161-adc4-6f2510982fea"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fechaRetiroTrans}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="9" y="513" width="126" height="20" backcolor="#999999" uuid="eeb68c98-1b5d-4be0-9ef1-65821ab2ab7a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Número Factura:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="138" y="513" width="139" height="20" backcolor="#CCCCCC" uuid="07152a9a-824f-4d0a-8084-322d7700e5ab"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numeroPago}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="280" y="513" width="124" height="20" backcolor="#999999" uuid="f4540b9b-eb2b-4831-9be7-33ee287d8a7e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Retiro:]]></text>
+			</staticText>
 		</band>
 	</detail>
 </jasperReport>
