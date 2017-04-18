@@ -307,7 +307,7 @@ public class AisvBean extends UtilAisvController implements Serializable {
             this.logicaTransaccion.setContexto(FacesContext.getCurrentInstance());
             this.logicaTransaccion.aprobacionDefinitiva(this.getTransaccion());
             exportar(null);
-//            Mensaje.SUCESO_DIALOG("Aprobacion Definitiva", "Se ha aprobado Definitivamente");
+            Mensaje.SUCESO_DIALOG("Aprobacion Definitiva", "Se ha aprobado Definitivamente");
         } catch (Exception ex) {
             Mensaje.ERROR_DIALOG("Aprobacion Definitiva", "Operacion Imposible");
         }

@@ -49,7 +49,7 @@ public class UtilMail implements Serializable {
      */
     private Properties props = new Properties();
     private String host, protocol, user, password;
-    private String from, content, to, cco;
+    private String from, content, to, cc, cco;
     private String subject = "";
     /**
      * MultiPart para crear mensajes compuestos
@@ -225,10 +225,10 @@ public class UtilMail implements Serializable {
             if (this.getCco() != null) {
                 message.addRecipients(Message.RecipientType.BCC, listaAddresses(this.getCco()));
             }
-             Address[] direcciones = message.getAllRecipients();
+            Address[] direcciones = message.getAllRecipients();
             message.setContent(multipart);
             transport.connect();
-            transport.sendMessage(message,direcciones);
+            transport.sendMessage(message, direcciones);
             transport.close();
             this.multipart = new MimeMultipart("related");
         } catch (MessagingException ex) {
@@ -277,6 +277,9 @@ public class UtilMail implements Serializable {
 //            }
             if (this.getTo() != null) {
                 message.addRecipients(Message.RecipientType.TO, listaAddresses(this.getTo()));
+            }
+            if (this.getCc() != null) {
+                message.addRecipients(Message.RecipientType.CC, listaAddresses(this.getCc()));
             }
             if (this.getCco() != null) {
                 message.addRecipients(Message.RecipientType.BCC, listaAddresses(this.getCco()));
@@ -343,6 +346,14 @@ public class UtilMail implements Serializable {
 
     public void setTo(String to) {
         this.to = to;
+    }
+
+    public String getCc() {
+        return cc;
+    }
+
+    public void setCc(String cc) {
+        this.cc = cc;
     }
 
     /**

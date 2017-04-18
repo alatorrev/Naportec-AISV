@@ -26,8 +26,10 @@ import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
+import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.StoredProcedureQuery;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -171,6 +173,7 @@ public class TransaccionFacade extends AbstractFacade<Transaccion> implements Se
         entity.setEstado(Estado.Aprobado.name());
         this.getEntityManager().merge(entity);
         this.getEntityManager().persist(llenadoDatos(entity, Estado.Aprobado.name().toUpperCase(), this.getCurrentloggeduser()));
+
         if (entity.getEstado().equals(Estado.Aprobado.name())) {
             if (entity.getEstadoPan() != null) {
                 if (entity.getEstadoPan().equals(Estado.bloqueoPan.name())) {
@@ -205,6 +208,7 @@ public class TransaccionFacade extends AbstractFacade<Transaccion> implements Se
                     sbcorreos.append("Coordinadores.Logisticos@dole.com;");
                     email = new UtilMail();
                     email.setTo(sbcorreos.toString());
+//                    email.setCc(direccionCorreoClientes(entity));
                     try {
                         email.setSubject("NOTIFICACIÓN: << Naportec - " + datoSubject + " - " + entity.getCodigoPrec().getImportadorPrec() + " - Bloqueo PAN >>");
                     } catch (Exception ex) {
@@ -243,8 +247,6 @@ public class TransaccionFacade extends AbstractFacade<Transaccion> implements Se
 //            sb.append("felix.segura@dole.com;");
 //            sb.append("julio.aguirre@dole.com;");
 //            sb.append("henry.izurieta@dole.com;");
-//            sb.append("andrea.silva@dole.com;");
-//            sb.append("alexandra.elizabeth.jara@dole.com;");
 //            sb.append("alfredo.rolando.cordova@dole.com;");
 //        } else if (entity.getCodigoPrec().getCondicionContenedorPrec().trim().equals("FCL/FCL")) {
 //            sb.append("despachadores.BNP@dole.com;");
@@ -262,6 +264,7 @@ public class TransaccionFacade extends AbstractFacade<Transaccion> implements Se
 //        sb.append("naportecgarita@dole.com;");
         //******************************************************************
         email.setTo(sb.toString());
+//        email.setCc(direccionCorreoClientes(entity));
         String referencia = "";
         if (entity.getCodigoPrec().getCondicionContenedorPrec().equals("FCL/FCL")) {
             referencia = entity.getContenedorTrans();
@@ -591,6 +594,15 @@ public class TransaccionFacade extends AbstractFacade<Transaccion> implements Se
         return numeroFactura;
     }
 
+    public String direccionCorreoClientes(Transaccion entity) {
+        StoredProcedureQuery storedProcedure = this.getEntityManager().createStoredProcedureQuery("sp_aisv_correos");
+        storedProcedure.registerStoredProcedureParameter("NumAISV", Long.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("CorreoR", String.class, ParameterMode.OUT);
+        storedProcedure.setParameter("NumAISV", entity.getCodigoTrans());
+        storedProcedure.execute();
+        String emailClientAddresses = storedProcedure.getOutputParameterValue("CorreoR").toString();
+        return emailClientAddresses;
+    }
     /**
      * @return the ipTransaccion
      */

@@ -29,7 +29,7 @@
                     <p:ajax event="rowUnselect" update="noapro apro"/>
 
                     <f:facet name="header">
-                        <p:commandButton value="Aprobar" id="apro"  
+                        <p:commandButton value="Aprobar" id="apro"  actionListener="#{aisvBean.aprobacionDefinitiva()}"
                                          disabled="#{empty aisvBean.transaccion.codigoTrans or aisvBean.transaccion.estado eq 'Aprobado'}"
                                          update=":formAprobar:datos" 
                                          style="width: 150px;height: 30px;font-size: 14px!important"
