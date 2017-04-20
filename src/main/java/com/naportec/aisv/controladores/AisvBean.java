@@ -120,14 +120,25 @@ public class AisvBean extends UtilAisvController implements Serializable {
                 this.aprobar = false;
                 this.desaprobar = true;
                 break;
+            default:
+                this.aprobar = false;
+                this.desaprobar = false;
         }
     }
-    
-    public String customStyle(Transaccion s){
-        if((s.getEstado().equals("Activo")||s.getEstado().equals("noAprobado")) && s.getIngresoRochoTrans()!=null) return "rowStyleNaranja";
-        if(s.getEstado().equals("Documental") && s.getSalidaRochoTrans()==null) return "rowStyleVerde";
-        if(s.getEstado().equals("Documental") && s.getSalidaRochoTrans()!=null) return "rowStyleCeleste";
-        if(s.getEstado().equals("Aprobado")) return "rowStyleAmarillo";
+
+    public String customStyle(Transaccion s) {
+        if ((s.getEstado().equals("Activo") || s.getEstado().equals("noAprobado")) && s.getIngresoRochoTrans() != null) {
+            return "rowStyleNaranja";
+        }
+        if (s.getEstado().equals("Documental") && s.getSalidaRochoTrans() == null) {
+            return "rowStyleVerde";
+        }
+        if (s.getEstado().equals("Documental") && s.getSalidaRochoTrans() != null) {
+            return "rowStyleCeleste";
+        }
+        if (s.getEstado().equals("Aprobado")) {
+            return "rowStyleAmarillo";
+        }
         return null;
     }
 

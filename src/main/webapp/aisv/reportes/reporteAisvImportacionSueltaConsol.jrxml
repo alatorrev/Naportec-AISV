@@ -273,7 +273,7 @@
 				<textFieldExpression><![CDATA[$P{codigoBarraInf}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="7" y="0" width="358" height="103" uuid="8982fd7b-f743-489d-90d1-cf6b6c78aaf4"/>
+				<reportElement x="7" y="0" width="300" height="84" uuid="8982fd7b-f743-489d-90d1-cf6b6c78aaf4"/>
 				<imageExpression><![CDATA["nap.png"]]></imageExpression>
 			</image>
 			<staticText>
@@ -383,7 +383,7 @@
 				</textElement>
 				<text><![CDATA[BL Hijo:]]></text>
 			</staticText>
-			<image onErrorType="Blank">
+			<image scaleImage="RealSize" onErrorType="Blank">
 				<reportElement x="392" y="0" width="117" height="103" uuid="cbc6642e-b908-49d1-99d4-68e1273ff431"/>
 				<imageExpression><![CDATA[$P{imageQR}]]></imageExpression>
 			</image>
