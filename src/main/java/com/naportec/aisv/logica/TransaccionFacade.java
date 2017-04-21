@@ -208,7 +208,8 @@ public class TransaccionFacade extends AbstractFacade<Transaccion> implements Se
                     sbcorreos.append("Coordinadores.Logisticos@dole.com;");
                     email = new UtilMail();
                     email.setTo(sbcorreos.toString());
-//                    email.setCc(direccionCorreoClientes(entity));
+//                    email.setTo(direccionCorreoClientes(entity));
+//                    email.setCco(sbcorreos.toString());
                     try {
                         email.setSubject("NOTIFICACIÓN: << Naportec - " + datoSubject + " - " + entity.getCodigoPrec().getImportadorPrec() + " - Bloqueo PAN >>");
                     } catch (Exception ex) {
@@ -264,7 +265,8 @@ public class TransaccionFacade extends AbstractFacade<Transaccion> implements Se
 //        sb.append("naportecgarita@dole.com;");
         //******************************************************************
         email.setTo(sb.toString());
-//        email.setCc(direccionCorreoClientes(entity));
+//        email.setTo(direccionCorreoClientes(entity));
+//        email.setCco(sb.toString());
         String referencia = "";
         if (entity.getCodigoPrec().getCondicionContenedorPrec().equals("FCL/FCL")) {
             referencia = entity.getContenedorTrans();
@@ -603,6 +605,7 @@ public class TransaccionFacade extends AbstractFacade<Transaccion> implements Se
         String emailClientAddresses = storedProcedure.getOutputParameterValue("CorreoR").toString();
         return emailClientAddresses;
     }
+
     /**
      * @return the ipTransaccion
      */

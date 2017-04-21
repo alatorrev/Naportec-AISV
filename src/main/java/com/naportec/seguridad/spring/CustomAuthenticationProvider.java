@@ -63,6 +63,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             if (userauxData == null) {
                 this.getUserService().setIntentosLogin(useraux);
                 throw new BadCredentialsException("Usuario o Contraseña están Incorrectos");
+            } else {
+                if (userauxData.getCodigoSoli().getEstado().equals("Desaprobado")) {
+                    throw new BadCredentialsException("El usuario se encuentra desaprobado");
+                }
             }
             if (!this.getUserService().getEnabledUser(useraux)) {
                 throw new BadCredentialsException("Usuario Bloqueado por límites de intentos de Acceso Fallidos. Por favor espere 5 minutos y vuelva a intentarlo utilizando la clave correcta");

@@ -343,7 +343,7 @@ public class AisvBean extends UtilAisvController implements Serializable {
         try {
             this.logicaTransaccion.setContexto(FacesContext.getCurrentInstance());
             this.logicaTransaccion.modificar(this.getTransaccion(), Estado.Activo);
-            WebSocketUtil.sendNotificationDocumental("desaprobado");
+            //WebSocketUtil.sendNotificationDocumental("desaprobado");
             Mensaje.SUCESO_DIALOG("Desaprobación", "Se ha desaprobado este AISV");
         } catch (Exception ex) {
             Mensaje.ERROR_DIALOG("Desaprobación", "Operacion Imposible");
